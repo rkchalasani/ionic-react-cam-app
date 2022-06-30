@@ -1,20 +1,248 @@
 :root {
-	--ion-color-new: #24383F;
-	--ion-color-new-rgb: 36,56,63;
-	--ion-color-new-contrast: #ffffff;
-	--ion-color-new-contrast-rgb: 255,255,255;
-	--ion-color-new-shade: #203137;
-	--ion-color-new-tint: #3a4c52;
+  --ion-color-new: #24383f;
+  --ion-color-new-rgb: 36, 56, 63;
+  --ion-color-new-contrast: #ffffff;
+  --ion-color-new-contrast-rgb: 255, 255, 255;
+  --ion-color-new-shade: #203137;
+  --ion-color-new-tint: #3a4c52;
 }
 
 .ion-color-new {
-	--ion-color-base: var(--ion-color-new);
-	--ion-color-base-rgb: var(--ion-color-new-rgb);
-	--ion-color-contrast: var(--ion-color-new-contrast);
-	--ion-color-contrast-rgb: var(--ion-color-new-contrast-rgb);
-	--ion-color-shade: var(--ion-color-new-shade);
-	--ion-color-tint: var(--ion-color-new-tint);
+  --ion-color-base: var(--ion-color-new);
+  --ion-color-base-rgb: var(--ion-color-new-rgb);
+  --ion-color-contrast: var(--ion-color-new-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-new-contrast-rgb);
+  --ion-color-shade: var(--ion-color-new-shade);
+  --ion-color-tint: var(--ion-color-new-tint);
 }
-.login-main-div{
+.login-main-div {
+  --background: linear-gradient(#24383f, #24383f);
+}
+.rect4 {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  left: 10px;
+  top: -30px;
+}
+.rect5 {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  left: 70px;
+  top: 120px;
+}
+.rect8 {
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  left: 270px;
+  top: 700px;
+}
+.rect3 {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  left: 320px;
+  top: 24px;
+}
+.chatifylogo {
+  position: absolute;
+  width: 200px;
+  height: 100px;
+  left: 27px;
+  top: 750px;
+}
+.logintext {
+  position: absolute;
+  width: 83px;
+  /* 
+  display: flex;
+  justify-content: center;
+  align-items: center; */
+  height: 38px;
+  left: 185px;
+  top: 280px;
+  /* text-align: center; */
+  /* font-style: normal; */
+  font-size: 2.5rem;
+  /* line-height: 38px; */
+  display: flex;
+  align-items: center;
+  text-align: right;
+  color: #ffffff;
+}
+.signuptext {
+	position: absolute;
+	width: 83px;
+	/* 
+	display: flex;
+	justify-content: center;
+	align-items: center; */
+	height: 38px;
+	left: 240px;
+	top: 200px;
+	/* text-align: center; */
+	/* font-style: normal; */
+	font-size: 2.5rem;
+	/* line-height: 38px; */
+	display: flex;
+	align-items: center;
+	text-align: right;
+	color: #ffffff;
+  }
+  .input11 {
+	position: absolute;
+	width: 350px;
+	height: 45px;
+	left: 31px;
+	top: 380px;
+	border-radius: 7px;
+	/* text-align: center; */
+	/* `-left: 100px; */
+	background: #ffffff;
+	opacity: 0.9;
+	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+	/* border-radius: 5px; */
+  }
+  .input22 {
+	position: absolute;
+	width: 350px;
+	height: 45px;
+	left: 31px;
+  
+	/* text-align: center; */
+  
+	top: 465px;
+  
+	background: #ffffff;
+	opacity: 0.9;
+	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+	border-radius: 7px;
+  }
+.input1 {
+  position: absolute;
+  width: 350px;
+  height: 45px;
+  left: 31px;
+  top: 290px;
+  border-radius: 7px;
+  /* text-align: center; */
+  /* `-left: 100px; */
+  background: #ffffff;
+  opacity: 0.9;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+  /* border-radius: 5px; */
+}
+.input2 {
+  position: absolute;
+  width: 350px;
+  height: 45px;
+  left: 31px;
 
+  /* text-align: center; */
+
+  top: 370px;
+
+  background: #ffffff;
+  opacity: 0.9;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 7px;
+}
+.input3 {
+	position: absolute;
+	width: 350px;
+	height: 45px;
+	left: 31px;
+  
+	/* text-align: center; */
+  
+	top: 450px;
+  
+	background: #ffffff;
+	opacity: 0.9;
+	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+	border-radius: 7px;
+  }
+  .input4 {
+	position: absolute;
+	width: 350px;
+	height: 45px;
+	left: 31px;
+  
+	/* text-align: center; */
+  
+	top: 530px;
+  
+	background: #ffffff;
+	opacity: 0.9;
+	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+	border-radius: 7px;
+  }
+.loginbutton {
+  position: absolute;
+  width: 107px;
+  height: 37px;
+  left: 150px;
+  top: 580px;
+
+  background: #ffffff;
+  border-radius: 10px;
+}
+.joinbutton {
+	position: absolute;
+	width: 107px;
+	height: 37px;
+	left: 150px;
+	top: 620px;
+  
+	background: #ffffff;
+	border-radius: 10px;
+  }
+.forgottext {
+  position: absolute;
+  /* width: 80px; */
+  height: 12px;
+  left: 31px;
+  top: 530px;
+
+  /* text-align: center; */
+
+  /* font-family: 'Inter'; */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 12px;
+
+  color: #ffffff;
+}
+.forgottext1 {
+	position: absolute;
+	/* width: 80px; */
+	height: 12px;
+	left: 31px;
+	top: 590px;
+  
+	/* text-align: center; */
+  
+	/* font-family: 'Inter'; */
+	font-style: normal;
+	font-weight: 400;
+	font-size: 15px;
+	line-height: 12px;
+  
+	color: #ffffff;
+  }
+.acctext{
+	position: absolute;
+	/* width: 80px; */
+	height: 12px;
+	left: 31px;
+	top: 690px;
+	font-style: normal;
+	font-weight: 400;
+	/* font-size: 15px; */
+	line-height: 12px;
+  
+	color: #ffffff;
 }
