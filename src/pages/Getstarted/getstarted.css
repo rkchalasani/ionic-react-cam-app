@@ -1,0 +1,14 @@
+.getstarted-maindiv{
+    /* --background: url(../../../public/assets/images/Get-Started.png); */
+    --background: linear-gradient(#24383f, #24383f);
+}
+.getstarted-div{
+    position: absolute;
+/* width: 107px;
+height: 37px; */
+left: 212px;
+top:  500px;
+
+background: #FFFFFF;
+border-radius: 10px;
+}

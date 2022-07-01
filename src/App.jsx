@@ -11,9 +11,9 @@ import {
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { ellipse, square, triangle } from 'ionicons/icons';
-import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
-import Tab3 from './pages/Tab3';
+// import Tab1 from './pages/Home/Hometab/Tab1';
+// import Tab2 from './pages/Tab2';
+// import Tab3 from './pages/Tab3';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -30,17 +30,19 @@ import '@ionic/react/css/text-alignment.css';
 import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
+import Getstarted from './pages/Getstarted/getstarted';
 
 /* Theme variables */
 import './theme/variables.css';
 import Home from './pages/Home';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-
+import Login from './pages/Login/Login';
+import Signup from './pages/Signup/Signup';
+import { AuthContextProvider } from "./context/AuthContext";
 setupIonicReact();
 
 const App = () => (
   <IonApp>
+          <AuthContextProvider>
     <IonReactRouter>
    
         <IonRouterOutlet>
@@ -50,15 +52,20 @@ const App = () => (
           <Route exact path="/login">
             <Login/>
           </Route>
+          <Route exact path="/getstarted">
+            <Getstarted/>
+          </Route>
+
           <Route exact path="/signup">
             <Signup/>
           </Route>
           <Route exact path="/">
-             <Redirect to="/login" />
+             <Redirect to="/getstarted" />
           </Route>
         </IonRouterOutlet>
        
     </IonReactRouter>
+    </AuthContextProvider>
   </IonApp>
 );
 

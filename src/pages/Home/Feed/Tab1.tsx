@@ -6,11 +6,26 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  useIonRouter,
 } from "@ionic/react";
+// import { u } from "react-router-dom";
+import { UserAuth } from "../../../context/AuthContext";
 // import ExploreContainer from '../components/ExploreContainer';
 import "./Tab1.css";
 
 const Tab1 = () => {
+  const { logout } = UserAuth();
+  const router = useIonRouter();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      router.push("/");
+      console.log("You are logged out");
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
   return (
     <IonPage>
       <IonHeader>
@@ -19,7 +34,7 @@ const Tab1 = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="tab1mainpage" fullscreen>
-        <IonButton routerLink="/login">Logout</IonButton>
+        <IonButton  onClick={handleLogout}>Logout</IonButton>
       </IonContent>
     </IonPage>
   );
