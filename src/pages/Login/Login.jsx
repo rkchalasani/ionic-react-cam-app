@@ -1,11 +1,14 @@
 import {
   IonButton,
+  IonCol,
   IonContent,
+  IonGrid,
   IonHeader,
   IonImg,
   IonInput,
   IonLabel,
   IonPage,
+  IonRow,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -51,6 +54,7 @@ const Login = () => {
     } else {
       try {
         await signIn(email, password);
+        handleButtonClick("Login successful");
         router.push("/home");
       } catch (e) {
         setError(e.message);
@@ -62,65 +66,113 @@ const Login = () => {
   return (
     <IonPage>
       <IonContent fullscreen className="login-main-div">
+        <IonGrid className="main-grid">
+          <IonRow>
+            <IonImg className="chatifylogo" src="assets/images/Group 22.png">
+              {" "}
+            </IonImg>
+          </IonRow>
+{/* 
+          <IonRow>
+            <IonImg className="rect3" src="assets/images/Rectangle 5.png">
+              {" "}
+            </IonImg>
+          </IonRow> */}
+
+          {/* <IonGrid className="rect3-grid"> */}
+
+          {/* </IonGrid> */}
+          {/* <IonGrid className="welcome-grid"> */}
+          <IonRow className="welcome-row">
+            <IonLabel className="welcome-text">Welcome</IonLabel>
+          </IonRow>
+          {/* </IonGrid> */}
+
+          {/* <IonGrid className="login-input-grid"> */}
+          {/* <IonCol> */}
+          <IonRow>
+            <IonInput
+              id="input-email"
+              onIonChange={(e) => setEmail(e.detail.value)}
+              type="text"
+              color="dark"
+              className="login-input1"
+              placeholder="Username"
+            ></IonInput>
+          </IonRow>
+
+          <IonRow>
+            <IonInput
+              id="input-pass"
+              onIonChange={(e) => setPassword(e.detail.value)}
+              type="password"
+              color="dark"
+              className="login-input2"
+              placeholder="Password"
+            ></IonInput>
+          </IonRow>
+
+          <IonRow>
+            <IonLabel className="forgottext">Forgot Password</IonLabel>
+          </IonRow>
+
+          <IonRow>
+            <IonButton
+              onClick={handleSubmit}
+              color="darkgreen"
+              className="loginbutton "
+            >
+              Login
+            </IonButton>
+          </IonRow>
+
+          <IonRow className="create-acc-row">
+            <IonLabel className="acctext">Create an account using</IonLabel>
+          </IonRow>
+
+          <IonRow className="signup-btn-row">
+            <IonButton
+              color="darkgreen"
+              className="signuptext-btn"
+              routerLink="/signup"
+            >
+              Signup
+            </IonButton>
+          </IonRow>
+          {/* <IonRow>
+          <IonImg className="rect5" src="assets/images/Rectangle 5.png">
+          {" "}
+        </IonImg>
+          </IonRow>
+          <IonRow>
+          <IonImg className="rect8" src="assets/images/Rectangle 5.png">
+          {" "}
+        </IonImg> 
+          </IonRow> */}
+
+          {/* </IonGrid> */}
+
+          {/* </IonRow> */}
+        </IonGrid>
         {/* <IonButton routerLink="/home">Login</IonButton>
         dont have account? <IonButton routerLink="/signup">Signup</IonButton> */}
-        <IonImg
+        {/* <IonImg
           color="new"
           className="rect4"
           src="assets/images/Rectangle 4.png"
         >
           {" "}
-        </IonImg>
-        <IonImg className="rect3" src="assets/images/Rectangle 5.png">
-          {" "}
-        </IonImg>
-        <IonImg className="rect5" src="assets/images/Rectangle 5.png">
-          {" "}
-        </IonImg>
-        <IonImg className="rect8" src="assets/images/Rectangle 5.png">
-          {" "}
-        </IonImg>
-        <IonImg className="chatifylogo" src="assets/images/Group 22.png">
-          {" "}
-        </IonImg>
-        <IonLabel className="logintext">Welcome</IonLabel>
-        <IonInput
-          id="input-email"
-          onIonChange={(e) => setEmail(e.detail.value)}
-          type="text"
-          color="dark"
-          className="login-input1"
-          placeholder="Username"
-        ></IonInput>
-        <IonInput
-          id="input-pass"
-          onIonChange={(e) => setPassword(e.detail.value)}
-          type="password"
-          color="dark"
-          className="login-input2"
-          placeholder="Password"
-        ></IonInput>
-        <IonButton
-          onClick={handleSubmit}
-          color="darkgreen"
-          className="loginbutton "
-        >
-          Login
-        </IonButton>
-        <IonLabel className="forgottext">Forgot Password</IonLabel>
+        </IonImg> */}
 
-        <IonLabel className="acctext">
-          create an account using
-          <br />
-          <br />
-          <IonButton
-            color="darkgreen"
-            className="signuptext-btn"
-            routerLink="/signup"
-          >
-            Signup
-          </IonButton>
-        </IonLabel>
+        {/* 
+       */}
+       {/* <IonImg
+          color="new"
+          className="getstarted"
+          src="assets/images/Get-Started.png"
+        >
+          {" "}
+        </IonImg> */}
       </IonContent>
     </IonPage>
   );

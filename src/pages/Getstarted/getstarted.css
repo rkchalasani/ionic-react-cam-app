@@ -1,14 +1,49 @@
 .getstarted-maindiv{
     /* --background: url(../../../public/assets/images/Get-Started.png); */
     --background: linear-gradient(#24383f, #24383f);
+    height: 100%;
 }
 .getstarted-div{
-    position: absolute;
+    /* position: absolute; */
 /* width: 107px;
 height: 37px; */
-left: 212px;
-top:  500px;
-
+/* left: 212px;
+top:  550px; */
+/* height: 100vh; */
 background: #FFFFFF;
 border-radius: 10px;
 }
+.getstarted-grid{
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+  justify-content: space-around;
+  /* justify-content: space-between; */
+  padding: 7%;
+}
+.para{
+    display: flex;
+    position: absolute;
+    /* flex-direction: row; */
+    justify-content: flex-end;
+    z-index: -99;
+}
+.para1{
+    display: flex;
+    /* position: absolute; */
+    /* flex-direction: row; */
+    justify-content: flex-end;
+}
+.btn{
+    display: flex;
+    /* text-align: left; */
+    justify-content: center;
+}
+.rectangle1{
+    width: 200px;
+    /* position: ; */
+}
+/* .chat{
+    display: flex;
+    position: absolute;
+} */

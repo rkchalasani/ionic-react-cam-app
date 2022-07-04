@@ -20,7 +20,7 @@ const Tab1 = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      router.push("/");
+      router.push("/login");
       console.log("You are logged out");
     } catch (e) {
       console.log(e.message);

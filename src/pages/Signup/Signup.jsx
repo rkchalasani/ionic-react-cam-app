@@ -1,11 +1,13 @@
 import {
   IonButton,
   IonContent,
+  IonGrid,
   IonHeader,
   IonImg,
   IonInput,
   IonLabel,
   IonPage,
+  IonRow,
   IonTitle,
   IonToolbar,
   useIonRouter,
@@ -14,8 +16,25 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { UserAuth } from "../../context/AuthContext";
 import { auth } from "../../firebase";
+import { toastController } from "@ionic/core";
+import { sendEmailVerification } from "firebase/auth";
+import { resultingClientExists } from "workbox-core/_private";
 // import "../Login/Login.css";
+// import { getAuth, sendEmailVerification } from "firebase/auth";
+
 const Signup = () => {
+  async function handleButtonClick(message) {
+    const toast = await toastController.create({
+      color: "light",
+      duration: 2000,
+      position: "top",
+      message: message,
+      showCloseButton: true,
+    });
+
+    await toast.present();
+  }
+
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -23,8 +42,16 @@ const Signup = () => {
   const [error, setError] = useState("");
   const { createUser, currentUser } = UserAuth();
   const router = useIonRouter();
+
   const handleSubmit = async () => {
     // e.preventDefault();
+
+    // const auth = getAuth();
+    // sendEmailVerification(auth, email).then(() => {
+    // const emailVerification = (auth)=>{
+    //   sendEmailVerification(auth.currentUser);
+    // }
+    // });
     var atposition = email.indexOf("@");
     var dotposition = email.lastIndexOf(".");
     if (
@@ -35,19 +62,21 @@ const Signup = () => {
       password == null ||
       password === ""
     ) {
-      alert("Fill the required feilds");
+      handleButtonClick("Fill the required fields");
     } else if (password.length < 6) {
-      alert("Password must be of 6 characters");
+      handleButtonClick("Password must be of 6 characters");
     } else if (
       atposition < 1 ||
       dotposition < atposition + 2 ||
       dotposition + 2 >= email.length
     ) {
-      alert("Please enter email address");
+      handleButtonClick("Please enter proper email address");
     } else {
       try {
         await createUser(email, password);
-        // await emailVerification(auth);
+        handleButtonClick("User successfully registered");
+        // emailVerification(email, password);
+
         router.push("/login");
       } catch (e) {
         setError(e.message);
@@ -57,71 +86,76 @@ const Signup = () => {
   };
   return (
     <IonPage>
-      <IonContent fullscreen className="login-main-div">
-        <IonImg
-          color="new"
-          className="rect4"
-          src="assets/images/Rectangle 4.png"
-        >
-          {" "}
-        </IonImg>
-        <IonImg className="rect3" src="assets/images/Rectangle 5.png">
-          {" "}
-        </IonImg>
-        <IonImg className="rect5" src="assets/images/Rectangle 5.png">
-          {" "}
-        </IonImg>
-        <IonImg className="rect8" src="assets/images/Rectangle 5.png">
-          {" "}
-        </IonImg>
-        <IonImg className="chatifylogo" src="assets/images/Group 22.png">
-          {" "}
-        </IonImg>
-        <IonLabel className="signuptext">Signup</IonLabel>
-        <IonInput
-          onIonChange={(e) => setName(e.detail.value)}
-          className="input1"
-          placeholder="Name"
-        ></IonInput>
-        <IonInput
-          onIonChange={(e) => setUsername(e.detail.value)}
-          className="input2"
-          placeholder="Username"
-        ></IonInput>
-        <IonInput
-          id="input-email"
-          onIonChange={(e) => setEmail(e.detail.value)}
-          type="text"
-          className="input3"
-          placeholder="Email-id"
-        ></IonInput>
-        <IonInput
-          id="input-pass"
-          onIonChange={(e) => setPassword(e.detail.value)}
-          type="password"
-          className="input4"
-          placeholder="Password"
-        ></IonInput>
-        <IonButton
-          onClick={handleSubmit}
-          color="darkgreen"
-          className="joinbutton "
-        >
-          Join
-        </IonButton>
-        <IonLabel className="forgottext1">Forgot Password</IonLabel>
-        <IonLabel className="acctext">
-          Already have an account?
-          <br />
-          <br />
-          <IonButton
-            color="darkgreen"
-            className="signuptext-btn"
-            routerLink="/login"
-          >
-            Login
-          </IonButton>
-        </IonLabel>
+      <IonContent fullscreen className="signup-main-div">
+        <IonGrid className="signup-grid">
+          <IonRow>
+            <IonImg className="chatifylogo" src="assets/images/Group 22.png">
+              {" "}
+            </IonImg>
+          </IonRow>
+          <IonRow>
+            <IonLabel className="signuptext">Signup</IonLabel>
+          </IonRow>
+          <IonRow>
+            <IonInput
+              onIonChange={(e) => setName(e.detail.value)}
+              className="input1"
+              placeholder="Name"
+            ></IonInput>
+          </IonRow>
+          <IonRow>
+            <IonInput
+              onIonChange={(e) => setUsername(e.detail.value)}
+              className="input2"
+              placeholder="Username"
+            ></IonInput>
+          </IonRow>
+
+
+          <IonRow>
+            <IonInput
+              id="input-email"
+              onIonChange={(e) => setEmail(e.detail.value)}
+              type="text"
+              className="input3"
+              placeholder="Email-id"
+            ></IonInput>
+          </IonRow>
+
+          <IonRow>
+            <IonInput
+              id="input-pass"
+              onIonChange={(e) => setPassword(e.detail.value)}
+              type="password"
+              className="input4"
+              placeholder="Password"
+            ></IonInput>
+          </IonRow>
+          <IonRow>
+            <IonButton
+              onClick={handleSubmit}
+              color="darkgreen"
+              className="joinbutton "
+            >
+              Join
+            </IonButton>
+          </IonRow>
+          <IonRow>
+            <IonLabel className="forgottext1">Forgot Password</IonLabel>
+          </IonRow>
+          <IonRow>
+            <IonLabel className="acctext">Already have an account?</IonLabel>
+          </IonRow>
+          <IonRow>
+            <IonButton
+              color="darkgreen"
+              className="signuptext-btn"
+              routerLink="/login"
+            >
+              Login
+            </IonButton>
+          </IonRow>
+        </IonGrid>
       </IonContent>
     </IonPage>
   );
