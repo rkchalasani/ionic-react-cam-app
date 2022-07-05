@@ -12,7 +12,7 @@ import {
   GithubAuthProvider,
   sendEmailVerification,
 } from "firebase/auth";
-import { auth, db} from "../firebase";
+import { auth, db } from "../firebase";
 // import {doc, setDoc} from "firebase/firestore"
 // import { auth } from "../firebase";
 

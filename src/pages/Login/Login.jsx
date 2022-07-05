@@ -11,32 +11,43 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
+  useIonAlert,
+  useIonToast,
 } from "@ionic/react";
 import "./Login.css";
-import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../../context/AuthContext";
 import { useIonRouter } from "@ionic/react";
-import { toastController } from "@ionic/core";
-// import { FaGoogle, FaFacebook, FaApple, FaGithub } from "react-icons/fa";
 import { useState } from "react";
+import { alert } from "ionicons/icons";
 const Login = () => {
   const { signIn, user } = UserAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [present, dismiss] = useIonToast();
+  const [presentAlert] = useIonAlert();
 
   async function handleButtonClick(message) {
-    const toast = await toastController.create({
-      color: "light",
+    present({
+      message: message,
       duration: 2000,
       position: "top",
-      message: message,
-      showCloseButton: true,
+      color: "darkgreen",
+      mode: "ios",
+      icon: alert,
     });
-
-    await toast.present();
   }
-
+  async function handleAlert(message) {
+    presentAlert({
+      header: "Alert",
+      message: message,
+      buttons: ["OK"],
+      mode: "md",
+      animated:true,
+      cssClass: 'loginpage-alert',
+      color: 'light'
+    });
+  }
   const router = useIonRouter();
   const handleSubmit = async (e) => {
     var atposition = email.indexOf("@");
@@ -55,10 +66,12 @@ const Login = () => {
       try {
         await signIn(email, password);
         handleButtonClick("Login successful");
+        setEmail("");
+        setPassword("");
         router.push("/home");
       } catch (e) {
         setError(e.message);
-        console.log(e.message);
+        handleAlert(e.message);
       }
     }
   };
@@ -72,25 +85,10 @@ const Login = () => {
               {" "}
             </IonImg>
           </IonRow>
-{/* 
-          <IonRow>
-            <IonImg className="rect3" src="assets/images/Rectangle 5.png">
-              {" "}
-            </IonImg>
-          </IonRow> */}
-
-          {/* <IonGrid className="rect3-grid"> */}
-
-          {/* </IonGrid> */}
-          {/* <IonGrid className="welcome-grid"> */}
           <IonRow className="welcome-row">
             <IonLabel className="welcome-text">Welcome</IonLabel>
           </IonRow>
-          {/* </IonGrid> */}
-
-          {/* <IonGrid className="login-input-grid"> */}
-          {/* <IonCol> */}
-          <IonRow className="input-row1">
+          <IonRow className="login-input-row">
             <IonInput
               id="input-email"
               onIonChange={(e) => setEmail(e.detail.value)}
@@ -99,9 +97,6 @@ const Login = () => {
               className="login-input1"
               placeholder="Username"
             ></IonInput>
-          {/* </IonRow>
-
-          <IonRow> */}
             <IonInput
               id="input-pass"
               onIonChange={(e) => setPassword(e.detail.value)}
@@ -110,12 +105,8 @@ const Login = () => {
               className="login-input2"
               placeholder="Password"
             ></IonInput>
-          {/* </IonRow>
-
-          <IonRow> */}
             <IonLabel className="forgottext">Forgot Password</IonLabel>
           </IonRow>
-
           <IonRow>
             <IonButton
               onClick={handleSubmit}
@@ -125,13 +116,10 @@ const Login = () => {
               Login
             </IonButton>
           </IonRow>
-
           <IonRow className="create-acc-row">
-            <IonLabel className="acctext">Create an account using</IonLabel>
-          {/* </IonRow>
-
-          <IonRow className="signup-btn-row"> */}
-          {/* <br /> */}
+            <IonLabel className="loginpage-text">
+              Create an account using{" "}
+            </IonLabel>
             <IonButton
               color="darkgreen "
               className="signuptext-btn ion-text-capitalize"
@@ -140,40 +128,7 @@ const Login = () => {
               Signup
             </IonButton>
           </IonRow>
-          {/* <IonRow>
-          <IonImg className="rect5" src="assets/images/Rectangle 5.png">
-          {" "}
-        </IonImg>
-          </IonRow>
-          <IonRow>
-          <IonImg className="rect8" src="assets/images/Rectangle 5.png">
-          {" "}
-        </IonImg> 
-          </IonRow> */}
-
-          {/* </IonGrid> */}
-
-          {/* </IonRow> */}
         </IonGrid>
-        {/* <IonButton routerLink="/home">Login</IonButton>
-        dont have account? <IonButton routerLink="/signup">Signup</IonButton> */}
-        {/* <IonImg
-          color="new"
-          className="rect4"
-          src="assets/images/Rectangle 4.png"
-        >
-          {" "}
-        </IonImg> */}
-
-        {/* 
-       */}
-       {/* <IonImg
-          color="new"
-          className="getstarted"
-          src="assets/images/Get-Started.png"
-        >
-          {" "}
-        </IonImg> */}
       </IonContent>
     </IonPage>
   );

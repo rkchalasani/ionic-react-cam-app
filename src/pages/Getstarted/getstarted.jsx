@@ -15,9 +15,10 @@ const GetStarted = () => {
       <IonContent className="getstarted-maindiv">
         <IonGrid className="getstarted-grid">
           <IonRow className="chat">
-            <IonImg className="chatifylogo" src="assets/images/Group 22.png">
-              {" "}
-            </IonImg>
+            <IonImg
+              className="chatifylogo"
+              src="assets/images/Group 22.png"
+            ></IonImg>
           </IonRow>
           <IonRow>
             <IonImg
@@ -40,8 +41,6 @@ const GetStarted = () => {
             <IonLabel className="logintext1">
               Connect With Your Friends
             </IonLabel>
-            {/* </IonRow>
-          <IonRow> */}
             <IonButton
               color="light ion-text-capitalize"
               className="getstarted-div"
@@ -51,12 +50,6 @@ const GetStarted = () => {
             </IonButton>
           </IonRow>
         </IonGrid>
-
-        {/* 
-
-        <IonImg className="rect31" src="assets/images/Rectangle 5.png"></IonImg>
-        <IonImg className="recta" src="assets/images/Rectangle 5.png"></IonImg>
-        <IonImg className="rectb" src="assets/images/circle 3.png"></IonImg> */}
       </IonContent>
     </IonPage>
   );

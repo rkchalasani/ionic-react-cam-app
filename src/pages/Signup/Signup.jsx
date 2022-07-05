@@ -10,31 +10,27 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
+  useIonAlert,
   useIonRouter,
+  useIonToast,
 } from "@ionic/react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { UserAuth } from "../../context/AuthContext";
-import { auth } from "../../firebase";
-import { toastController } from "@ionic/core";
-import { sendEmailVerification, updateProfile } from "firebase/auth";
-import { resultingClientExists } from "workbox-core/_private";
-// import "../Login/Login.css";
-// import { getAuth, sendEmailVerification } from "firebase/auth";
-
+import { alert } from "ionicons/icons";
 const Signup = () => {
+  const [present, dismiss] = useIonToast();
   async function handleButtonClick(message) {
-    const toast = await toastController.create({
-      color: "light",
+    present({
+      message: message,
       duration: 2000,
       position: "top",
-      message: message,
-      showCloseButton: true,
+      color: "darkgreen",
+      mode: "ios",
+      icon: alert,
     });
-
-    await toast.present();
   }
-  const {  logout, addData } = UserAuth();
+  const [presentAlert] = useIonAlert();
+  const { logout, addData } = UserAuth();
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -42,16 +38,16 @@ const Signup = () => {
   const [error, setError] = useState("");
   const { createUser, currentUser } = UserAuth();
   const router = useIonRouter();
-
+  async function handleAlert(message) {
+    presentAlert({
+      header: "Alert",
+      message: message,
+      buttons: ["OK"],
+      mode: "ios",
+      color: "darkgreen",
+    });
+  }
   const handleSubmit = async () => {
-    // e.preventDefault();
-
-    // const auth = getAuth();
-    // sendEmailVerification(auth, email).then(() => {
-    // const emailVerification = (auth)=>{
-    //   sendEmailVerification(auth.currentUser);
-    // }
-    // });
     var atposition = email.indexOf("@");
     var dotposition = email.lastIndexOf(".");
     if (
@@ -75,29 +71,14 @@ const Signup = () => {
       try {
         await createUser(email, password);
         handleButtonClick("User successfully registered");
-        // await updateProfile(auth.currentUser, {
-        //   displayName: name
-        // }).then(()=>{
-        //   console.log(auth.currentUser.displayName)
-        // }).catch((error)=>{
-        //   // handleAlert(error.message);
-        //   handleButtonClick(error.messaqge)
-        // });
-        // await addData(auth, name, email);
-        // sendEmailVerification(auth.currentUser).then(()=>{
-        //   const msg = "A verification link has been sent to your email, please complete the verification and login."
-        //   // handleAlert(msg);
-        //   handleButtonClick(msg)
-        // });
         logout();
-        setName("")
-        setEmail("")
-        setPassword("")
-
+        setName("");
+        setEmail("");
+        setPassword("");
         router.push("/login");
       } catch (e) {
         setError(e.message);
-        console.log(e.message);
+        handleAlert(e.message);
       }
     }
   };
@@ -113,63 +94,44 @@ const Signup = () => {
           <IonRow className="signup-row">
             <IonLabel className="signuptext">Signup</IonLabel>
           </IonRow>
-          <IonRow className="input-row">
+          <IonRow className="signup-input-row">
             <IonInput
               onIonChange={(e) => setName(e.detail.value)}
-              className="input1"
+              className="signup-name-input"
               placeholder="Name"
               color="darkgreen"
             ></IonInput>
-          {/* </IonRow>
-          <IonRow> */}
-            {/* <IonInput
-              onIonChange={(e) => setUsername(e.detail.value)}
-              className="input2"
-              placeholder="Username"
-            ></IonInput> */}
-          {/* </IonRow>
-
-
-          <IonRow> */}
             <IonInput
               id="input-email"
               onIonChange={(e) => setEmail(e.detail.value)}
               type="text"
               color="darkgreen"
-              className="input3"
+              className="signup-email-input"
               placeholder="Email-id"
             ></IonInput>
-          {/* </IonRow>
-
-          <IonRow> */}
             <IonInput
               id="input-pass"
               onIonChange={(e) => setPassword(e.detail.value)}
               type="password"
               color="darkgreen"
-              className="input4"
+              className="signup-password-input"
               placeholder="Password"
             ></IonInput>
-          {/* </IonRow>
-          <IonRow> */}
             <IonButton
               onClick={handleSubmit}
               color="darkgreen"
-              className="joinbutton "
+              className="signuppage-joinbutton"
             >
               Join
             </IonButton>
           </IonRow>
-          {/* <IonRow>
-            <IonLabel className="forgottext1">Forgot Password</IonLabel>
-          </IonRow> */}
-          <IonRow className="login-sp-row">
-            <IonLabel className="acctext">Already have an account?</IonLabel>
+          <IonRow className="signuppage-login-btn-row">
+            <IonLabel className="signuppage-text">Already have an account?</IonLabel>
           </IonRow>
-          <IonRow className="login-sp-row">
+          <IonRow className="signuppage-login-btn-row">
             <IonButton
               color="darkgreen"
-              className="signuptext-btn ion-text-capitalize"
+              className="signuppage-login-btn ion-text-capitalize"
               routerLink="/login"
             >
               Login

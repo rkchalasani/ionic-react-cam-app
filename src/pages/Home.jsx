@@ -16,7 +16,7 @@ import Tab2 from "./Home/Chat/Tab2";
 import Tab3 from "./Home/Contacts/Tab3";
 import { Redirect, Route } from "react-router-dom";
 import Login from "./Login/Login";
-import './Home.css'
+import "./Home.css";
 import ProtectedRoute from "../components/ProtectedRoute";
 
 const Home = () => {
@@ -27,17 +27,17 @@ const Home = () => {
           <IonRouterOutlet>
             <Route exact path="/home/tab1">
               <ProtectedRoute>
-              <Tab1 />
+                <Tab1 />
               </ProtectedRoute>
             </Route>
             <Route exact path="/home/tab2">
-            <ProtectedRoute>
-              <Tab2 />
+              <ProtectedRoute>
+                <Tab2 />
               </ProtectedRoute>
             </Route>
             <Route path="/home/tab3">
-            <ProtectedRoute>
-              <Tab3 />
+              <ProtectedRoute>
+                <Tab3 />
               </ProtectedRoute>
             </Route>
             <Route exact path="/home">
