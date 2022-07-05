@@ -1,6 +1,18 @@
 .tab1mainpage{
-    --background: linear-gradient(#132124,#132124);
+    --background: linear-gradient(#24383F,#24383F);
 }
 .tab1head-div{
     --background: linear-gradient(#132124,#132124);
+}
+.search-row{
+    color: white;
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.logout{
+    display: flex;
+    justify-content: center;
 }

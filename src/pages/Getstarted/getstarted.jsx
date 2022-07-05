@@ -18,10 +18,18 @@ const GetStarted = () => {
             <IonImg className="chatifylogo" src="assets/images/Group 22.png">
               {" "}
             </IonImg>
-            {/* <IonImg class="rectangle1" src="assets/images/Rectangle 5.png"></IonImg> */}
+          </IonRow>
+          <IonRow>
+            <IonImg
+              class="rectangle1"
+              src="assets/images/Rectangle 5.png"
+            ></IonImg>
           </IonRow>
           <IonRow className="para">
-            <IonImg class="rectangle1" src="assets/images/Rectangle 5.png"></IonImg>
+            <IonImg
+              class="rectangle2ś"
+              src="assets/images/Rectangle 5.png"
+            ></IonImg>
           </IonRow>
           <IonRow className="para1">
             <IonLabel className="logintextb">
@@ -32,10 +40,10 @@ const GetStarted = () => {
             <IonLabel className="logintext1">
               Connect With Your Friends
             </IonLabel>
-          {/* </IonRow>
+            {/* </IonRow>
           <IonRow> */}
             <IonButton
-              color="light"
+              color="light ion-text-capitalize"
               className="getstarted-div"
               routerLink="/login"
             >

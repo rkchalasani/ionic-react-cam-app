@@ -10,8 +10,11 @@ height: 37px; */
 /* left: 212px;
 top:  550px; */
 /* height: 100vh; */
-background: #FFFFFF;
+/* background: #482222; */
 border-radius: 10px;
+width: 150px;
+/* padding: 1%; */
+margin-top: 50px;
 }
 .getstarted-grid{
     display: flex;
@@ -19,7 +22,7 @@ border-radius: 10px;
     flex-direction: column;
   justify-content: space-around;
   /* justify-content: space-between; */
-  padding: 7%;
+  padding: 8%;
 }
 .para{
     display: flex;
@@ -37,11 +40,17 @@ border-radius: 10px;
 .btn{
     display: flex;
     /* text-align: left; */
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 .rectangle1{
     width: 200px;
-    /* position: ; */
+    position: absolute;
+    z-index: -99;
+}
+.rectangle2{
+z-index: -999;
 }
 /* .chat{
     display: flex;

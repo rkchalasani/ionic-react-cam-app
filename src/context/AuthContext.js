@@ -7,27 +7,33 @@ import {
   signInWithPopup,
   onAuthStateChanged,
 } from "firebase/auth";
-import { FacebookAuthProvider,GithubAuthProvider, sendEmailVerification   } from "firebase/auth";
-import { auth } from "../firebase";
-import { FirebaseError } from "firebase/app";
-import { async } from "@firebase/util";
+import {
+  FacebookAuthProvider,
+  GithubAuthProvider,
+  sendEmailVerification,
+} from "firebase/auth";
+import { auth, db} from "../firebase";
+// import {doc, setDoc} from "firebase/firestore"
+// import { auth } from "../firebase";
 
 const UserContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
-  const createUser = ( email, password) => {
+  const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
-    
   };
-  const emailVerification = (auth)=>{
-    sendEmailVerification(auth.currentUser);
-  }
-  // const emailVerification=async(email, password)=>{
-  // const result  = await FirebaseError.auth().createUserWithEmailAndPassword(email, password)
-  // await result.user.sendEmailVerification()
+  // const emailVerification = (auth) => {
+  //   sendEmailVerification(auth.currentUser);
+  // };
+  // const addData = async(auth, name, email) => {
+  //   await setDoc(doc(db, "users", auth.currentUser.uid), {
+  //     name : name,
+  //     email : email
+  //   });
   // }
+
   const googleSignIn = () => {
     const googleAuthProvider = new GoogleAuthProvider();
     signInWithPopup(auth, googleAuthProvider);
@@ -40,7 +46,6 @@ export const AuthContextProvider = ({ children }) => {
     const gitprovider = new GithubAuthProvider();
     signInWithPopup(auth, gitprovider);
   };
-
 
   const signIn = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
@@ -62,8 +67,17 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ createUser, user, logout, signIn, googleSignIn,
-        emailVerification, facebookSignIn, githubSignIn }}
+      value={{
+        createUser,
+        user,
+        logout,
+        signIn,
+        googleSignIn,
+        // emailVerification,
+        facebookSignIn,
+        githubSignIn,
+        // addData
+      }}
     >
       {children}
     </UserContext.Provider>

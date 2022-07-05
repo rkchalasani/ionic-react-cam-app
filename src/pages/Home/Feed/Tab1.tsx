@@ -1,13 +1,21 @@
 import {
   IonButton,
+  IonCard,
+  IonCol,
   IonContent,
+  IonGrid,
   IonHeader,
+  IonIcon,
   IonImg,
+  IonItem,
+  IonLabel,
   IonPage,
+  IonRow,
   IonTitle,
   IonToolbar,
   useIonRouter,
 } from "@ionic/react";
+import { call, home, settings, search } from "ionicons/icons";
 // import { u } from "react-router-dom";
 import { UserAuth } from "../../../context/AuthContext";
 // import ExploreContainer from '../components/ExploreContainer';
@@ -29,12 +37,39 @@ const Tab1 = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar className="tab1head-div">
+        {/* <IonToolbar className="tab1head-div">
           <IonTitle>Home</IonTitle>
-        </IonToolbar>
+        </IonToolbar> */}
       </IonHeader>
       <IonContent className="tab1mainpage" fullscreen>
-        <IonButton  onClick={handleLogout}>Logout</IonButton>
+
+        <IonGrid>
+          <IonRow className="search-row">
+          <IonImg src="assets/images/Frame 18.png"></IonImg>
+            <IonImg src="assets/images/Frame 17.png"></IonImg>
+
+          </IonRow>
+          <IonRow>
+            <IonCard color="darkgreen">
+           
+             <IonImg src="assets/images/Frame 9.png"></IonImg>
+             <IonImg src="assets/images/Frame 3.png"></IonImg>
+             <IonImg src="assets/images/Frame 4.png"></IonImg>
+             <IonImg src="assets/images/Frame 7.png"></IonImg>
+             <IonImg src="assets/images/Frame 5.png"></IonImg>
+             <IonImg src="assets/images/Frame 6.png"></IonImg>
+             <IonImg src="assets/images/Frame 7.png"></IonImg>
+             <IonImg src="assets/images/Frame 9.png"></IonImg>
+             <IonImg src="assets/images/Frame 5.png"></IonImg>
+
+            </IonCard>
+          </IonRow>
+          <IonRow className="logout">
+          <IonButton color="darkgreen" onClick={handleLogout}>Logout</IonButton>
+          </IonRow>
+
+        </IonGrid>
+        
       </IonContent>
     </IonPage>
   );

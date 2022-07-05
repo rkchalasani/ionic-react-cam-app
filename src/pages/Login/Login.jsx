@@ -50,7 +50,7 @@ const Login = () => {
       dotposition < atposition + 2 ||
       dotposition + 2 >= email.length
     ) {
-      handleButtonClick("Please enter email address");
+      handleButtonClick("Please enter correct email");
     } else {
       try {
         await signIn(email, password);
@@ -90,29 +90,29 @@ const Login = () => {
 
           {/* <IonGrid className="login-input-grid"> */}
           {/* <IonCol> */}
-          <IonRow>
+          <IonRow className="input-row1">
             <IonInput
               id="input-email"
               onIonChange={(e) => setEmail(e.detail.value)}
               type="text"
-              color="dark"
+              color="darkgreen"
               className="login-input1"
               placeholder="Username"
             ></IonInput>
-          </IonRow>
+          {/* </IonRow>
 
-          <IonRow>
+          <IonRow> */}
             <IonInput
               id="input-pass"
               onIonChange={(e) => setPassword(e.detail.value)}
               type="password"
-              color="dark"
+              color="darkgreen"
               className="login-input2"
               placeholder="Password"
             ></IonInput>
-          </IonRow>
+          {/* </IonRow>
 
-          <IonRow>
+          <IonRow> */}
             <IonLabel className="forgottext">Forgot Password</IonLabel>
           </IonRow>
 
@@ -128,12 +128,13 @@ const Login = () => {
 
           <IonRow className="create-acc-row">
             <IonLabel className="acctext">Create an account using</IonLabel>
-          </IonRow>
+          {/* </IonRow>
 
-          <IonRow className="signup-btn-row">
+          <IonRow className="signup-btn-row"> */}
+          {/* <br /> */}
             <IonButton
-              color="darkgreen"
-              className="signuptext-btn"
+              color="darkgreen "
+              className="signuptext-btn ion-text-capitalize"
               routerLink="/signup"
             >
               Signup

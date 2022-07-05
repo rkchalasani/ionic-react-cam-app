@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 import { UserAuth } from "../../context/AuthContext";
 import { auth } from "../../firebase";
 import { toastController } from "@ionic/core";
-import { sendEmailVerification } from "firebase/auth";
+import { sendEmailVerification, updateProfile } from "firebase/auth";
 import { resultingClientExists } from "workbox-core/_private";
 // import "../Login/Login.css";
 // import { getAuth, sendEmailVerification } from "firebase/auth";
@@ -34,7 +34,7 @@ const Signup = () => {
 
     await toast.present();
   }
-
+  const {  logout, addData } = UserAuth();
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -75,7 +75,24 @@ const Signup = () => {
       try {
         await createUser(email, password);
         handleButtonClick("User successfully registered");
-        // emailVerification(email, password);
+        // await updateProfile(auth.currentUser, {
+        //   displayName: name
+        // }).then(()=>{
+        //   console.log(auth.currentUser.displayName)
+        // }).catch((error)=>{
+        //   // handleAlert(error.message);
+        //   handleButtonClick(error.messaqge)
+        // });
+        // await addData(auth, name, email);
+        // sendEmailVerification(auth.currentUser).then(()=>{
+        //   const msg = "A verification link has been sent to your email, please complete the verification and login."
+        //   // handleAlert(msg);
+        //   handleButtonClick(msg)
+        // });
+        logout();
+        setName("")
+        setEmail("")
+        setPassword("")
 
         router.push("/login");
       } catch (e) {
@@ -93,45 +110,48 @@ const Signup = () => {
               {" "}
             </IonImg>
           </IonRow>
-          <IonRow>
+          <IonRow className="signup-row">
             <IonLabel className="signuptext">Signup</IonLabel>
           </IonRow>
-          <IonRow>
+          <IonRow className="input-row">
             <IonInput
               onIonChange={(e) => setName(e.detail.value)}
               className="input1"
               placeholder="Name"
+              color="darkgreen"
             ></IonInput>
-          </IonRow>
-          <IonRow>
-            <IonInput
+          {/* </IonRow>
+          <IonRow> */}
+            {/* <IonInput
               onIonChange={(e) => setUsername(e.detail.value)}
               className="input2"
               placeholder="Username"
-            ></IonInput>
-          </IonRow>
+            ></IonInput> */}
+          {/* </IonRow>
 
 
-          <IonRow>
+          <IonRow> */}
             <IonInput
               id="input-email"
               onIonChange={(e) => setEmail(e.detail.value)}
               type="text"
+              color="darkgreen"
               className="input3"
               placeholder="Email-id"
             ></IonInput>
-          </IonRow>
+          {/* </IonRow>
 
-          <IonRow>
+          <IonRow> */}
             <IonInput
               id="input-pass"
               onIonChange={(e) => setPassword(e.detail.value)}
               type="password"
+              color="darkgreen"
               className="input4"
               placeholder="Password"
             ></IonInput>
-          </IonRow>
-          <IonRow>
+          {/* </IonRow>
+          <IonRow> */}
             <IonButton
               onClick={handleSubmit}
               color="darkgreen"
@@ -140,16 +160,16 @@ const Signup = () => {
               Join
             </IonButton>
           </IonRow>
-          <IonRow>
+          {/* <IonRow>
             <IonLabel className="forgottext1">Forgot Password</IonLabel>
-          </IonRow>
-          <IonRow>
+          </IonRow> */}
+          <IonRow className="login-sp-row">
             <IonLabel className="acctext">Already have an account?</IonLabel>
           </IonRow>
-          <IonRow>
+          <IonRow className="login-sp-row">
             <IonButton
               color="darkgreen"
-              className="signuptext-btn"
+              className="signuptext-btn ion-text-capitalize"
               routerLink="/login"
             >
               Login
