@@ -122,7 +122,7 @@ const Login = () => {
             </IonLabel>
             <IonButton
               color="darkgreen "
-              className="signuptext-btn ion-text-capitalize"
+              className="loginpage-signup-btn ion-text-capitalize"
               routerLink="/signup"
             >
               Signup

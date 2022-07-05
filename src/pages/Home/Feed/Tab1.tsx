@@ -15,46 +15,140 @@ import {
   IonToolbar,
   useIonRouter,
 } from "@ionic/react";
+import { search, searchCircle } from "ionicons/icons";
 import { UserAuth } from "../../../context/AuthContext";
 import "./Tab1.css";
 const Tab1 = () => {
-  const { logout } = UserAuth();
-  const router = useIonRouter();
-  const handleLogout = async () => {
-    try {
-      await logout();
-      router.push("/login");
-      console.log("You are logged out");
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
+
+  
   return (
     <IonPage>
-      <IonHeader>
-      </IonHeader>
+      {/* <IonHeader>
+        <IonToolbar color='darkgreen'>
+        
+        </IonToolbar>
+      </IonHeader> */}
       <IonContent className="tab1mainpage" fullscreen>
-        <IonGrid>
-          <IonRow className="search-row">
-            <IonImg src="assets/images/Frame 18.png"></IonImg>
-            <IonImg src="assets/images/Frame 17.png"></IonImg>
-          </IonRow>
-          <IonRow>
-            <IonCard color="darkgreen">
-              <IonImg src="assets/images/Frame 9.png"></IonImg>
-              <IonImg src="assets/images/Frame 3.png"></IonImg>
-              <IonImg src="assets/images/Frame 4.png"></IonImg>
-              <IonImg src="assets/images/Frame 7.png"></IonImg>
-              <IonImg src="assets/images/Frame 5.png"></IonImg>
-              <IonImg src="assets/images/Frame 6.png"></IonImg>
-              <IonImg src="assets/images/Frame 7.png"></IonImg>
-              <IonImg src="assets/images/Frame 9.png"></IonImg>
-              <IonImg src="assets/images/Frame 5.png"></IonImg>
-            </IonCard>
-          </IonRow>
-          <IonRow className="logout">
-            <IonButton color="darkgreen" onClick={handleLogout}>Logout</IonButton>
-          </IonRow>
+        <IonRow className="search-row">
+          <IonCol> <IonLabel >Chats</IonLabel></IonCol>
+          <IonIcon icon={search}></IonIcon>
+        </IonRow>
+        <IonGrid className="tab1-grid">
+          {/* <IonRow className="card-class">
+            <IonCard color="lightgreen"> */}
+              <IonRow className="danni-row">
+                <IonImg className="danni-img" src="assets/images/pro7.jpg"></IonImg>
+                <IonCol className="col1">
+                  <IonLabel color='light' className="danni-label">Danni Hopkins</IonLabel>
+                  <IonLabel color='light' className="danni-label">Hey how r u?</IonLabel>
+                </IonCol>
+                <IonLabel color='light' className="danni-label">
+                  08:45
+                </IonLabel>
+              </IonRow>
+              <IonRow className="danni-row">
+                <IonImg className="danni-img" src="assets/images/pro1.jpg"></IonImg>
+                <IonCol className="col1">
+                  <IonLabel color='light' className="danni-label">Danni Hopkins</IonLabel>
+                  <IonLabel color='light' className="danni-label">Hey how r u?</IonLabel>
+                </IonCol>
+                <IonLabel color='light' className="danni-label">
+                  08:45
+                </IonLabel>
+              </IonRow>
+              <IonRow className="danni-row">
+                <IonImg className="danni-img" src="assets/images/pro2.jpg"></IonImg>
+                <IonCol className="col1">
+                  <IonLabel color='light' className="danni-label">Danni Hopkins</IonLabel>
+                  <IonLabel color='light' className="danni-label">Hey how r u?</IonLabel>
+                </IonCol>
+                <IonLabel color='light' className="danni-label">
+                  08:45
+                </IonLabel>
+              </IonRow>
+              <IonRow className="danni-row">
+                <IonImg className="danni-img" src="assets/images/pro2.jpg"></IonImg>
+                <IonCol className="col1">
+                  <IonLabel color='light' className="danni-label">Danni Hopkins</IonLabel>
+                  <IonLabel color='light' className="danni-label">Hey how r u?</IonLabel>
+                </IonCol>
+                <IonLabel color='light' className="danni-label">
+                  08:45
+                </IonLabel>
+              </IonRow>
+              <IonRow className="danni-row">
+                <IonImg className="danni-img" src="assets/images/pro2.jpg"></IonImg>
+                <IonCol className="col1">
+                  <IonLabel color='light' className="danni-label">Danni Hopkins</IonLabel>
+                  <IonLabel color='light' className="danni-label">Hey how r u?</IonLabel>
+                </IonCol>
+                <IonLabel color='light' className="danni-label">
+                  08:45
+                </IonLabel>
+              </IonRow>
+              <IonRow className="danni-row">
+                <IonImg className="danni-img" src="assets/images/pro2.jpg"></IonImg>
+                <IonCol className="col1">
+                  <IonLabel color='light' className="danni-label">Danni Hopkins</IonLabel>
+                  <IonLabel color='light' className="danni-label">Hey how r u?</IonLabel>
+                </IonCol>
+                <IonLabel color='light' className="danni-label">
+                  08:45
+                </IonLabel>
+              </IonRow>
+              <IonRow className="danni-row">
+                <IonImg className="danni-img" src="assets/images/pro2.jpg"></IonImg>
+                <IonCol className="col1">
+                  <IonLabel color='light' className="danni-label">Danni Hopkins</IonLabel>
+                  <IonLabel color='light' className="danni-label">Hey how r u?</IonLabel>
+                </IonCol>
+                <IonLabel color='light' className="danni-label">
+                  08:45
+                </IonLabel>
+              </IonRow>
+              <IonRow className="danni-row">
+                <IonImg className="danni-img" src="assets/images/pro2.jpg"></IonImg>
+                <IonCol className="col1">
+                  <IonLabel color='light' className="danni-label">Danni Hopkins</IonLabel>
+                  <IonLabel color='light' className="danni-label">Hey how r u?</IonLabel>
+                </IonCol>
+                <IonLabel color='light' className="danni-label">
+                  08:45
+                </IonLabel>
+              </IonRow>
+              <IonRow className="danni-row">
+                <IonImg className="danni-img" src="assets/images/pro2.jpg"></IonImg>
+                <IonCol className="col1">
+                  <IonLabel color='light' className="danni-label">Danni Hopkins</IonLabel>
+                  <IonLabel color='light' className="danni-label">Hey how r u?</IonLabel>
+                </IonCol>
+                <IonLabel color='light' className="danni-label">
+                  08:45
+                </IonLabel>
+              </IonRow>
+              <IonRow className="danni-row">
+                <IonImg className="danni-img" src="assets/images/pro2.jpg"></IonImg>
+                <IonCol className="col1">
+                  <IonLabel color='light' className="danni-label">Danni Hopkins</IonLabel>
+                  <IonLabel color='light' className="danni-label">Hey how r u?</IonLabel>
+                </IonCol>
+                <IonLabel color='light' className="danni-label">
+                  08:45
+                </IonLabel>
+              </IonRow>
+              <IonRow className="danni-row">
+                <IonImg className="danni-img" src="assets/images/pro2.jpg"></IonImg>
+                <IonCol className="col1">
+                  <IonLabel color='light' className="danni-label">Danni Hopkins</IonLabel>
+                  <IonLabel color='light' className="danni-label">Hey how r u?</IonLabel>
+                </IonCol>
+                <IonLabel color='light' className="danni-label">
+                  08:45
+                </IonLabel>
+              </IonRow>
+            {/* </IonCard>
+          </IonRow> */}
+          
         </IonGrid>
       </IonContent>
     </IonPage>

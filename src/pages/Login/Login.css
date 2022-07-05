@@ -242,6 +242,13 @@
   color: #ffffff;
 }
 .signuppage-login-btn {
+  /* margin-left: 15px; */
+  width: 70px;
+  font-size: 10px;
+  height: 30px;
+}
+.loginpage-signup-btn {
+  margin-left: 15px;
   width: 70px;
   font-size: 10px;
   height: 30px;

@@ -1,18 +1,79 @@
+:root {
+	--ion-color-lightgreen: #24383f;
+	--ion-color-lightgreen-rgb: 36,56,63;
+	--ion-color-lightgreen-contrast: #ffffff;
+	--ion-color-lightgreen-contrast-rgb: 255,255,255;
+	--ion-color-lightgreen-shade: #203137;
+	--ion-color-lightgreen-tint: #3a4c52;
+}
+
+.ion-color-lightgreen {
+	--ion-color-base: var(--ion-color-lightgreen);
+	--ion-color-base-rgb: var(--ion-color-lightgreen-rgb);
+	--ion-color-contrast: var(--ion-color-lightgreen-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-lightgreen-contrast-rgb);
+	--ion-color-shade: var(--ion-color-lightgreen-shade);
+	--ion-color-tint: var(--ion-color-lightgreen-tint);
+}
+
 .tab1mainpage {
-  --background: linear-gradient(#24383f, #24383f);
-}
-.tab1head-div {
   --background: linear-gradient(#132124, #132124);
+  /* color: aliceblue; */
 }
+
 .search-row {
   color: white;
   font-size: 2rem;
   display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 7%;
+  padding-bottom: 5%;
+
+  align-items: center;
+}
+.card-class {
+  display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 .logout {
   display: flex;
   justify-content: center;
+}
+.danni-img {
+  width: 50px;
+  /* padding: 2%; */
+  /* margin: 10px; */
+  /* height: 40px; */
+  border-radius: 100px !important;
+  /* -background-size: cover; */
+  /* border-radius: 20px; */
+}
+.danni-col {
+  border-radius: 30px;
+}
+
+.col1 {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+  opacity: 0.8;
+}
+.danni-row {
+  display: flex;
+  align-items: center;
+  padding: 4%;
+  font-size: 12px;
+}
+.danni-label {
+  padding: 5px;
+  margin-left: 7px;
+}
+.tab1-grid {
+  background: #24383f;
+  border-radius:  30px 30px 0 0 ;
 }

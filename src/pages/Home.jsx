@@ -10,10 +10,10 @@ import {
   IonTabs,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { call, home, settings } from "ionicons/icons";
+import { albums, call, chatbox, home, settings, settingsSharp } from "ionicons/icons";
 import Tab1 from "./Home/Feed/Tab1";
-import Tab2 from "./Home/Chat/Tab2";
-import Tab3 from "./Home/Contacts/Tab3";
+import Tab2 from "./Home/Call/Tab2";
+import Tab3 from "./Home/Settings/Tab3";
 import { Redirect, Route } from "react-router-dom";
 import Login from "./Login/Login";
 import "./Home.css";
@@ -47,18 +47,18 @@ const Home = () => {
               <Login />
             </Route>
           </IonRouterOutlet>
-          <IonTabBar className="tabbar-div" slot="bottom">
+          <IonTabBar className="tabbar-div" slot="bottom" color='darkgreen'>
             <IonTabButton tab="tab1" href="/home/tab1">
-              <IonIcon icon={home} />
-              <IonLabel>Home</IonLabel>
+              <IonIcon icon={chatbox} />
+              {/* <IonLabel>Home</IonLabel> */}
             </IonTabButton>
             <IonTabButton tab="tab2" href="/home/tab2">
-              <IonIcon icon={call} />
-              <IonLabel>Calls</IonLabel>
+              <IonIcon icon={albums} />
+              {/* <IonLabel>Calls</IonLabel> */}
             </IonTabButton>
             <IonTabButton tab="tab3" href="/home/tab3">
-              <IonIcon icon={settings} />
-              <IonLabel>Settings</IonLabel>
+              <IonIcon icon={settingsSharp} />
+              {/* <IonLabel>Settings</IonLabel> */}
             </IonTabButton>
           </IonTabBar>
         </IonTabs>

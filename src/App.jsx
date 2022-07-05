@@ -39,8 +39,8 @@ import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import { AuthContextProvider } from "./context/AuthContext";
 import Tab1 from "./pages/Home/Feed/Tab1";
-import Tab2 from "./pages/Home/Chat/Tab2";
-import Tab3 from "./pages/Home/Contacts/Tab3";
+import Tab2 from "./pages/Home/Call/Tab2";
+import Tab3 from "./pages/Home/Settings/Tab3";
 setupIonicReact();
 
 const App = () => (

@@ -1,0 +1,30 @@
+.feed-content{
+    --background: linear-gradient(#132124, #132124);
+    
+}
+.feed-grid{
+    background: #24383f;
+    border-radius: 30px 30px 0 0 ;
+}
+.menu-icon{
+    width: 22px;
+    height: 22px;
+}
+.heart-icon{
+    width: 22px;
+    height: 22px;
+    padding: 5%;
+}
+.comment-icon{
+    width: 20px;
+    height: 20px;
+    padding: 5%;
+}
+.icon-col{
+    display: flex;
+    justify-content: flex-end;
+    padding: 7px;
+}
+.feed-card{
+    border-radius: 20px ;
+}
