@@ -28,7 +28,7 @@ const GetStarted = () => {
           </IonRow>
           <IonRow className="para">
             <IonImg
-              class="rectangle2ś"
+              class="rectangle2"
               src="assets/images/Rectangle 5.png"
             ></IonImg>
           </IonRow>

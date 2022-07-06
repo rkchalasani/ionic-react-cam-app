@@ -43,9 +43,9 @@ const Login = () => {
       message: message,
       buttons: ["OK"],
       mode: "md",
-      animated:true,
-      cssClass: 'loginpage-alert',
-      color: 'light'
+      animated: true,
+      cssClass: "loginpage-alert",
+      color: "light",
     });
   }
   const router = useIonRouter();

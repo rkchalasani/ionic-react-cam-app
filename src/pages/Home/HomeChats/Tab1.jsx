@@ -19,25 +19,21 @@ import { search, searchCircle } from "ionicons/icons";
 import { UserAuth } from "../../../context/AuthContext";
 import "./Tab1.css";
 const Tab1 = () => {
-
+  const router = useIonRouter();
+const openChat = () =>{
+router.push("/chats")
+}
   
   return (
     <IonPage>
-      {/* <IonHeader>
-        <IonToolbar color='darkgreen'>
-        
-        </IonToolbar>
-      </IonHeader> */}
       <IonContent className="tab1mainpage" fullscreen>
         <IonRow className="search-row">
           <IonCol> <IonLabel >Chats</IonLabel></IonCol>
           <IonIcon icon={search}></IonIcon>
         </IonRow>
         <IonGrid className="tab1-grid">
-          {/* <IonRow className="card-class">
-            <IonCard color="lightgreen"> */}
-              <IonRow className="danni-row">
-                <IonImg className="danni-img" src="assets/images/pro7.jpg"></IonImg>
+              <IonRow onClick={openChat} className="danni-row">
+                <IonImg  className="danni-img" src="assets/images/pro7.jpg"></IonImg>
                 <IonCol className="col1">
                   <IonLabel color='light' className="danni-label">Danni Hopkins</IonLabel>
                   <IonLabel color='light' className="danni-label">Hey how r u?</IonLabel>

@@ -38,8 +38,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import { AuthContextProvider } from "./context/AuthContext";
-import Tab1 from "./pages/Home/Feed/Tab1";
-import Tab2 from "./pages/Home/Call/Tab2";
+import Tab1 from "./pages/Home/HomeChats/Tab1";
+import Tab2 from "./pages/Home/Feed/Tab2";
 import Tab3 from "./pages/Home/Settings/Tab3";
 setupIonicReact();
 
@@ -48,32 +48,32 @@ const App = () => (
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route exact path="/home/tab1">
+          <Route  path="/home/tab1">
             <Tab1 />
           </Route>
-          <Route exact path="/home/tab2">
+          <Route  path="/home/tab2">
             <Tab2 />
           </Route>
           <Route path="/home/tab3">
             <Tab3 />
           </Route>
-          <Route exact path="/home">
+          {/* <Route  path="/home">
             <Redirect to="/home/tab1" />
-          </Route>
-          <Route exact path="/login">
+          </Route> */}
+          <Route  path="/login">
             <Login />
           </Route>
-          <Route exact path="/home">
+          <Route  path="/home">
             <Home />
           </Route>
-          <Route exact path="/getstarted">
+          <Route  path="/getstarted">
             <Getstarted />
           </Route>
-          <Route exact path="/signup">
+          <Route  path="/signup">
             <Signup />
           </Route>
           <Route exact path="/">
-            <Redirect to="/getstarted" />
+            <Redirect to="/login" />
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>

@@ -1,4 +1,4 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonLabel, IonPage, IonRow, IonTitle, IonToolbar, useIonRouter } from '@ionic/react';
+import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonLabel, IonPage, IonRow, IonTitle, IonToolbar, useIonRouter, useIonToast } from '@ionic/react';
 import { addCircleSharp, colorFill, help, notifications, person, thermometer } from 'ionicons/icons';
 import { UserAuth } from '../../../context/AuthContext';
 // import ExploreContainer from '../components/ExploreContainer';
@@ -7,26 +7,33 @@ import './Tab3.css';
 const Tab3 = () => {
   const { logout } = UserAuth();
   const router = useIonRouter();
+  const [present, dismiss] = useIonToast();
+  async function handleButtonClick(m) {
+    present({
+      message: m,
+      duration: 2000,
+      position: "top",
+      color: "darkgreen",
+      mode: "ios",
+      icon: alert,
+    });
+  }
   const handleLogout = async () => {
     try {
       await logout();
       router.push("/login");
-      console.log("You are logged out");
+      window.location.reload();
+
+      // handleButtonClick("You are logged out");
     } catch (e) {
       console.log(e.message);
     }
   };
   return (
     <IonPage>
-      {/* <IonHeader>
-        <IonToolbar>
-          <IonTitle>Tab 3</IonTitle>
-        </IonToolbar>
-      </IonHeader> */}
       <IonContent className='settings-content' fullscreen>
       <IonRow className="search-row">
           <IonCol> <IonLabel >Settings</IonLabel></IonCol>
-          {/* <IonIcon icon={addCircleSharp}></IonIcon> */}
         </IonRow>
         <IonGrid className='settings-grid'>
           <IonRow className='settings-row1'>
