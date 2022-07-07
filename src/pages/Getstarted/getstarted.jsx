@@ -33,6 +33,7 @@ const GetStarted = () => {
           ></IonImg>
         </IonRow>
         </IonGrid> */}
+        {/* <IonLabel color='light'>app version :</IonLabel> */}
        
         <IonGrid className="getstarted-grid">
           <IonRow className="chat">

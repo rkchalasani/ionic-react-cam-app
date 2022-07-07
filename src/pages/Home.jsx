@@ -23,6 +23,7 @@ import Tab2 from "./Home/Feed/Tab2";
 import Tab3 from "./Home/Settings/Tab3";
 import { Redirect, Route } from "react-router-dom";
 import Login from "./Login/Login";
+import Chats from "./Home/Chats/chats";
 import "./Home.css";
 import ProtectedRoute from "../components/ProtectedRoute";
 
@@ -52,6 +53,9 @@ const Home = () => {
             </Route>
             <Route path="/login">
               <Login />
+            </Route>
+            <Route path="/chats">
+              <Chats />
             </Route>
           </IonRouterOutlet>
           <IonTabBar className="tabbar-div" slot="bottom" color="darkgreen">

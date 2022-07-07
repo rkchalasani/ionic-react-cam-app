@@ -37,7 +37,7 @@ const Tab2 = () => {
         <IonRow className="search-row">
           <IonCol>
             {" "}
-            <IonLabel>Feed</IonLabel>
+            <IonLabel color='smoke'>Feed</IonLabel>
           </IonCol>
           <IonIcon icon={addCircleSharp}></IonIcon>
         </IonRow>
@@ -49,10 +49,10 @@ const Tab2 = () => {
                 src="assets/images/pro7.jpg"
               ></IonImg>
               <IonCol className="col1">
-                <IonLabel color="light" className="danni-label">
+                <IonLabel color="smoke" className="danni-label">
                   Danni Hopkins
                 </IonLabel>
-                <IonLabel color="light" className="danni-label">
+                <IonLabel color="smoke" className="danni-label">
                   @dannihopkins717
                 </IonLabel>
               </IonCol>
@@ -78,10 +78,10 @@ const Tab2 = () => {
                 src="assets/images/pro7.jpg"
               ></IonImg>
               <IonCol className="col1">
-                <IonLabel color="light" className="danni-label">
+                <IonLabel color="smoke" className="danni-label">
                   Danni Hopkins
                 </IonLabel>
-                <IonLabel color="light" className="danni-label">
+                <IonLabel color="smoke" className="danni-label">
                   @dannihopkins717
                 </IonLabel>
               </IonCol>
@@ -107,10 +107,10 @@ const Tab2 = () => {
                 src="assets/images/pro3.jpg"
               ></IonImg>
               <IonCol className="col1">
-                <IonLabel color="light" className="danni-label">
+                <IonLabel color="smoke" className="danni-label">
                   Danni Hopkins
                 </IonLabel>
-                <IonLabel color="light" className="danni-label">
+                <IonLabel color="smoke" className="danni-label">
                   @dannihopkins717
                 </IonLabel>
               </IonCol>
@@ -136,10 +136,10 @@ const Tab2 = () => {
                 src="assets/images/pro7.jpg"
               ></IonImg>
               <IonCol className="col1">
-                <IonLabel color="light" className="danni-label">
+                <IonLabel color="smoke" className="danni-label">
                   Danni Hopkins
                 </IonLabel>
-                <IonLabel color="light" className="danni-label">
+                <IonLabel color="smoke" className="danni-label">
                   @dannihopkins717
                 </IonLabel>
               </IonCol>
