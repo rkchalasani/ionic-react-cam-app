@@ -13,7 +13,7 @@ const GetStarted = () => {
   return (
     <IonPage>
       <IonContent className="getstarted-maindiv">
-        <IonGrid className="out-grid">
+        {/* <IonGrid className="out-grid">
         <IonRow className="out1-row">
           <IonImg
             class="out1 bounce-1"
@@ -32,7 +32,7 @@ const GetStarted = () => {
             src="assets/images/out3.png"
           ></IonImg>
         </IonRow>
-        </IonGrid>
+        </IonGrid> */}
        
         <IonGrid className="getstarted-grid">
           <IonRow className="chat">

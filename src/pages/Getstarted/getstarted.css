@@ -1,7 +1,7 @@
 .getstarted-maindiv {
-   /* --background: linear-gradient(rgb(19, 33, 36,0.3),rgb(19, 33, 36,0.3)),url('../../../public/assets/images/Get-Started1.png') 
-   no-repeat center/cover fixed; */
-   --background: linear-gradient(#132124,#132124);
+   --background: linear-gradient(rgb(19, 33, 36,0.3),rgb(19, 33, 36,0.3)),url('../../../public/assets/images/Get-Started1.png') 
+   no-repeat center/cover fixed;
+   /* --background: linear-gradient(#132124,#132124); */
   height: 100%;
 }
 .getstarted-btn {
@@ -37,23 +37,13 @@
 
 
 .out1-row {
-  /* border-bottom: 3px solid #444; */
-  /* display: flex; */
   height: 30vh;
-  /* top: 5%;
-  left: -20%; */
-  /* position: absolute; */
-
-  /* width: 100%; */
+  margin-left: -50px;
 }
 .out1 {
-  /* position: absolute; */
-  /* align-self: flex-end; */
   animation-duration: 10s;
   animation-iteration-count: infinite;
-  /* height: 300px; */
   transform-origin: top;
-  /* width: 300px; */
 }
 .bounce-1 {
   animation-name: bounce-1;
@@ -65,27 +55,16 @@
   100% { transform: translateY(0); }
 }
 .out2-row {
-  /* border-bottom: 3px solid #444; */
   display: flex;
 justify-content: flex-end;
+margin-right: -80px;
   height: 30vh;
-  /* top: 10%;
-  left: 20%; */
-  /* position: absolute; */
   z-index: -99;
-  /* width: 100%; */
 }
 .out2 {
-  /* position: absolute; */
-  /* align-self: flex-end; */
-  /* display: flex; */
-  /* left: 50%; */
-  /* justify-content: flex-end; */
   animation-duration: 10s;
   animation-iteration-count: infinite;
-  /* height: 300px; */
   transform-origin: bottom;
-  /* width: 300px; */
 }
 .bounce-1 {
   animation-name: bounce-1;
@@ -97,24 +76,14 @@ justify-content: flex-end;
   100% { transform: translateY(0); }
 }
 .out3-row {
-  /* border-bottom: 3px solid #444; */
-  /* display: flex; */
   height: 30vh;
-  
-  /* top: 5%;
-  left: -20%; */
-  /* position: absolute; */
+  margin-left: -80px;
   z-index: -99;
-  /* width: 100%; */
 }
 .out3 {
-  /* position: absolute; */
-  /* align-self: flex-end; */
   animation-duration: 10s;
   animation-iteration-count: infinite;
-  /* height: 300px; */
   transform-origin: bottom;
-  /* width: 300px; */
 }
 .bounce-1 {
   animation-name: bounce-1;
@@ -130,7 +99,6 @@ justify-content: flex-end;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: center; */
   z-index: -99;
   height: 100vh;
   width: 100%;
