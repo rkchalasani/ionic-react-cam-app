@@ -34,7 +34,11 @@
   --ion-color-tint: var(--ion-color-darkgreen-tint);
 }
 .login-main-div {
-  --background: linear-gradient(#24383f, #24383f);
+  /* --background: linear-gradient(#24383f, #24383f); */
+  --background: linear-gradient(rgb(19, 33, 36,0.3),rgb(19, 33, 36,0.3)),url('../../../public/assets/images/Get-Started1.png') 
+  no-repeat center/cover fixed;
+  /* opacity: 0; */
+  z-index: -999;
   height: 100%;
 }
 .main-grid {
@@ -45,8 +49,13 @@
   padding: 7%;
 }
 .signup-main-div {
-  --background: linear-gradient(#24383f, #24383f);
+  /* --background: linear-gradient(#24383f, #24383f); */
+  --background: linear-gradient(rgb(19, 33, 36,0.3),rgb(19, 33, 36,0.3)),url('../../../public/assets/images/Get-Started1.png') 
+  no-repeat center/cover fixed;
   height: 100%;
+}
+.chatifylogo{
+  width: 250px;
 }
 .signup-grid {
   display: flex;
@@ -110,7 +119,7 @@
   font-size: 2.5rem;
   display: flex;
   align-items: center;
-  text-align: right;
+  text-align: center;
   color: #ffffff;
 }
 .welcome-grid {
@@ -156,45 +165,62 @@
   margin: 0px;
 }
 .login-input1 {
-  height: 45px;
+
   border-radius: 7px;
   text-align: center;
   background: #d5d5d5;
-  opacity: 0.9;
+  /* opacity: 0.9; */
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
 }
+/* .login-input1 input{
+  height: 47px;
+}
+.login-input2 input{
+  height: 47px;
+} */
 .login-input2 {
-  height: 45px;
+  /* height: 45px; */
   margin-top: 25px;
   background: #d5d5d5;
-  opacity: 0.9;
+  /* opacity: 0.9; */
   text-align: center;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 7px;
 }
 .signup-name-input {
-  height: 45px;
+  /* height: 55px; */
   border-radius: 7px;
   text-align: center;
   background: #d5d5d5;
-  opacity: 0.9;
+  /* opacity: 0.9; */
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
 }
+/* .signup-name-input input{
+  height: 47px;
+}
+
+
+
+.signup-email-input input{
+  height: 47px;
+}.signup-password-input input{
+  height: 47px;
+} */
 .signup-email-input {
-  height: 45px;
+  height: 55px;
   margin-top: 25px;
   text-align: center;
   background: #d5d5d5;
-  opacity: 0.9;
+  /* opacity: 0.9; */
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 7px;
 }
 .signup-password-input {
-  height: 45px;
+  height: 55px;
   margin-top: 25px;
   text-align: center;
   background: #d5d5d5;
-  opacity: 0.9;
+  /* opacity: 0.9; */
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 7px;
 }
@@ -246,9 +272,10 @@
   width: 70px;
   font-size: 10px;
   height: 30px;
+  margin-top: 20px;
 }
 .loginpage-signup-btn {
-  margin-left: 15px;
+  margin-top: 20px;
   width: 70px;
   font-size: 10px;
   height: 30px;
@@ -257,6 +284,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 .signup-btn-row {
   display: flex;
@@ -278,6 +306,8 @@
 .signuppage-login-btn-row {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 .input-grid {
   display: flex;

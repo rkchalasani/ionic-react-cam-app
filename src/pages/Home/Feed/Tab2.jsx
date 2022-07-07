@@ -31,16 +31,6 @@ import "./Tab2.css";
 import { storage } from "../../../firebase";
 
 const Tab2 = () => {
-  const [handler, setHandler] = useState();
-const uploadFile = ()=>{
-  const fileName = setHandler.name;
-  const imgRef = storage().ref(`/images/${fileName}`)
-}
-
-  const changeHandler = (e) => {
-    // let selected = e.target.files[0];
-    // console.log(selected)
-  };
   return (
     <IonPage>
       <IonContent className="feed-content" fullscreen>
@@ -52,7 +42,6 @@ const uploadFile = ()=>{
           <IonIcon icon={addCircleSharp}></IonIcon>
         </IonRow>
         <IonGrid className="feed-grid">
-
           <IonCard className="feed-card" color="darkgreen">
             <IonRow className="danni-row">
               <IonImg

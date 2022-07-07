@@ -73,7 +73,7 @@ const App = () => (
             <Signup />
           </Route>
           <Route exact path="/">
-            <Redirect to="/login" />
+            <Redirect to="/getstarted" />
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>

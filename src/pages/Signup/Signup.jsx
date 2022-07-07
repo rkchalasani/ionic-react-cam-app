@@ -24,7 +24,7 @@ const Signup = () => {
       message: message,
       duration: 2000,
       position: "top",
-      color: "darkgreen",
+      color: "smoke",
       mode: "ios",
       icon: alert,
     });
@@ -44,7 +44,7 @@ const Signup = () => {
       message: message,
       buttons: ["OK"],
       mode: "ios",
-      color: "darkgreen",
+      // color: "darkgreen",
     });
   }
   const handleSubmit = async () => {
@@ -92,7 +92,7 @@ const Signup = () => {
             </IonImg>
           </IonRow>
           <IonRow className="signup-row">
-            <IonLabel className="signuptext">Signup</IonLabel>
+            <IonLabel className="signuptext">SIGNUP</IonLabel>
           </IonRow>
           <IonRow className="signup-input-row">
             <IonInput
@@ -119,7 +119,7 @@ const Signup = () => {
             ></IonInput>
             <IonButton
               onClick={handleSubmit}
-              color="darkgreen"
+              color="smoke"
               className="signuppage-joinbutton"
             >
               Join
@@ -127,10 +127,10 @@ const Signup = () => {
           </IonRow>
           <IonRow className="signuppage-login-btn-row">
             <IonLabel className="signuppage-text">Already have an account?</IonLabel>
-          </IonRow>
-          <IonRow className="signuppage-login-btn-row">
+          {/* </IonRow>
+          <IonRow className="signuppage-login-btn-row"> */}
             <IonButton
-              color="darkgreen"
+              color="smoke"
               className="signuppage-login-btn ion-text-capitalize"
               routerLink="/login"
             >

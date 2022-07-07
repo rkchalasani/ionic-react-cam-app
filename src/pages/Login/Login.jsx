@@ -32,7 +32,7 @@ const Login = () => {
       message: message,
       duration: 2000,
       position: "top",
-      color: "darkgreen",
+      color: "smoke",
       mode: "ios",
       icon: alert,
     });
@@ -86,7 +86,7 @@ const Login = () => {
             </IonImg>
           </IonRow>
           <IonRow className="welcome-row">
-            <IonLabel className="welcome-text">Welcome</IonLabel>
+            <IonLabel className="welcome-text">WELCOME</IonLabel>
           </IonRow>
           <IonRow className="login-input-row">
             <IonInput
@@ -110,8 +110,8 @@ const Login = () => {
           <IonRow>
             <IonButton
               onClick={handleSubmit}
-              color="darkgreen"
-              className="loginbutton "
+              color="smoke"
+              className="loginbutton"
             >
               Login
             </IonButton>
@@ -121,7 +121,7 @@ const Login = () => {
               Create an account using{" "}
             </IonLabel>
             <IonButton
-              color="darkgreen "
+              color="smoke "
               className="loginpage-signup-btn ion-text-capitalize"
               routerLink="/signup"
             >
