@@ -22,7 +22,6 @@ import {
   thermometer,
 } from "ionicons/icons";
 import { UserAuth } from "../../../context/AuthContext";
-// import ExploreContainer from '../components/ExploreContainer';
 import "./Tab3.css";
 
 const Tab3 = () => {
@@ -44,8 +43,6 @@ const Tab3 = () => {
       await logout();
       router.push("/login");
       window.location.reload();
-
-      // handleButtonClick("You are logged out");
     } catch (e) {
       console.log(e.message);
     }

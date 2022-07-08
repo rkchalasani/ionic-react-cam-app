@@ -44,7 +44,6 @@ const Signup = () => {
       message: message,
       buttons: ["OK"],
       mode: "ios",
-      // color: "darkgreen",
     });
   }
   const handleSubmit = async () => {
@@ -126,9 +125,9 @@ const Signup = () => {
             </IonButton>
           </IonRow>
           <IonRow className="signuppage-login-btn-row">
-            <IonLabel className="signuppage-text">Already have an account?</IonLabel>
-          {/* </IonRow>
-          <IonRow className="signuppage-login-btn-row"> */}
+            <IonLabel className="signuppage-text">
+              Already have an account?
+            </IonLabel>
             <IonButton
               color="smoke"
               className="signuppage-login-btn ion-text-capitalize"

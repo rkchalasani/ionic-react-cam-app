@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "chatify-app-82c22",
+    "chatify": "chatify-app-82c22"
+  },
+  "targets": {}
+}

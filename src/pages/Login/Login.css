@@ -35,9 +35,9 @@
 }
 .login-main-div {
   /* --background: linear-gradient(#24383f, #24383f); */
-  --background: linear-gradient(rgb(19, 33, 36,0.3),rgb(19, 33, 36,0.3)),url('../../../public/assets/images/Get-Started1.png') 
-  no-repeat center/cover fixed;
-  /* opacity: 0; */
+  --background: linear-gradient(rgb(19, 33, 36, 0.3), rgb(19, 33, 36, 0.3)),
+    url("../../../public/assets/images/Get-Started1.png") no-repeat center/cover
+      fixed;
   z-index: -999;
   height: 100%;
 }
@@ -50,11 +50,12 @@
 }
 .signup-main-div {
   /* --background: linear-gradient(#24383f, #24383f); */
-  --background: linear-gradient(rgb(19, 33, 36,0.3),rgb(19, 33, 36,0.3)),url('../../../public/assets/images/Get-Started1.png') 
-  no-repeat center/cover fixed;
+  --background: linear-gradient(rgb(19, 33, 36, 0.3), rgb(19, 33, 36, 0.3)),
+    url("../../../public/assets/images/Get-Started1.png") no-repeat center/cover
+      fixed;
   height: 100%;
 }
-.chatifylogo{
+.chatifylogo {
   width: 250px;
 }
 .signup-grid {
@@ -137,7 +138,6 @@
   display: flex;
   align-items: center;
   text-align: center;
-
   color: #ffffff;
 }
 .logintextb {
@@ -150,7 +150,6 @@
   display: flex;
   align-items: center;
   text-align: right;
-
   color: #ffffff;
 }
 .signuptext {
@@ -165,53 +164,29 @@
   margin: 0px;
 }
 .login-input1 {
-
   border-radius: 7px;
   text-align: center;
   background: #d5d5d5;
-  /* opacity: 0.9; */
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
 }
-/* .login-input1 input{
-  height: 47px;
-}
-.login-input2 input{
-  height: 47px;
-} */
 .login-input2 {
-  /* height: 45px; */
   margin-top: 25px;
   background: #d5d5d5;
-  /* opacity: 0.9; */
   text-align: center;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 7px;
 }
 .signup-name-input {
-  /* height: 55px; */
   border-radius: 7px;
   text-align: center;
   background: #d5d5d5;
-  /* opacity: 0.9; */
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
 }
-/* .signup-name-input input{
-  height: 47px;
-}
-
-
-
-.signup-email-input input{
-  height: 47px;
-}.signup-password-input input{
-  height: 47px;
-} */
 .signup-email-input {
   height: 55px;
   margin-top: 25px;
   text-align: center;
   background: #d5d5d5;
-  /* opacity: 0.9; */
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 7px;
 }
@@ -220,7 +195,6 @@
   margin-top: 25px;
   text-align: center;
   background: #d5d5d5;
-  /* opacity: 0.9; */
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 7px;
 }
@@ -268,7 +242,6 @@
   color: #ffffff;
 }
 .signuppage-login-btn {
-  /* margin-left: 15px; */
   width: 70px;
   font-size: 10px;
   height: 30px;
@@ -321,8 +294,6 @@
   display: flex;
   flex-direction: column;
 }
-.loginpage-alert{
+.loginpage-alert {
   --background: whitesmoke;
-  
-   /* --color: white; */
 }

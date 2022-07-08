@@ -26,11 +26,12 @@ import {
   search,
 } from "ionicons/icons";
 import { useState } from "react";
-// import ExploreContainer from '../components/ExploreContainer';
 import "./Tab2.css";
 import { storage } from "../../../firebase";
 
 const Tab2 = () => {
+
+  
   return (
     <IonPage>
       <IonContent className="feed-content" fullscreen>
@@ -41,7 +42,9 @@ const Tab2 = () => {
           </IonCol>
           <IonIcon icon={addCircleSharp}></IonIcon>
         </IonRow>
+
         <IonGrid className="feed-grid">
+
           <IonCard className="feed-card" color="darkgreen">
             <IonRow className="danni-row">
               <IonImg

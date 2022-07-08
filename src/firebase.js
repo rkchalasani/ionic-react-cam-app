@@ -4,12 +4,13 @@ import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDWtCIjSCqlL_euXp3_0lnyYhfyjcKhJsw",
-  authDomain: "registrationform-b5171.firebaseapp.com",
-  projectId: "registrationform-b5171",
-  storageBucket: "registrationform-b5171.appspot.com",
-  messagingSenderId: "813406538993",
-  appId: "1:813406538993:web:af6611fc968cd5a7402d50",
+  apiKey: "AIzaSyCuI7reB-NCj-heCQyMGWOTDku5BzKBIiU",
+  authDomain: "chatify-app-82c22.firebaseapp.com",
+  projectId: "chatify-app-82c22",
+  storageBucket: "chatify-app-82c22.appspot.com",
+  messagingSenderId: "481165381434",
+  appId: "1:481165381434:web:1804b87bebba415496ca03",
+  measurementId: "G-RKMQ8S0JB9"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -17,4 +18,3 @@ export const storage = getStorage(app);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 export default app;
-// export  {projStorage,projFirestore};

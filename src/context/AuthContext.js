@@ -57,7 +57,6 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log(currentUser);
       setUser(currentUser);
     });
     return () => {
@@ -73,10 +72,8 @@ export const AuthContextProvider = ({ children }) => {
         logout,
         signIn,
         googleSignIn,
-        // emailVerification,
         facebookSignIn,
         githubSignIn,
-        // addData
       }}
     >
       {children}

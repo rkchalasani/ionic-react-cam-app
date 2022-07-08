@@ -57,9 +57,6 @@ const App = () => (
           <Route path="/home/tab3">
             <Tab3 />
           </Route>
-          {/* <Route  path="/home">
-            <Redirect to="/home/tab1" />
-          </Route> */}
           <Route  path="/login">
             <Login />
           </Route>
