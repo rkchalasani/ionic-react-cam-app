@@ -25,6 +25,7 @@ import { Redirect, Route } from "react-router-dom";
 import Login from "./Login/Login";
 import Chats from "./Home/Chats/chats";
 import "./Home.css";
+import Newuser from "./Home/Feed/new/Newuser"
 import ProtectedRoute from "../components/ProtectedRoute";
 
 const Home = () => {
@@ -54,9 +55,12 @@ const Home = () => {
             <Route path="/login">
               <Login />
             </Route>
-            <Route path="/chats">
+            <Route  path="/new">
+            <Newuser />
+          </Route>
+            {/* <Route path="/chats">
               <Chats />
-            </Route>
+            </Route> */}
           </IonRouterOutlet>
           <IonTabBar className="tabbar-div" slot="bottom" color="darkgreen">
             <IonTabButton tab="tab1" href="/home/tab1">
@@ -67,7 +71,7 @@ const Home = () => {
               <IonIcon icon={albums} />
               {/* <IonLabel>Calls</IonLabel> */}
             </IonTabButton>
-            <IonTabButton tab="tab3" href="/home/tab3">
+            <IonTabButton  tab="tab3" href="/home/tab3">
               <IonIcon icon={settingsSharp} />
               {/* <IonLabel>Settings</IonLabel> */}
             </IonTabButton>

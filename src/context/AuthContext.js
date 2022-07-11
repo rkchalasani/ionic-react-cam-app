@@ -13,7 +13,7 @@ import {
   sendEmailVerification,
 } from "firebase/auth";
 import { auth, db } from "../firebase";
-// import {doc, setDoc} from "firebase/firestore"
+import {addDoc, doc, setDoc} from "firebase/firestore"
 // import { auth } from "../firebase";
 
 const UserContext = createContext();
@@ -27,10 +27,9 @@ export const AuthContextProvider = ({ children }) => {
   // const emailVerification = (auth) => {
   //   sendEmailVerification(auth.currentUser);
   // };
-  // const addData = async(auth, name, email) => {
-  //   await setDoc(doc(db, "users", auth.currentUser.uid), {
-  //     name : name,
-  //     email : email
+  // const addData = async(auth,db, name, email) => {
+  //   await addDoc(doc(db, "users", auth.currentUser.uid), {
+
   //   });
   // }
 
@@ -71,6 +70,7 @@ export const AuthContextProvider = ({ children }) => {
         user,
         logout,
         signIn,
+        // addData,
         googleSignIn,
         facebookSignIn,
         githubSignIn,

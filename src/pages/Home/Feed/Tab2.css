@@ -28,3 +28,44 @@
 .feed-card{
     border-radius: 20px ;
 }
+.card-div{
+    background: #132124;
+}
+.username-row{
+    color: white;
+    /* font-size: 2rem; */
+    display: flex;
+    justify-content: center;
+    /* padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 7%;
+    padding-bottom: 5%; */
+    padding: 4%;
+    align-items: center;
+}
+.username-col{
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    padding: 0%;
+}
+.card-caption{
+    color: whitesmoke;
+    font-size: 12px;
+    /* line-height: 200px; */
+    padding: 4%;
+    opacity: 0.8;
+}
+.edit-delete{
+    /* width: 101px; */
+    display: flex;
+    flex-direction: column;
+}
+.edit-btn{
+    /* width: 100px; */
+    height: 40px;
+}
+.popover-viewport{
+    background:#132124;
+    /* padding: 2%; */
+}

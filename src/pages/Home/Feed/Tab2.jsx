@@ -1,9 +1,15 @@
 import {
+  IonAvatar,
   IonButton,
   IonButtons,
   IonCard,
+  IonCardContent,
+  IonCardSubtitle,
+  IonCardTitle,
   IonCol,
   IonContent,
+  IonFab,
+  IonFabButton,
   IonGrid,
   IonHeader,
   IonIcon,
@@ -11,11 +17,16 @@ import {
   IonInput,
   IonItem,
   IonLabel,
+  IonList,
   IonLoading,
+  IonModal,
   IonPage,
+  IonPopover,
   IonRow,
   IonTitle,
   IonToolbar,
+  useIonPopover,
+  useIonRouter,
 } from "@ionic/react";
 import {
   add,
@@ -27,229 +38,159 @@ import {
   menu,
   search,
 } from "ionicons/icons";
-import { useEffect, useState } from "react";
+import { userColumns, userRows } from "../../../datatablesource";
+import axios from "axios";
+import { useEffect, useRef, useState } from "react";
 import "./Tab2.css";
-import { storage, db , auth } from "../../../firebase";
-import { ref, getDownloadURL, uplaodTask, uploadBytes } from "firebase/storage";
-import { getDoc , doc} from "firebase/firestore";
-import { setupMaster } from "cluster";
+import { storage, db, auth } from "../../../firebase";
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import {
+  getDoc,
+  doc,
+  deleteDoc,
+  onSnapshot,
+  collection,
+  addDoc,
+  updateDoc,
+  getDocs,
+} from "firebase/firestore";
+import { Link } from "react-router-dom";
 
 const Tab2 = () => {
- 
-  // const [handler, setHandler] = useState();
-  // const [currentURL, setCurrentURL] = useState();
-  // const [uploading, setUploading] = useState()
-
-  // const uploadFile = () => {
-  //   setUploading(true)
-  //   const fileName = setHandler.name + "-" + new Date().getTime();
-  //   const imgRef = storage().ref(`/images/${fileName}`);
-  //   imgRef.put(setHandler).then(async (snapShot) => {
-  //     console.log(snapShot.bytesTransferred);
-  //     const url = await snapShot.ref.getDownloadURL();
-  //     setCurrentURL(url);
-  //     setUploading(false);
-  //   });
-  // };
-  // const [image, setImage] = useState();
-  // const handleChange = (e) => {
-  //   // let selected = e.target.files[0];
-  //   // console.log(selected);
-  //   if (e.target.files[0]) {
-  //     setImage(e.target.files[0]);
-  //   }
-  // };
-
-  // console.log(image);
-
-  // const handleUplaod = () => {
-  //   const uplaodTask = storage.ref(`images/${image.name}`).put(image);
-  //   uplaodTask.on(
-  //     "state_changed",
-  //     (snapshot) => {},
-  //     (error) => {
-  //       console.log(error);
-  //     },
-  //     () => {
-  //       storage
-  //         .ref("images")
-  //         .child(image.name)
-  //         .getDownloadURl()
-  //         .then((url) => {
-  //           console.log(url)
-  //         });
-  //     }
-  //   );
-  // };
   const [img, setImg] = useState();
+  const router = useIonRouter();
+  const [apiData, setApiData] = useState([]);
+  const [user, setUser] = useState();
+  const [link, setLink] = useState();
+
+  // const [data, setData] = useState([]);
+  const openNew = () => {
+    router.push("/new");
+    window.location.reload();
+  };
+  const [newName, setNewName] = useState("");
+  const [newAge, setNewAge] = useState(0);
+  const [newImg, setNewImg] = useState("");
+
+  const [users, setUsers] = useState([]);
+  const usersCollectionRef = collection(
+    db,
+    "users",
+    auth.currentUser.uid,
+    "posts"
+  );
+
+  const createUser = async () => {
+    await addDoc(usersCollectionRef, { name: newName, age: Number(newAge) });
+  };
+
+  // const updateUser = async (id, age) => {
+  //   const userDoc = doc(db, "users", auth.currentUser.uid, "details", id);
+  //   const newFields = { age: age + 1 };
+  //   await updateDoc(userDoc, newFields);
+  // };
+
+  const deleteUser = async (id) => {
+    // const userDoc = doc(db, "users", auth.currentUser.uid, "posts", id);
+    // await deleteDoc(userDoc);
+  };
 
   useEffect(() => {
-getDoc(doc(db,'users', auth.currentUser.uid )).then(docSnap=>{
-  if(docSnap.exists){
-    setupMaster()
-  }
-})
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
 
-    if (img) {
-      const uploadImg = async () => {
-        const imgRef = ref(
-          storage,
-          `avatar/${new Date().getTime()} - ${img.name}`
-        );
-        const snap = await uploadBytes(imgRef, img);
-        console.log(snap.ref.fullPath);
-      };
-      uploadImg()
-    }
-  }, [img]);
+    getUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  // const popover = useRef<HTMLIonPopoverElement>(null);
+  const Popover = () => (
+    <IonRow className="edit-delete">
+      {" "}
+      <IonButton
+        className="edit-btn"
+        color="darkgreen"
+        onClick={() => {
+          deleteUser(user.id);
+        }}
+      >
+        Edit
+      </IonButton>
+      <IonButton
+        className="edit-btn"
+        color="darkgreen"
+        onClick={() => {
+          deleteUser(user.id);
+        }}
+      >
+        Delete
+      </IonButton>
+    </IonRow>
+  );
+
+  const [present, dismiss] = useIonPopover(Popover, {
+    onDismiss: (data, role) => dismiss(data, role),
+    // translucent: true
+    // mode: 'md'
+    // color: 'darkgreen'
+  });
+  const [roleMsg, setRoleMsg] = useState("");
+
   return (
     <IonPage>
       <IonContent className="feed-content" fullscreen>
         <IonRow className="search-row">
           <IonCol>
-            {" "}
             <IonLabel color="smoke">Feed</IonLabel>
           </IonCol>
-          <IonIcon icon={addCircleSharp}></IonIcon>
+          <IonButton color="transparent" onClick={openNew} className="add-btn">
+            <IonIcon
+              style={{ height: 40, width: 40 }}
+              icon={addCircleSharp}
+            ></IonIcon>
+          </IonButton>
         </IonRow>
-
         <IonGrid className="feed-grid">
-          <input
-            type="file"
-            accept="image/*"
-            id="photo"
-            onChange={(e) => setImg(e.target.files[0])}
-            
-          />
-          <img src={img}  />
-          {/* <input type="file" onChange={handleChange} />
-          <button onClick={handleUplaod}>upload</button> */}
+          {users.map((user) => {
+            return (
+              <IonCard className="card-div">
+                <IonRow className="username-row">
+                  {" "}
+                  <IonCol className="username-col">
+                    <IonLabel className="card-subtitle" color="smoke">
+                      {user.username}
+                    </IonLabel>
+                  </IonCol>
+                  <IonIcon
+                    onClick={(e) =>
+                      present({
+                        event: e,
+                        onDidDismiss: (e) =>
+                          setRoleMsg(
+                            `Popover dismissed with role: ${e.detail.role}`
+                          ),
+                      })
+                    }
+                    color="smoke"
+                    id="open-popover"
+                    icon={ellipsisVertical}
+                  ></IonIcon>
+                  {/* <IonPopover
+                    isOpen={popoverOpen}
+                    onDidDismiss={() => setPopoverOpen(false)}
+                  >
+                    <IonContent class="ion-padding">Hello World!</IonContent>
+                  </IonPopover> */}
+                </IonRow>
+                <IonImg src={user.img}></IonImg>
 
-          {/* <IonRow>{
-          {uploading <IonLoading isOpen={uploading } message="upload file"></IonLoading>}}
-          </IonRow>
-
-          <input type="file" onChange={(e) => setHandler(e.target.files[0])} />
-          <p>Selected File {handler?.name}</p>
-          <IonButton onClick={uploadFile}>upload</IonButton>
-          <img src={currentURL} width="300" /> */}
-
-          <IonCard className="feed-card" color="darkgreen">
-            <IonRow className="danni-row">
-              <IonImg
-                className="danni-img"
-                src="assets/images/pro7.jpg"
-              ></IonImg>
-              <IonCol className="col1">
-                <IonLabel color="smoke" className="danni-label">
-                  Danni Hopkins
-                </IonLabel>
-                <IonLabel color="smoke" className="danni-label">
-                  @dannihopkins717
-                </IonLabel>
-              </IonCol>
-              <IonIcon
-                className="menu-icon"
-                color="light"
-                icon={ellipsisVertical}
-              ></IonIcon>
-            </IonRow>
-            <IonImg src="assets/images/img9.jpg"></IonImg>
-            <IonRow>
-              <IonIcon className="heart-icon" icon={heart}></IonIcon>
-              <IonIcon className="comment-icon" icon={chatbubble}></IonIcon>
-              <IonCol className="icon-col">
-                <IonIcon className="comment-icon" icon={bookmark}></IonIcon>
-              </IonCol>
-            </IonRow>
-          </IonCard>
-          <IonCard className="feed-card" color="darkgreen">
-            <IonRow className="danni-row">
-              <IonImg
-                className="danni-img"
-                src="assets/images/pro7.jpg"
-              ></IonImg>
-              <IonCol className="col1">
-                <IonLabel color="smoke" className="danni-label">
-                  Danni Hopkins
-                </IonLabel>
-                <IonLabel color="smoke" className="danni-label">
-                  @dannihopkins717
-                </IonLabel>
-              </IonCol>
-              <IonIcon
-                className="menu-icon"
-                color="light"
-                icon={ellipsisVertical}
-              ></IonIcon>
-            </IonRow>
-            <IonImg src="assets/images/lens1.jpg"></IonImg>
-            <IonRow>
-              <IonIcon className="heart-icon" icon={heart}></IonIcon>
-              <IonIcon className="comment-icon" icon={chatbubble}></IonIcon>
-              <IonCol className="icon-col">
-                <IonIcon className="comment-icon" icon={bookmark}></IonIcon>
-              </IonCol>
-            </IonRow>
-          </IonCard>
-          <IonCard className="feed-card" color="darkgreen">
-            <IonRow className="danni-row">
-              <IonImg
-                className="danni-img"
-                src="assets/images/pro3.jpg"
-              ></IonImg>
-              <IonCol className="col1">
-                <IonLabel color="smoke" className="danni-label">
-                  Danni Hopkins
-                </IonLabel>
-                <IonLabel color="smoke" className="danni-label">
-                  @dannihopkins717
-                </IonLabel>
-              </IonCol>
-              <IonIcon
-                className="menu-icon"
-                color="light"
-                icon={ellipsisVertical}
-              ></IonIcon>
-            </IonRow>
-            <IonImg src="assets/images/img9.jpg"></IonImg>
-            <IonRow>
-              <IonIcon className="heart-icon" icon={heart}></IonIcon>
-              <IonIcon className="comment-icon" icon={chatbubble}></IonIcon>
-              <IonCol className="icon-col">
-                <IonIcon className="comment-icon" icon={bookmark}></IonIcon>
-              </IonCol>
-            </IonRow>
-          </IonCard>
-          <IonCard className="feed-card" color="darkgreen">
-            <IonRow className="danni-row">
-              <IonImg
-                className="danni-img"
-                src="assets/images/pro7.jpg"
-              ></IonImg>
-              <IonCol className="col1">
-                <IonLabel color="smoke" className="danni-label">
-                  Danni Hopkins
-                </IonLabel>
-                <IonLabel color="smoke" className="danni-label">
-                  @dannihopkins717
-                </IonLabel>
-              </IonCol>
-              <IonIcon
-                className="menu-icon"
-                color="light"
-                icon={ellipsisVertical}
-              ></IonIcon>
-            </IonRow>
-            <IonImg src="assets/images/img9.jpg"></IonImg>
-            <IonRow>
-              <IonIcon className="heart-icon" icon={heart}></IonIcon>
-              <IonIcon className="comment-icon" icon={chatbubble}></IonIcon>
-              <IonCol className="icon-col">
-                <IonIcon className="comment-icon" icon={bookmark}></IonIcon>
-              </IonCol>
-            </IonRow>
-          </IonCard>
+                <IonCardContent className="card-caption">
+                  {user.caption}
+                </IonCardContent>
+              </IonCard>
+            );
+          })}
         </IonGrid>
       </IonContent>
     </IonPage>

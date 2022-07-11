@@ -59,7 +59,7 @@ const Tab1 = () => {
                 Hey how r u?
               </IonLabel>
             </IonCol>
-            <IonLabel color="smoke" className="danni-label">
+            <IonLabel  color="smoke" className="danni-label">
               08:45
             </IonLabel>
           </IonRow>

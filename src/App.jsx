@@ -41,6 +41,9 @@ import { AuthContextProvider } from "./context/AuthContext";
 import Tab1 from "./pages/Home/HomeChats/Tab1";
 import Tab2 from "./pages/Home/Feed/Tab2";
 import Tab3 from "./pages/Home/Settings/Tab3";
+import Newuser from "./pages/Home/Feed/new/Newuser"
+import { userInputs } from "./formSource";
+// import New from "./pages/Home/new/New";
 setupIonicReact();
 
 const App = () => (
@@ -68,6 +71,9 @@ const App = () => (
           </Route>
           <Route  path="/signup">
             <Signup />
+          </Route>
+          <Route  path="/new">
+            <Newuser inputs={userInputs} title="New post"  />
           </Route>
           <Route exact path="/">
             <Redirect to="/getstarted" />
