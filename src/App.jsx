@@ -31,8 +31,6 @@ import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 import Getstarted from "./pages/Getstarted/getstarted";
-
-/* Theme variables */
 import "./theme/variables.css";
 import Home from "./pages/Home";
 import Login from "./pages/Login/Login";
@@ -41,9 +39,8 @@ import { AuthContextProvider } from "./context/AuthContext";
 import Tab1 from "./pages/Home/HomeChats/Tab1";
 import Tab2 from "./pages/Home/Feed/Tab2";
 import Tab3 from "./pages/Home/Settings/Tab3";
-import Newuser from "./pages/Home/Feed/new/Newuser"
+import Newuser from "./pages/Home/Feed/new/Newuser";
 import { userInputs } from "./formSource";
-// import New from "./pages/Home/new/New";
 setupIonicReact();
 
 const App = () => (
@@ -51,29 +48,29 @@ const App = () => (
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route  path="/home/tab1">
+          <Route path="/home/tab1">
             <Tab1 />
           </Route>
-          <Route  path="/home/tab2">
+          <Route path="/home/tab2">
             <Tab2 />
           </Route>
           <Route path="/home/tab3">
             <Tab3 />
           </Route>
-          <Route  path="/login">
+          <Route path="/login">
             <Login />
           </Route>
-          <Route  path="/home">
+          <Route path="/home">
             <Home />
           </Route>
-          <Route  path="/getstarted">
+          <Route path="/getstarted">
             <Getstarted />
           </Route>
-          <Route  path="/signup">
+          <Route path="/signup">
             <Signup />
           </Route>
-          <Route  path="/new">
-            <Newuser inputs={userInputs} title="New post"  />
+          <Route path="/new">
+            <Newuser inputs={userInputs} title="New post" />
           </Route>
           <Route exact path="/">
             <Redirect to="/getstarted" />

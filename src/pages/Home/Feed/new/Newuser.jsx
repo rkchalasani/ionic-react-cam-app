@@ -1,7 +1,4 @@
 import "./new.css";
-// import Sidebar from "../../components/sidebar/Sidebar";
-// import Navbar from "../../components/navbar/Navbar";
-// import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useEffect, useState } from "react";
 import {
   addDoc,
@@ -14,7 +11,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { auth, db, storage } from "../../../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-// import { useNavigate } from "react-router-dom";
 import {
   IonBackButton,
   IonButton,
@@ -34,7 +30,6 @@ const New = ({ inputs, email, title }) => {
   const [file, setFile] = useState("");
   const [data, setData] = useState({});
   const [per, setPerc] = useState(null);
-  // const navigate = useNavigate()
   const router = useIonRouter();
   useEffect(() => {
     const uploadFile = () => {
@@ -74,9 +69,6 @@ const New = ({ inputs, email, title }) => {
     };
     file && uploadFile();
   }, [file]);
-
-  // console.log(data);
-
   const handleInput = (e) => {
     const id = e.target.id;
     const value = e.target.value;
@@ -84,7 +76,7 @@ const New = ({ inputs, email, title }) => {
     setData({ ...data, [id]: value });
   };
 
-  const handleAdd = async (e) => {
+  const handleAdd = async (e, id) => {
     e.preventDefault();
     try {
       await addDoc(collection(db, "users", auth.currentUser.uid, "posts"), {
@@ -123,7 +115,6 @@ const New = ({ inputs, email, title }) => {
           <IonRow className="left">
             <IonImg
               className="img"
-              // width="200px"
               height="400px"
               src={
                 file
@@ -135,15 +126,10 @@ const New = ({ inputs, email, title }) => {
           </IonRow>
           <form className="form" onSubmit={handleAdd}>
             <IonRow className="formInput">
-              {/* <IonLabel color='smoke' htmlFor="file">
-                image:
-              </IonLabel> */}
               <input
                 type="file"
-                // color="light"
                 id="file"
                 onChange={(e) => setFile(e.target.files[0])}
-                // style={{ display: "none" }}
               />
             </IonRow>
 

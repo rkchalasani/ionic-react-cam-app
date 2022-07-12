@@ -54,7 +54,6 @@ import {
   updateDoc,
   getDocs,
 } from "firebase/firestore";
-import { Link } from "react-router-dom";
 
 const Tab2 = () => {
   const [img, setImg] = useState();
@@ -62,8 +61,6 @@ const Tab2 = () => {
   const [apiData, setApiData] = useState([]);
   const [user, setUser] = useState();
   const [link, setLink] = useState();
-
-  // const [data, setData] = useState([]);
   const openNew = () => {
     router.push("/new");
     window.location.reload();
@@ -79,22 +76,13 @@ const Tab2 = () => {
     auth.currentUser.uid,
     "posts"
   );
-
-  const createUser = async () => {
-    await addDoc(usersCollectionRef, { name: newName, age: Number(newAge) });
-  };
-
-  // const updateUser = async (id, age) => {
-  //   const userDoc = doc(db, "users", auth.currentUser.uid, "details", id);
-  //   const newFields = { age: age + 1 };
-  //   await updateDoc(userDoc, newFields);
-  // };
-
   const deleteUser = async (id) => {
-    // const userDoc = doc(db, "users", auth.currentUser.uid, "posts", id);
-    // await deleteDoc(userDoc);
+    const userDoc = doc(db, "users", auth.currentUser.uid, "posts", id);
+    await deleteDoc(userDoc);
+    console.log("clicked");
   };
 
+  const [data, setData] = useState([]);
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
@@ -102,38 +90,17 @@ const Tab2 = () => {
     };
 
     getUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // const popover = useRef<HTMLIonPopoverElement>(null);
   const Popover = () => (
     <IonRow className="edit-delete">
-      {" "}
-      <IonButton
-        className="edit-btn"
-        color="darkgreen"
-        onClick={() => {
-          deleteUser(user.id);
-        }}
-      >
+      <IonItem color="smoke" onClick={() => {}}>
         Edit
-      </IonButton>
-      <IonButton
-        className="edit-btn"
-        color="darkgreen"
-        onClick={() => {
-          deleteUser(user.id);
-        }}
-      >
-        Delete
-      </IonButton>
+      </IonItem>
     </IonRow>
   );
 
   const [present, dismiss] = useIonPopover(Popover, {
     onDismiss: (data, role) => dismiss(data, role),
-    // translucent: true
-    // mode: 'md'
-    // color: 'darkgreen'
   });
   const [roleMsg, setRoleMsg] = useState("");
 
@@ -176,17 +143,19 @@ const Tab2 = () => {
                     id="open-popover"
                     icon={ellipsisVertical}
                   ></IonIcon>
-                  {/* <IonPopover
-                    isOpen={popoverOpen}
-                    onDidDismiss={() => setPopoverOpen(false)}
-                  >
-                    <IonContent class="ion-padding">Hello World!</IonContent>
-                  </IonPopover> */}
                 </IonRow>
                 <IonImg src={user.img}></IonImg>
 
                 <IonCardContent className="card-caption">
                   {user.caption}
+                  <IonButton
+                    color="smoke"
+                    onClick={() => {
+                      deleteUser(user.id);
+                    }}
+                  >
+                    Delete
+                  </IonButton>
                 </IonCardContent>
               </IonCard>
             );

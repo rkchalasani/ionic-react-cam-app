@@ -49,7 +49,6 @@ const Login = () => {
     });
   }
   const router = useIonRouter();
-  // const {dispatch} = useContext(AuthContext)
   const handleSubmit = async (e) => {
     var atposition = email.indexOf("@");
     var dotposition = email.lastIndexOf(".");
@@ -65,12 +64,7 @@ const Login = () => {
       handleButtonClick("Please enter correct email");
     } else {
       try {
-        await signIn(email, password)
-        // .then((userCredential) => {
-        //   // Signed in
-        //   const user = userCredential.user;
-        //   dispatch({type:"LOGIN", payload:user})
-        // })
+        await signIn(email, password);
         handleButtonClick("Login successful");
         setEmail("");
         setPassword("");
