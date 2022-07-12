@@ -202,6 +202,13 @@
   margin-top: 20px;
   width: 120px;
   border-radius: 10px;
+  /* background-color: #24383f; */
+}
+.loginbtn-row{
+  
+  display: flex;
+  justify-content: center;
+
 }
 .signuppage-joinbutton {
   margin-top: 25px;

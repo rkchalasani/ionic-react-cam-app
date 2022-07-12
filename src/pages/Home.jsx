@@ -15,6 +15,7 @@ import {
   call,
   chatbox,
   home,
+  homeSharp,
   settings,
   settingsSharp,
 } from "ionicons/icons";
@@ -36,12 +37,12 @@ const Home = () => {
           <IonRouterOutlet>
             <Route path="/home/tab1">
               <ProtectedRoute>
-                <Tab1 />
+                <Tab2 />
               </ProtectedRoute>
             </Route>
             <Route path="/home/tab2">
               <ProtectedRoute>
-                <Tab2 />
+                <Tab1 />
               </ProtectedRoute>
             </Route>
             <Route path="/home/tab3">
@@ -60,12 +61,12 @@ const Home = () => {
             </Route>
           </IonRouterOutlet>
           <IonTabBar className="tabbar-div" slot="bottom" color="darkgreen">
-            <IonTabButton tab="tab1" href="/home/tab1">
+          <IonTabButton tab="tab2" href="/home/tab1">
+              <IonIcon icon={home} />
+            </IonTabButton>
+            <IonTabButton tab="tab1" href="/home/tab2">
               <IonIcon icon={chatbox} />
-            </IonTabButton>
-            <IonTabButton tab="tab2" href="/home/tab2">
-              <IonIcon icon={albums} />
-            </IonTabButton>
+            </IonTabButton>         
             <IonTabButton tab="tab3" href="/home/tab3">
               <IonIcon icon={settingsSharp} />
             </IonTabButton>

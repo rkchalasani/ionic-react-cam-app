@@ -17,7 +17,7 @@ import {
 import "./Login.css";
 import { UserAuth } from "../../context/AuthContext";
 import { useIonRouter } from "@ionic/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { alert } from "ionicons/icons";
 const Login = () => {
   const { signIn, user } = UserAuth();
@@ -49,7 +49,21 @@ const Login = () => {
     });
   }
   const router = useIonRouter();
-  const handleSubmit = async (e) => {
+
+  function simulateNetworkRequest() {
+    return new Promise((resolve) => setTimeout(resolve, 2000));
+  }
+  const [isLoading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (isLoading) {
+      simulateNetworkRequest().then(() => {
+        setLoading(false);
+      });
+    }
+  }, [isLoading]);
+  const handleClick = async (e) => {
+
     var atposition = email.indexOf("@");
     var dotposition = email.lastIndexOf(".");
     if (email == null || email === "" || password == null || password === "") {
@@ -64,10 +78,13 @@ const Login = () => {
       handleButtonClick("Please enter correct email");
     } else {
       try {
+        setLoading(true);
         await signIn(email, password);
+   
         handleButtonClick("Login successful");
         setEmail("");
         setPassword("");
+     
         router.push("/home");
       } catch (e) {
         setError(e.message);
@@ -76,6 +93,8 @@ const Login = () => {
     }
   };
 
+
+  // const  = () => setLoading(true);
   return (
     <IonPage>
       <IonContent fullscreen className="login-main-div">
@@ -107,13 +126,15 @@ const Login = () => {
             ></IonInput>
             <IonLabel className="forgottext">Forgot Password</IonLabel>
           </IonRow>
-          <IonRow>
+          <IonRow className="loginbtn-row">
             <IonButton
-              onClick={handleSubmit}
+              // onClick={handleClick}
               color="smoke"
-              className="loginbutton"
+              className="loginbutton  "
+              disabled={isLoading}
+              onClick={!isLoading ? handleClick : null}
             >
-              Login
+              {isLoading ? "Logging in.." : "Login"}
             </IonButton>
           </IonRow>
           <IonRow className="create-acc-row">

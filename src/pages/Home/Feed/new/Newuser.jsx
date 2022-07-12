@@ -83,7 +83,7 @@ const New = ({ inputs, email, title }) => {
         ...data,
         timeStamp: serverTimestamp(),
       });
-      router.push("/home/tab2");
+      router.push("/home/tab1");
     } catch (err) {
       console.log(err);
     }
@@ -102,7 +102,7 @@ const New = ({ inputs, email, title }) => {
             <IonButton
               color="transparent"
               className="back-btn"
-              routerLink="/home/tab2"
+              routerLink="/home/tab1"
             >
               {" "}
               <IonIcon

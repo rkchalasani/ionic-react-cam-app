@@ -48,12 +48,16 @@ const App = () => (
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route path="/home/tab1">
-            <Tab1 />
-          </Route>
-          <Route path="/home/tab2">
-            <Tab2 />
-          </Route>
+        <Route path="/home/tab1">
+              {/* <ProtectedRoute> */}
+                <Tab2 />
+              {/* </ProtectedRoute> */}
+            </Route>
+            <Route path="/home/tab2">
+              {/* <ProtectedRoute> */}
+                <Tab1 />
+              {/* </ProtectedRoute> */}
+            </Route>
           <Route path="/home/tab3">
             <Tab3 />
           </Route>

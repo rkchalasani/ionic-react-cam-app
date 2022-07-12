@@ -22,17 +22,7 @@
       fixed;
   z-index: -999; */
 }
-.search-row {
-  color: white;
-  font-size: 2rem;
-  display: flex;
-  justify-content: center;
-  padding-left: 5%;
-  padding-right: 5%;
-  padding-top: 7%;
-  padding-bottom: 5%;
-  align-items: center;
-}
+
 .card-class {
   display: flex;
   flex-direction: column;

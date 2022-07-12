@@ -30,12 +30,16 @@ import {
 } from "@ionic/react";
 import {
   add,
+  addCircleOutline,
   addCircleSharp,
+  addOutline,
   bookmark,
   chatbubble,
   ellipsisVertical,
   heart,
   menu,
+  personAddOutline,
+  personOutline,
   search,
 } from "ionicons/icons";
 import { userColumns, userRows } from "../../../datatablesource";
@@ -54,6 +58,7 @@ import {
   updateDoc,
   getDocs,
 } from "firebase/firestore";
+import Posts from "./posts/posts";
 
 const Tab2 = () => {
   const [img, setImg] = useState();
@@ -96,6 +101,14 @@ const Tab2 = () => {
       <IonItem color="smoke" onClick={() => {}}>
         Edit
       </IonItem>
+      <IonButton
+        color="smoke"
+        onClick={() => {
+          deleteUser(user.id);
+        }}
+      >
+        Delete
+      </IonButton>
     </IonRow>
   );
 
@@ -106,61 +119,82 @@ const Tab2 = () => {
 
   return (
     <IonPage>
+      <IonHeader>
+        <IonToolbar color="darkgreen">
+          <IonRow className="search-row1">
+            {/* <IonCol>
+              <IonImg
+                style={{ height: 30, width: 30, }}
+                src="assets/images/pro1.jpg "
+              ></IonImg>
+            </IonCol> */}
+            <IonCol className="col2">
+              <IonImg
+                style={{ height: 45}}
+                src="assets/images/Group 22.png "
+              ></IonImg>
+            </IonCol>
+            {/* <IonCol className="col3"> */}
+            {/* <IonButton
+              color="smoke"
+              onClick={openNew}
+              // className="add-btn"
+            > */}
+              <IonIcon
+              className="icon"
+               onClick={openNew}
+                // style={{ height: 30, width: 30 }}
+                icon={addCircleOutline}
+              ></IonIcon>
+               <IonIcon
+                             className="icon"
+               onClick={openNew}
+                style={{ height: 27, width: 27 }}
+                icon={personOutline}
+              ></IonIcon>
+            {/* </IonButton> */}
+            {/* </IonCol> */}
+            {/*  */}
+          </IonRow>
+        </IonToolbar>
+      </IonHeader>
       <IonContent className="feed-content" fullscreen>
-        <IonRow className="search-row">
-          <IonCol>
-            <IonLabel color="smoke">Feed</IonLabel>
-          </IonCol>
-          <IonButton color="transparent" onClick={openNew} className="add-btn">
-            <IonIcon
-              style={{ height: 40, width: 40 }}
-              icon={addCircleSharp}
-            ></IonIcon>
-          </IonButton>
-        </IonRow>
-        <IonGrid className="feed-grid">
-          {users.map((user) => {
-            return (
-              <IonCard className="card-div">
-                <IonRow className="username-row">
-                  {" "}
-                  <IonCol className="username-col">
-                    <IonLabel className="card-subtitle" color="smoke">
-                      {user.username}
-                    </IonLabel>
-                  </IonCol>
-                  <IonIcon
-                    onClick={(e) =>
-                      present({
-                        event: e,
-                        onDidDismiss: (e) =>
-                          setRoleMsg(
-                            `Popover dismissed with role: ${e.detail.role}`
-                          ),
-                      })
-                    }
-                    color="smoke"
-                    id="open-popover"
-                    icon={ellipsisVertical}
-                  ></IonIcon>
-                </IonRow>
-                <IonImg src={user.img}></IonImg>
+        {/* <IonGrid className="feed-grid"> */}
+        {users.map((user) => {
+          return (
+            <IonCard  className="feed-grid">
+              <IonRow className="username-row">
+                <IonCol className="username-col">
+                  <IonLabel className="card-subtitle" color="smoke">
+                    {user.username}
+                  </IonLabel>
+                  <IonLabel className="card-caption">
+                {user.caption}
+              </IonLabel>
+                </IonCol>
+                <IonIcon
+                  onClick={(e) =>
+                    present({
+                      event: e,
+                      onDidDismiss: (e) =>
+                        setRoleMsg(
+                          `Popover dismissed with role: ${e.detail.role}`
+                        ),
+                    })
+                  }
+                  color="smoke"
+                  id="open-popover"
+                  icon={ellipsisVertical}
+                ></IonIcon>
+              </IonRow>
+              <IonImg src={user.img}></IonImg>
 
-                <IonCardContent className="card-caption">
-                  {user.caption}
-                  <IonButton
-                    color="smoke"
-                    onClick={() => {
-                      deleteUser(user.id);
-                    }}
-                  >
-                    Delete
-                  </IonButton>
-                </IonCardContent>
-              </IonCard>
-            );
-          })}
-        </IonGrid>
+              
+            </IonCard>
+          );
+        })}
+        {/* <Posts /> */}
+        {/* </IonGrid> */}
       </IonContent>
     </IonPage>
   );
