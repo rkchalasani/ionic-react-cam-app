@@ -12,7 +12,9 @@ import {
   IonTitle,
   IonToolbar,
   useIonAlert,
+  useIonLoading,
   useIonToast,
+  useIonViewWillEnter,
 } from "@ionic/react";
 import "./Login.css";
 import { UserAuth } from "../../context/AuthContext";
@@ -24,9 +26,18 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [present, dismiss] = useIonToast();
+  const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
+  const [show, dismiss] = useIonLoading();
 
+  async function handleLoading(message) {
+    show({
+      message: message,
+      duration: 1500,
+      spinner: "lines-sharp",
+      mode: "ios",
+    });
+  }
   async function handleButtonClick(message) {
     present({
       message: message,
@@ -63,7 +74,7 @@ const Login = () => {
     }
   }, [isLoading]);
   const handleClick = async (e) => {
-
+    // handleLoading("Logging in..");
     var atposition = email.indexOf("@");
     var dotposition = email.lastIndexOf(".");
     if (email == null || email === "" || password == null || password === "") {
@@ -80,19 +91,28 @@ const Login = () => {
       try {
         setLoading(true);
         await signIn(email, password);
-   
-        handleButtonClick("Login successful");
+        handleLoading("Logging in..");
         setEmail("");
         setPassword("");
-     
-        router.push("/home");
+        setTimeout(() => {
+          router.push("/home");
+          handleButtonClick("Login successful");
+        }, 1510);
       } catch (e) {
         setError(e.message);
         handleAlert(e.message);
       }
     }
   };
+  const hideTabs = () => {
+    const tabsEl = document.querySelector("ion-tab-bar");
 
+    if (tabsEl) {
+      tabsEl.hidden = true;
+    }
+  };
+
+  useIonViewWillEnter(() => hideTabs());
 
   // const  = () => setLoading(true);
   return (
@@ -128,13 +148,13 @@ const Login = () => {
           </IonRow>
           <IonRow className="loginbtn-row">
             <IonButton
-              // onClick={handleClick}
+              onClick={handleClick}
               color="smoke"
               className="loginbutton  "
-              disabled={isLoading}
-              onClick={!isLoading ? handleClick : null}
+              // disabled={isLoading}
+              // onClick={!isLoading ? handleClick : null}
             >
-              {isLoading ? "Logging in.." : "Login"}
+              {/* {isLoading ? "Logging in.." : "Login"} */}Login
             </IonButton>
           </IonRow>
           <IonRow className="create-acc-row">

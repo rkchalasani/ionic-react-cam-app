@@ -17,6 +17,8 @@ import {
 import { useState } from "react";
 import { UserAuth } from "../../context/AuthContext";
 import { alert } from "ionicons/icons";
+import { updateEmail, updateProfile } from "firebase/auth";
+import { auth } from "../../firebase";
 const Signup = () => {
   const [present, dismiss] = useIonToast();
   async function handleButtonClick(message) {
@@ -69,6 +71,11 @@ const Signup = () => {
     } else {
       try {
         await createUser(email, password);
+        await updateProfile(auth.currentUser,{
+          displayName : name
+        }).catch((e)=>{
+          handleAlert(e.message);
+        })
         handleButtonClick("User successfully registered");
         logout();
         setName("");
@@ -97,7 +104,7 @@ const Signup = () => {
             <IonInput
               onIonChange={(e) => setName(e.detail.value)}
               className="signup-name-input"
-              placeholder="Name"
+              placeholder="Username"
               color="darkgreen"
             ></IonInput>
             <IonInput

@@ -41,6 +41,7 @@ import Tab2 from "./pages/Home/Feed/Tab2";
 import Tab3 from "./pages/Home/Settings/Tab3";
 import Newuser from "./pages/Home/Feed/new/Newuser";
 import { userInputs } from "./formSource";
+import Profile from "./pages/Home/Feed/posts/profile";
 setupIonicReact();
 
 const App = () => (
@@ -48,16 +49,12 @@ const App = () => (
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
-        <Route path="/home/tab1">
-              {/* <ProtectedRoute> */}
-                <Tab2 />
-              {/* </ProtectedRoute> */}
-            </Route>
-            <Route path="/home/tab2">
-              {/* <ProtectedRoute> */}
-                <Tab1 />
-              {/* </ProtectedRoute> */}
-            </Route>
+          <Route path="/home/tab1">
+            <Tab2 />
+          </Route>
+          <Route path="/home/tab2">
+            <Tab1 />
+          </Route>
           <Route path="/home/tab3">
             <Tab3 />
           </Route>
@@ -75,6 +72,9 @@ const App = () => (
           </Route>
           <Route path="/new">
             <Newuser inputs={userInputs} title="New post" />
+          </Route>
+          <Route path="/profile">
+            <Profile />
           </Route>
           <Route exact path="/">
             <Redirect to="/getstarted" />

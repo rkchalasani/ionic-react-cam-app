@@ -1,30 +1,38 @@
-import "./new.css";
+import "./post.css";
 import { useEffect, useState } from "react";
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
+  getDocs,
   serverTimestamp,
   setDoc,
+  updateDoc,
 } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { auth, db, storage } from "../../../../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {
+  IonAvatar,
   IonBackButton,
   IonButton,
+  IonCard,
   IonCol,
   IonContent,
   IonGrid,
   IonIcon,
   IonImg,
+  IonItem,
   IonLabel,
   IonPage,
   IonRow,
+  useIonPopover,
   useIonRouter,
 } from "@ionic/react";
-import { arrowBackCircle, backspace } from "ionicons/icons";
+import { arrowBackCircle, backspace, ellipsisVertical } from "ionicons/icons";
+import { UserAuth } from "../../../../context/AuthContext";
 
 const New = ({ inputs, email, title }) => {
   const [file, setFile] = useState("");
@@ -79,16 +87,60 @@ const New = ({ inputs, email, title }) => {
   const handleAdd = async (e, id) => {
     e.preventDefault();
     try {
-      await addDoc(collection(db, "feed"), {
+      await addDoc(collection(db, "myuser", auth.currentUser.uid, "propic"), {
         ...data,
         timeStamp: serverTimestamp(),
       });
-      router.push("/home/tab1");
+      // router.push("/profile");
     } catch (err) {
       console.log(err);
     }
   };
+  const { user } = UserAuth();
 
+  const [users, setUsers] = useState([]);
+  const usersCollectionRef = collection(
+    db,
+    "myuser",
+    auth.currentUser.uid,
+    "propic"
+  );
+  const deleteUser = async (id) => {
+    const userDoc = doc(db, "myuser",auth.currentUser.uid);
+    await deleteDoc(userDoc);
+    console.log("clicked");
+  };
+
+  // const [data, setData] = useState([]);
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+
+    getUsers();
+  }, []);
+  const Popover = () => (
+    <IonRow className="edit-delete">
+      <IonItem color="smoke" onClick={() => {}}>
+        Edit
+      </IonItem>
+      <IonButton
+        color="smoke"
+        onClick={() => {
+          deleteUser(user.id);
+        }}
+      >
+        Delete
+      </IonButton>
+    </IonRow>
+  );
+
+
+  const [present, dismiss] = useIonPopover(Popover, {
+    onDismiss: (data, role) => dismiss(data, role),
+  });
+  const [roleMsg, setRoleMsg] = useState("");
   return (
     <IonPage>
       <IonContent className="new-content">
@@ -118,8 +170,8 @@ const New = ({ inputs, email, title }) => {
               height="400px"
               src={
                 file
-                  ? URL.createObjectURL(file)
-                  : "https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png"
+                // ? URL.createObjectURL(file)
+                // : "https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png"
               }
               alt=""
             />
@@ -132,22 +184,16 @@ const New = ({ inputs, email, title }) => {
                 onChange={(e) => setFile(e.target.files[0])}
               />
             </IonRow>
-
-            {inputs.map((input) => (
-              <IonRow className="formInput dynamic" key={input.id}>
-                <IonLabel color="smoke">{input.label}</IonLabel>
-                <input
-                  id={input.id}
-                  type={input.type}
-                  placeholder={input.placeholder}
-                  onChange={handleInput}
-                  className="form-control"
-                />
-              </IonRow>
-            ))}
             <IonButton color="smoke" type="submit">
               Post
             </IonButton>
+            {users.map((user) => {
+              return (
+                <IonCard className="feed-grid">
+                  <IonImg className="post" src={user.img}></IonImg>
+                </IonCard>
+              );
+            })} 
           </form>
         </IonGrid>
       </IonContent>

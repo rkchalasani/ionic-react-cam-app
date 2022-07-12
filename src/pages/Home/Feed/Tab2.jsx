@@ -35,6 +35,8 @@ import {
   addOutline,
   bookmark,
   chatbubble,
+  checkmarkCircleOutline,
+  closeCircleOutline,
   ellipsisVertical,
   heart,
   menu,
@@ -58,16 +60,23 @@ import {
   updateDoc,
   getDocs,
 } from "firebase/firestore";
-import Posts from "./posts/posts";
+import Posts from "./posts/profile";
+import { UserAuth } from "../../../context/AuthContext";
+import { updateProfile } from "firebase/auth";
 
 const Tab2 = () => {
+  const { user } = UserAuth();
   const [img, setImg] = useState();
   const router = useIonRouter();
   const [apiData, setApiData] = useState([]);
-  const [user, setUser] = useState();
+  // const [user, setUser] = useState();
   const [link, setLink] = useState();
   const openNew = () => {
     router.push("/new");
+    window.location.reload();
+  };
+  const openProfile = () => {
+    router.push("/profile");
     window.location.reload();
   };
   const [newName, setNewName] = useState("");
@@ -77,12 +86,10 @@ const Tab2 = () => {
   const [users, setUsers] = useState([]);
   const usersCollectionRef = collection(
     db,
-    "users",
-    auth.currentUser.uid,
-    "posts"
+    "feed"
   );
   const deleteUser = async (id) => {
-    const userDoc = doc(db, "users", auth.currentUser.uid, "posts", id);
+    const userDoc = doc(db, "feed" );
     await deleteDoc(userDoc);
     console.log("clicked");
   };
@@ -111,7 +118,33 @@ const Tab2 = () => {
       </IonButton>
     </IonRow>
   );
+  const user_id = user.uid;
+  const [uname, setUname] = useState(user.displayName);
+  const [isUpdate, setIsUpdate] = useState(false);
+  const handleUpdate = async () => {
+    const userRef = doc(db, "users", user_id);
 
+    try {
+      await updateProfile(auth.currentUser, {
+        displayName: uname,
+      })
+        .then(() => {
+          console.log(auth.currentUser.displayName);
+        })
+        .catch((error) => {
+          // handleAlert(error.message);
+        });
+
+      await updateDoc(userRef, {
+        name: uname,
+      });
+      // handleToast("Name has been Successfully Updated!");
+
+      setIsUpdate(false);
+    } catch (error) {
+      // handleAlert(error.message);
+    }
+  };
   const [present, dismiss] = useIonPopover(Popover, {
     onDismiss: (data, role) => dismiss(data, role),
   });
@@ -122,55 +155,43 @@ const Tab2 = () => {
       <IonHeader>
         <IonToolbar color="darkgreen">
           <IonRow className="search-row1">
-            {/* <IonCol>
-              <IonImg
-                style={{ height: 30, width: 30, }}
-                src="assets/images/pro1.jpg "
-              ></IonImg>
-            </IonCol> */}
             <IonCol className="col2">
               <IonImg
-                style={{ height: 45}}
+                style={{ height: 45 }}
                 src="assets/images/Group 22.png "
               ></IonImg>
             </IonCol>
-            {/* <IonCol className="col3"> */}
-            {/* <IonButton
-              color="smoke"
-              onClick={openNew}
-              // className="add-btn"
-            > */}
-              <IonIcon
+            <IonIcon
               className="icon"
-               onClick={openNew}
-                // style={{ height: 30, width: 30 }}
-                icon={addCircleOutline}
-              ></IonIcon>
-               <IonIcon
-                             className="icon"
-               onClick={openNew}
-                style={{ height: 27, width: 27 }}
-                icon={personOutline}
-              ></IonIcon>
-            {/* </IonButton> */}
-            {/* </IonCol> */}
-            {/*  */}
+              style={{ height: 27, width: 27 }}
+              onClick={openNew}
+              icon={addCircleOutline}
+            ></IonIcon>
+            <IonIcon
+              className="icon"
+              onClick={openProfile}
+              style={{ height: 23, width: 23 }}
+              icon={personOutline}
+            ></IonIcon>
           </IonRow>
         </IonToolbar>
       </IonHeader>
       <IonContent className="feed-content" fullscreen>
-        {/* <IonGrid className="feed-grid"> */}
-        {users.map((user) => {
+      {/* <IonLabel className="Profile-name"></IonLabel> */}
+        {users.map((currentUser) => {
           return (
-            <IonCard  className="feed-grid">
+            <IonCard className="feed-grid">
+
               <IonRow className="username-row">
+              <IonAvatar className="img-row">
+                <IonImg className="pro-img" src="assets/images/pro1.jpg"></IonImg>
+               
+              </IonAvatar>
                 <IonCol className="username-col">
                   <IonLabel className="card-subtitle" color="smoke">
-                    {user.username}
+                    {user.displayName}
                   </IonLabel>
-                  <IonLabel className="card-caption">
-                {user.caption}
-              </IonLabel>
+                  <IonLabel className="card-caption">{currentUser.caption}</IonLabel>
                 </IonCol>
                 <IonIcon
                   onClick={(e) =>
@@ -187,14 +208,10 @@ const Tab2 = () => {
                   icon={ellipsisVertical}
                 ></IonIcon>
               </IonRow>
-              <IonImg src={user.img}></IonImg>
-
-              
+              <IonImg className="post" src={currentUser.img}></IonImg>
             </IonCard>
           );
         })}
-        {/* <Posts /> */}
-        {/* </IonGrid> */}
       </IonContent>
     </IonPage>
   );

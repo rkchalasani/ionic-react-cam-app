@@ -35,6 +35,11 @@
 .danni-img {
   width: 50px;
   border-radius: 100px !important;
+  position: relative;
+  /* width: 200px;
+  height: 200px; */
+  overflow: hidden;
+  border-radius: 50%;
 }
 .danni-col {
   border-radius: 30px;

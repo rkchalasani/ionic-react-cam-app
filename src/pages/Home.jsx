@@ -28,6 +28,7 @@ import Chats from "./Home/Chats/chats";
 import "./Home.css";
 import Newuser from "./Home/Feed/new/Newuser";
 import ProtectedRoute from "../components/ProtectedRoute";
+import Profile from "./Home/Feed/posts/profile";
 
 const Home = () => {
   return (
@@ -59,6 +60,9 @@ const Home = () => {
             <Route path="/new">
               <Newuser />
             </Route>
+            <Route path="/profile">
+            <Profile />
+          </Route>
           </IonRouterOutlet>
           <IonTabBar className="tabbar-div" slot="bottom" color="darkgreen">
           <IonTabButton tab="tab2" href="/home/tab1">

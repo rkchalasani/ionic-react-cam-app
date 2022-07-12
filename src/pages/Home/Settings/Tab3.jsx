@@ -5,11 +5,13 @@ import {
   IonGrid,
   IonHeader,
   IonIcon,
+  IonImg,
   IonLabel,
   IonPage,
   IonRow,
   IonTitle,
   IonToolbar,
+  useIonLoading,
   useIonRouter,
   useIonToast,
 } from "@ionic/react";
@@ -21,28 +23,41 @@ import {
   person,
   thermometer,
 } from "ionicons/icons";
+// import { setTimeout } from "timers";
 import { UserAuth } from "../../../context/AuthContext";
 import "./Tab3.css";
 
 const Tab3 = () => {
   const { logout } = UserAuth();
   const router = useIonRouter();
-  const [present, dismiss] = useIonToast();
+  const [present] = useIonToast();
+  const [show, dismiss] = useIonLoading();
+  async function handleLoading(message) {
+    show({
+      message: message,
+      duration: 1500,
+      spinner: "circular",
+      mode: "ios",
+    });
+  }
   async function handleButtonClick(m) {
     present({
       message: m,
       duration: 2000,
       position: "top",
-      color: "darkgreen",
+      color: "smoke",
       mode: "ios",
       icon: alert,
     });
   }
-  const handleLogout = async () => {
+  const handleLogout = () => {
     try {
-      await logout();
+      handleLoading("Logging Out..");
+      logout();
+      setTimeout(() => {
+        handleButtonClick("Logout Successfull");
+      }, 2000);
       router.push("/login");
-      window.location.reload();
     } catch (e) {
       console.log(e.message);
     }
@@ -56,6 +71,7 @@ const Tab3 = () => {
             <IonLabel color="smoke">Settings</IonLabel>
           </IonCol>
         </IonRow>
+
         <IonGrid className="settings-grid">
           <IonRow className="settings-row1">
             <IonIcon color="light" icon={person}></IonIcon>
