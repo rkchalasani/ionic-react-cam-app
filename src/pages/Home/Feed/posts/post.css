@@ -63,13 +63,11 @@
   border-radius: 8px;
   margin-right: 10px;
 }
-.img6{
-    position: relative;
-    width: 200px;
-    height: 200px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
+.img-row1{
+   display: flex;
+   justify-content: center;
+}
+.avatar{
+  width: 200px;
+  height: 200px;
 }

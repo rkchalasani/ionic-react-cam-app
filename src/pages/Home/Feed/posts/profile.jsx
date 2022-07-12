@@ -91,7 +91,7 @@ const New = ({ inputs, email, title }) => {
         ...data,
         timeStamp: serverTimestamp(),
       });
-      // router.push("/profile");
+      router.push('/home/tab1')
     } catch (err) {
       console.log(err);
     }
@@ -105,11 +105,11 @@ const New = ({ inputs, email, title }) => {
     auth.currentUser.uid,
     "propic"
   );
-  const deleteUser = async (id) => {
-    const userDoc = doc(db, "myuser",auth.currentUser.uid);
-    await deleteDoc(userDoc);
-    console.log("clicked");
-  };
+  // const deleteUser = async (id) => {
+  //   const userDoc = doc(db, "myuser",auth.currentUser.uid);
+  //   await deleteDoc(userDoc);
+  //   console.log("clicked");
+  // };
 
   // const [data, setData] = useState([]);
   useEffect(() => {
@@ -125,17 +125,16 @@ const New = ({ inputs, email, title }) => {
       <IonItem color="smoke" onClick={() => {}}>
         Edit
       </IonItem>
-      <IonButton
+      {/* <IonButton
         color="smoke"
         onClick={() => {
           deleteUser(user.id);
         }}
       >
         Delete
-      </IonButton>
+      </IonButton> */}
     </IonRow>
   );
-
 
   const [present, dismiss] = useIonPopover(Popover, {
     onDismiss: (data, role) => dismiss(data, role),
@@ -164,6 +163,16 @@ const New = ({ inputs, email, title }) => {
               ></IonIcon>
             </IonButton>
           </IonRow>
+          {users.map((user) => {
+            return (
+              <IonRow className="img-row1">
+                {" "}
+                <IonAvatar className="avatar">
+                  <IonImg className="post" src={user.img}></IonImg>
+                </IonAvatar>
+              </IonRow>
+            );
+          })}
           <IonRow className="left">
             <IonImg
               className="img"
@@ -187,13 +196,6 @@ const New = ({ inputs, email, title }) => {
             <IonButton color="smoke" type="submit">
               Post
             </IonButton>
-            {users.map((user) => {
-              return (
-                <IonCard className="feed-grid">
-                  <IonImg className="post" src={user.img}></IonImg>
-                </IonCard>
-              );
-            })} 
           </form>
         </IonGrid>
       </IonContent>
