@@ -65,7 +65,7 @@ import { UserAuth } from "../../../context/AuthContext";
 import { updateProfile } from "firebase/auth";
 
 const Tab2 = () => {
-  const { user } = UserAuth();
+  const { user, userlist, setUserlist } = UserAuth();
   const [img, setImg] = useState();
   const router = useIonRouter();
   const [apiData, setApiData] = useState([]);
@@ -86,7 +86,7 @@ const Tab2 = () => {
   const [users, setUsers] = useState([]);
   const usersCollectionRef = collection(
     db,
-    "feed"
+    "users",auth.currentUser.uid, "posts"
   );
   const deleteUser = async (id) => {
     const userDoc = doc(db, "feed" );
@@ -96,6 +96,7 @@ const Tab2 = () => {
 
   const [data, setData] = useState([]);
   useEffect(() => {
+ 
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
       setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
@@ -179,7 +180,9 @@ const Tab2 = () => {
           </IonRow>
         </IonToolbar>
       </IonHeader>
-  
+      {/* {userlist.map((user) => {
+              return <IonLabel>{user.name}</IonLabel>;
+            })} */}
       <Posts/>
     </IonPage>
   );

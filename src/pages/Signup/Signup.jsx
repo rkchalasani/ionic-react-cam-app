@@ -11,6 +11,7 @@ import {
   IonTitle,
   IonToolbar,
   useIonAlert,
+  useIonLoading,
   useIonRouter,
   useIonToast,
 } from "@ionic/react";
@@ -20,7 +21,7 @@ import { alert } from "ionicons/icons";
 import { updateEmail, updateProfile } from "firebase/auth";
 import { auth } from "../../firebase";
 const Signup = () => {
-  const [present, dismiss] = useIonToast();
+  const [present] = useIonToast();
   async function handleButtonClick(message) {
     present({
       message: message,
@@ -48,6 +49,8 @@ const Signup = () => {
       mode: "ios",
     });
   }
+  const [show, dismiss] = useIonLoading();
+
   const handleSubmit = async () => {
     var atposition = email.indexOf("@");
     var dotposition = email.lastIndexOf(".");
@@ -71,17 +74,26 @@ const Signup = () => {
     } else {
       try {
         await createUser(email, password);
+        show({
+          message: "Registering user..",
+          duration: 1500,
+          spinner: "lines-sharp",
+          mode: "ios",
+        });
         await updateProfile(auth.currentUser, {
           displayName: name,
         }).catch((e) => {
           handleAlert(e.message);
         });
-        handleButtonClick("User successfully registered");
+        await addData(auth, email,name);
+        
         logout();
         setName("");
         setEmail("");
         setPassword("");
         router.push("/login");
+        setTimeout(() => {
+          handleButtonClick("User successfully registered");        }, 1510);
       } catch (e) {
         setError(e.message);
         handleAlert(e.message);

@@ -60,6 +60,8 @@ import {
   addDoc,
   updateDoc,
   getDocs,
+  query,
+  where,
 } from "firebase/firestore";
 //   import Posts from "./profile/profile";
 import { UserAuth } from "../../../../context/AuthContext";
@@ -68,61 +70,57 @@ import Propic from "../propic/propic";
 import Delbtn from "../delete/delbtn";
 
 const Tab2 = () => {
-  const { user } = UserAuth();
+  const { user, userlist, setUserList } = UserAuth();
   const [users, setUsers] = useState([]);
-  const usersCollectionRef = collection(db, "feed");
-  const deleteUser = async (id) => {
-    const userDoc = doc(db, "feed", id);
-    await deleteDoc(userDoc);
-    window.location.reload()
-    console.log("clicked");
-  };
+  const [userr, setUserr] = useState([]);
+
+  const usersCollectionRef = collection(
+    db,
+    "users",
+    auth.currentUser.uid,
+    "posts"
+  );
+  const userCollectionRef = collection(
+    db,
+    "users",
+    auth.currentUser.uid,
+    "profile"
+  );
 
   const [data, setData] = useState([]);
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
       setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      const dataa = await getDocs(userCollectionRef);
+      setUserr(dataa.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
 
     getUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const Popover = () => (
-    <Delbtn/>
-    // <IonRow className="edit-delete">
-    //   <IonItem color="smoke" onClick={() => {}}>
-    //     Edit
-    //   </IonItem>
-    //   <IonButton
-    //     color="smoke"
-    //     onClick={() => {
-    //       deleteUser(currentUser.id);
-    //     }}
-    //   >
-    //     Delete
-    //   </IonButton>
-     
-    // </IonRow>
-  
-  );
+  const Popover = () => <Delbtn />;
 
   const [present, dismiss] = useIonPopover(Popover, {
     onDismiss: (data, role) => dismiss(data, role),
   });
   const [roleMsg, setRoleMsg] = useState("");
 
-  return (
-    //   <IonPage>
+  // useEffect(() => {
 
+  // }, []);
+  return (
     <IonContent className="feed-content" fullscreen>
       {users.map((currentUser) => {
         return (
           <IonCard className="feed-grid">
-       
             <IonRow className="username-row">
               <IonAvatar className="img-row">
-                <IonImg className="pro-img" src={user.img}></IonImg>
-                <Propic/>
+                <Propic />
+                {userr.map((user) => {
+                  return <IonImg className="post" src={user.img}></IonImg>;
+                })}
+                {/* <IonImg src={userr.img}></IonImg> */}
               </IonAvatar>
               <IonCol className="username-col">
                 <IonRow className="hello">
@@ -149,13 +147,20 @@ const Tab2 = () => {
                 icon={ellipsisVertical}
               ></IonIcon>
             </IonRow>
+
             <IonRow className="caption-row">
               <IonLabel color="smoke" className="caption">
                 {currentUser.caption}
               </IonLabel>
             </IonRow>
             <IonImg className="post" src={currentUser.img}></IonImg>
-            <video className="post" muted autoPlay loop src={currentUser.img}></video>
+            {/* <video
+              className="post"
+              muted
+              autoPlay
+              loop
+              src={currentUser.img}
+            ></video> */}
           </IonCard>
         );
       })}

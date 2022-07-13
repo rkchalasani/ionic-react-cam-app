@@ -88,7 +88,7 @@ const New = ({ inputs, email, title }) => {
   const handleAdd = async (e, id) => {
     e.preventDefault();
     try {
-      await addDoc(collection(db, "profile", auth.currentUser.uid, "posts"), {
+      await addDoc(collection(db, "users", auth.currentUser.uid, "profile"), {
         ...data,
         timeStamp: serverTimestamp(),
       });
@@ -102,9 +102,9 @@ const New = ({ inputs, email, title }) => {
   const [users, setUsers] = useState([]);
   const usersCollectionRef = collection(
     db,
-    "profile",
+    "users",
     auth.currentUser.uid,
-    "posts"
+    "profile"
   );
   // const deleteUser = async (id) => {
   //   const userDoc = doc(db, "myuser",auth.currentUser.uid);
@@ -129,7 +129,7 @@ const New = ({ inputs, email, title }) => {
     </IonRow>
   );
 
-  const [ dismiss] = useIonPopover(Popover, {
+  const [dismiss] = useIonPopover(Popover, {
     onDismiss: (data, role) => dismiss(data, role),
   });
   const [roleMsg, setRoleMsg] = useState("");
@@ -142,7 +142,6 @@ const New = ({ inputs, email, title }) => {
               <IonLabel className="title" color="smoke">
                 {user.displayName}
               </IonLabel>
-
             </IonCol>
             <IonButton
               color="transparent"
@@ -156,16 +155,18 @@ const New = ({ inputs, email, title }) => {
               ></IonIcon>
             </IonButton>
           </IonRow>
-          <Propic/>
-         
+          {/* <Propic /> */}
+          {users.map((currentUser) => {
+            return <IonImg className="post" src={currentUser.img}></IonImg>;
+          })}
           <IonRow className="left">
             <IonImg
               className="img"
               height="400px"
               src={
                 file
-                ? URL.createObjectURL(file)
-                : "https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png"
+                  ? URL.createObjectURL(file)
+                  : "https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png"
               }
               alt=""
             />

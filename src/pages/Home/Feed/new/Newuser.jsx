@@ -79,7 +79,7 @@ const New = ({ inputs, email, title }) => {
   const handleAdd = async (e, id) => {
     e.preventDefault();
     try {
-      await addDoc(collection(db, "feed"), {
+      await addDoc(collection(db, "users",auth.currentUser.uid, "posts"), {
         ...data,
         timeStamp: serverTimestamp(),
       });

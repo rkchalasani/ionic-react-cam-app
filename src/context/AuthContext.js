@@ -13,10 +13,10 @@ import {
   sendEmailVerification,
 } from "firebase/auth";
 import { auth, db } from "../firebase";
-import { addDoc, doc, setDoc } from "firebase/firestore";
+import { addDoc, doc, setDoc, Timestamp } from "firebase/firestore";
 
 const UserContext = createContext();
-
+// const [userlist, setUserlist] = useState()
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
@@ -39,6 +39,16 @@ export const AuthContextProvider = ({ children }) => {
   const signIn = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
+  const addData = async (auth, email, name)=>{
+    setDoc(doc(db,"users",auth.currentUser.uid),{
+    uid: auth.currentUser.uid,
+    name:name,
+    email:email,
+    createdAt: Timestamp.fromDate(new Date()),
+    }
+
+    )
+  }
 
   const logout = () => {
     return signOut(auth);
@@ -47,6 +57,7 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      console.log(currentUser);
     });
     return () => {
       unsubscribe();
@@ -61,6 +72,9 @@ export const AuthContextProvider = ({ children }) => {
         logout,
         signIn,
         googleSignIn,
+        addData,
+        // setUserlist,
+        // userlist,
         facebookSignIn,
         githubSignIn,
       }}
