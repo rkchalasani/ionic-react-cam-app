@@ -44,12 +44,12 @@ import {
   personOutline,
   search,
 } from "ionicons/icons";
-import { userColumns, userRows } from "../../../datatablesource";
+// import { userColumns, userRows } from "../../../datatablesource";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import "./Tab2.css";
 import { storage, db, auth } from "../../../firebase";
-import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
+// import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import {
   getDoc,
   doc,
@@ -60,7 +60,7 @@ import {
   updateDoc,
   getDocs,
 } from "firebase/firestore";
-import Posts from "./posts/profile";
+import Posts from "./post/post";
 import { UserAuth } from "../../../context/AuthContext";
 import { updateProfile } from "firebase/auth";
 
@@ -77,7 +77,7 @@ const Tab2 = () => {
   };
   const openProfile = () => {
     router.push("/profile");
-    window.location.reload();
+    // window.location.reload();
   };
   const [newName, setNewName] = useState("");
   const [newAge, setNewAge] = useState(0);
@@ -119,35 +119,39 @@ const Tab2 = () => {
     </IonRow>
   );
   const user_id = user.uid;
+
   const [uname, setUname] = useState(user.displayName);
+  const [ email, setEmail] = useState(user.email)
   const [isUpdate, setIsUpdate] = useState(false);
-  const handleUpdate = async () => {
-    const userRef = doc(db, "users", user_id);
+  // const handleUpdate = async () => {
+  //   const userRef = doc(db, "users", user_id);
 
-    try {
-      await updateProfile(auth.currentUser, {
-        displayName: uname,
-      })
-        .then(() => {
-          console.log(auth.currentUser.displayName);
-        })
-        .catch((error) => {
-          // handleAlert(error.message);
-        });
+  //   try {
+  //     await updateProfile(auth.currentUser, {
+  //       displayName: uname,
+  //       displayEmail:email
+  //     })
+  //       .then(() => {
+  //         console.log(auth.currentUser.displayName);
+  //       })
+  //       .catch((error) => {
+  //         // handleAlert(error.message);
+  //       });
 
-      await updateDoc(userRef, {
-        name: uname,
-      });
+  //     await updateDoc(userRef, {
+  //       name: uname,
+  //       email:email
+  //     });
 
-      setIsUpdate(false);
-    } catch (error) {
-      // handleAlert(error.message);
-    }
-  };
+  //     setIsUpdate(false);
+  //   } catch (error) {
+  //     // handleAlert(error.message);
+  //   }
+  // };
   const [present, dismiss] = useIonPopover(Popover, {
     onDismiss: (data, role) => dismiss(data, role),
   });
-  const [roleMsg, setRoleMsg] = useState("");
+  // const [roleMsg, setRoleMsg] = useState("");
 
   return (
     <IonPage>
@@ -156,7 +160,7 @@ const Tab2 = () => {
           <IonRow className="search-row1">
             <IonCol className="col2">
               <IonImg
-                style={{ height: 45 }}
+                style={{ height: 53 }}
                 src="assets/images/Group 22.png "
               ></IonImg>
             </IonCol>
@@ -175,47 +179,8 @@ const Tab2 = () => {
           </IonRow>
         </IonToolbar>
       </IonHeader>
-      <IonContent className="feed-content" fullscreen>
-        {users.map((currentUser) => {
-          return (
-            <IonCard className="feed-grid">
-
-              <IonRow className="username-row">
-              <IonAvatar className="img-row">
-                <IonImg className="pro-img" src="assets/images/pro1.jpg"></IonImg>
-               
-              </IonAvatar>
-                <IonCol className="username-col">
-                  <IonRow className="hello">
-                  <IonLabel className="card-subtitle" color="smoke">
-                    {user.displayName}
-                  </IonLabel>
-                  </IonRow>
-                  <IonRow className="hello">
-                  <IonLabel className="card-caption">{currentUser.caption}</IonLabel>
-                  </IonRow>
-                 
-                </IonCol>
-                <IonIcon
-                  onClick={(e) =>
-                    present({
-                      event: e,
-                      onDidDismiss: (e) =>
-                        setRoleMsg(
-                          `Popover dismissed with role: ${e.detail.role}`
-                        ),
-                    })
-                  }
-                  color="smoke"
-                  id="open-popover"
-                  icon={ellipsisVertical}
-                ></IonIcon>
-              </IonRow>
-              <IonImg className="post" src={currentUser.img}></IonImg>
-            </IonCard>
-          );
-        })}
-      </IonContent>
+  
+      <Posts/>
     </IonPage>
   );
 };

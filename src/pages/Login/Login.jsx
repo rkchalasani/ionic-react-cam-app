@@ -30,14 +30,6 @@ const Login = () => {
   const [presentAlert] = useIonAlert();
   const [show, dismiss] = useIonLoading();
 
-  async function handleLoading(message) {
-    show({
-      message: message,
-      duration: 1500,
-      spinner: "lines-sharp",
-      mode: "ios",
-    });
-  }
   async function handleButtonClick(message) {
     present({
       message: message,
@@ -61,18 +53,18 @@ const Login = () => {
   }
   const router = useIonRouter();
 
-  function simulateNetworkRequest() {
-    return new Promise((resolve) => setTimeout(resolve, 2000));
-  }
-  const [isLoading, setLoading] = useState(false);
+  // function simulateNetworkRequest() {
+  //   return new Promise((resolve) => setTimeout(resolve, 2000));
+  // }
+  // const [isLoading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (isLoading) {
-      simulateNetworkRequest().then(() => {
-        setLoading(false);
-      });
-    }
-  }, [isLoading]);
+  // useEffect(() => {
+  // if (isLoading) {
+  // simulateNetworkRequest().then(() => {
+  // setLoading(false);
+  // });
+  // }
+  // }, [isLoading]);
   const handleClick = async (e) => {
     // handleLoading("Logging in..");
     var atposition = email.indexOf("@");
@@ -89,21 +81,27 @@ const Login = () => {
       handleButtonClick("Please enter correct email");
     } else {
       try {
-        setLoading(true);
+        // setLoading(true);
         await signIn(email, password);
-        handleLoading("Logging in..");
+        show({
+          message: "Logging in..",
+          duration: 1500,
+          spinner: "lines-sharp",
+          mode: "ios",
+        });
         setEmail("");
         setPassword("");
         router.push("/home");
         setTimeout(() => {
-          
           handleButtonClick("Login successful");
         }, 1510);
-
       } catch (e) {
         setError(e.message);
         handleAlert(e.message);
+        setEmail("");
+        setPassword("");
       }
+
     }
   };
   const hideTabs = () => {
@@ -117,6 +115,11 @@ const Login = () => {
   useIonViewWillEnter(() => hideTabs());
 
   // const  = () => setLoading(true);
+  const openSignup=()=>{
+    router.push("/signup");
+    setEmail("");
+    setPassword("");
+  }
   return (
     <IonPage>
       <IonContent fullscreen className="login-main-div">
@@ -132,6 +135,7 @@ const Login = () => {
           <IonRow className="login-input-row">
             <IonInput
               id="input-email"
+              value={email}
               onIonChange={(e) => setEmail(e.detail.value)}
               type="text"
               color="darkgreen"
@@ -140,6 +144,7 @@ const Login = () => {
             ></IonInput>
             <IonInput
               id="input-pass"
+              value={password}
               onIonChange={(e) => setPassword(e.detail.value)}
               type="password"
               color="darkgreen"
@@ -166,8 +171,9 @@ const Login = () => {
             <IonButton
               color="smoke "
               className="loginpage-signup-btn ion-text-capitalize"
-              routerLink="/signup"
-            >
+              // routerLink="/signup"
+onClick={openSignup}
+>
               Signup
             </IonButton>
           </IonRow>

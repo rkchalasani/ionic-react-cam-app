@@ -1,4 +1,4 @@
-import "./post.css";
+import "./profile.css";
 import { useEffect, useState } from "react";
 import {
   addDoc,
@@ -31,6 +31,7 @@ import {
   useIonPopover,
   useIonRouter,
 } from "@ionic/react";
+import Propic from "../propic/propic";
 import { arrowBackCircle, backspace, ellipsisVertical } from "ionicons/icons";
 import { UserAuth } from "../../../../context/AuthContext";
 
@@ -87,7 +88,7 @@ const New = ({ inputs, email, title }) => {
   const handleAdd = async (e, id) => {
     e.preventDefault();
     try {
-      await addDoc(collection(db, "users", auth.currentUser.uid, "posts"), {
+      await addDoc(collection(db, "profile", auth.currentUser.uid, "posts"), {
         ...data,
         timeStamp: serverTimestamp(),
       });
@@ -101,7 +102,7 @@ const New = ({ inputs, email, title }) => {
   const [users, setUsers] = useState([]);
   const usersCollectionRef = collection(
     db,
-    "users",
+    "profile",
     auth.currentUser.uid,
     "posts"
   );
@@ -139,8 +140,9 @@ const New = ({ inputs, email, title }) => {
           <IonRow className="top">
             <IonCol>
               <IonLabel className="title" color="smoke">
-                {title}
+                {user.displayName}
               </IonLabel>
+
             </IonCol>
             <IonButton
               color="transparent"
@@ -154,26 +156,19 @@ const New = ({ inputs, email, title }) => {
               ></IonIcon>
             </IonButton>
           </IonRow>
-          {users.map((user) => {
-            return (
-              <IonRow className="img-row1">
-                <IonAvatar className="avatar">
-                  <IonImg className="post" src={user.img}></IonImg>
-                </IonAvatar>
-              </IonRow>
-            );
-          })}
+          <Propic/>
+         
           <IonRow className="left">
-            {/* <IonImg
+            <IonImg
               className="img"
               height="400px"
               src={
                 file
-                // ? URL.createObjectURL(file)
-                // : "https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png"
+                ? URL.createObjectURL(file)
+                : "https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png"
               }
               alt=""
-            /> */}
+            />
           </IonRow>
           <form className="form" onSubmit={handleAdd}>
             <IonRow className="formInput">

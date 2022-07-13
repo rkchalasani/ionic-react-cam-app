@@ -296,6 +296,8 @@
 .signup-input-row {
   display: flex;
   flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
 }
 .login-input-row {
   display: flex;

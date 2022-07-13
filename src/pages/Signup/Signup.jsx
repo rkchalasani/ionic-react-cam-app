@@ -71,11 +71,11 @@ const Signup = () => {
     } else {
       try {
         await createUser(email, password);
-        await updateProfile(auth.currentUser,{
-          displayName : name
-        }).catch((e)=>{
+        await updateProfile(auth.currentUser, {
+          displayName: name,
+        }).catch((e) => {
           handleAlert(e.message);
-        })
+        });
         handleButtonClick("User successfully registered");
         logout();
         setName("");
@@ -85,8 +85,17 @@ const Signup = () => {
       } catch (e) {
         setError(e.message);
         handleAlert(e.message);
+        setName("");
+        setEmail("");
+        setPassword("");
       }
     }
+  };
+  const openLogin = () => {
+    router.push("/login");
+    setName("");
+    setEmail("");
+    setPassword("");
   };
   return (
     <IonPage>
@@ -105,12 +114,14 @@ const Signup = () => {
               onIonChange={(e) => setName(e.detail.value)}
               className="signup-name-input"
               placeholder="Username"
+              value={name}
               color="darkgreen"
             ></IonInput>
             <IonInput
               id="input-email"
               onIonChange={(e) => setEmail(e.detail.value)}
               type="text"
+              value={email}
               color="darkgreen"
               className="signup-email-input"
               placeholder="Email-id"
@@ -119,6 +130,7 @@ const Signup = () => {
               id="input-pass"
               onIonChange={(e) => setPassword(e.detail.value)}
               type="password"
+              value={password}
               color="darkgreen"
               className="signup-password-input"
               placeholder="Password"
@@ -138,7 +150,8 @@ const Signup = () => {
             <IonButton
               color="smoke"
               className="signuppage-login-btn ion-text-capitalize"
-              routerLink="/login"
+              // routerLink="/login"
+              onClick={openLogin}
             >
               Login
             </IonButton>

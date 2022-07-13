@@ -28,7 +28,7 @@ import Chats from "./Home/Chats/chats";
 import "./Home.css";
 import Newuser from "./Home/Feed/new/Newuser";
 import ProtectedRoute from "../components/ProtectedRoute";
-import Profile from "./Home/Feed/posts/profile";
+import Profile from "./Home/Feed/profile/profile";
 
 const Home = () => {
   return (
