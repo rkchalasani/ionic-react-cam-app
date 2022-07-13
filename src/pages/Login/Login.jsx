@@ -59,7 +59,7 @@ const Login = () => {
     });
   }
   const router = useIonRouter();
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     var atposition = email.indexOf("@");
     var dotposition = email.lastIndexOf(".");
     if (email == null || email === "" || password == null || password === "") {
@@ -75,22 +75,21 @@ const Login = () => {
     } else {
       try {
         show({
-          message: "logging out..",
+          message: "logging in..",
           duration: 1000,
           spinner: "circular",
           mode: "ios",
-        }); 
-        await signIn(email, password);
-        
+        });
+        signIn(email, password);
+
+        setTimeout(() => {
+          handleButtonClick("Login successful");
+        }, 1510);
+        router.push("/home");
+        // window.location.reload();
         // handleButtonClick("Login successful");
         setEmail("");
         setPassword("");
-        router.push("/home");
-        setTimeout(() => {
-          
-          handleButtonClick("Login successful");
-          // window.location.reload()
-        }, 1510);
       } catch (e) {
         setError(e.message);
         handleAlert(e.message);

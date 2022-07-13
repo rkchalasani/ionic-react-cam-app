@@ -24,15 +24,6 @@ const Tab1 = () => {
   const openChat = () => {
     router.push("/chats");
   };
-  const hideTabs = () => {
-    const tabsEl = document.querySelector("ion-tab-bar");
-
-    if (tabsEl) {
-      tabsEl.hidden = false;
-    }
-  };
-
-  useIonViewWillEnter(() => hideTabs());
   return (
     <IonPage>
       <IonContent className="tab1mainpage" fullscreen>
