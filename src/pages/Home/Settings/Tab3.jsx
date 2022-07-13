@@ -10,6 +10,7 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
+  useIonLoading,
   useIonRouter,
   useIonToast,
 } from "@ionic/react";
@@ -27,7 +28,7 @@ import "./Tab3.css";
 const Tab3 = () => {
   const { logout } = UserAuth();
   const router = useIonRouter();
-  const [present, dismiss] = useIonToast();
+  const [present] = useIonToast();
   async function handleButtonClick(m) {
     present({
       message: m,
@@ -38,11 +39,22 @@ const Tab3 = () => {
       icon: alert,
     });
   }
-  const handleLogout = async () => {
+  const [show, dismiss] = useIonLoading();
+  async function handleLoading(message) {}
+  const handleLogout = () => {
     try {
-      await logout();
+      show({
+        message: "logging out..",
+        duration: 1000,
+        spinner: "circular",
+        mode: "ios",
+      });
+      logout();
+      setTimeout(() => {
+        handleButtonClick("Logout Successfull");
+      }, 1200);
       router.push("/login");
-      window.location.reload();
+      // window.location.reload();
     } catch (e) {
       console.log(e.message);
     }

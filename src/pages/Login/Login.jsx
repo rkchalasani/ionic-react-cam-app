@@ -12,7 +12,9 @@ import {
   IonTitle,
   IonToolbar,
   useIonAlert,
+  useIonLoading,
   useIonToast,
+  useIonViewWillEnter,
 } from "@ionic/react";
 import "./Login.css";
 import { UserAuth } from "../../context/AuthContext";
@@ -21,12 +23,20 @@ import { useState } from "react";
 import { alert } from "ionicons/icons";
 const Login = () => {
   const { signIn, user } = UserAuth();
+  const [show, dismiss] = useIonLoading();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [present, dismiss] = useIonToast();
+  const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
-
+  async function handleLoading(message) {
+    show({
+      message: message,
+      duration: 1500,
+      spinner: "lines-sharp",
+      mode: "ios",
+    });
+  }
   async function handleButtonClick(message) {
     present({
       message: message,
@@ -64,18 +74,38 @@ const Login = () => {
       handleButtonClick("Please enter correct email");
     } else {
       try {
+        show({
+          message: "logging out..",
+          duration: 1000,
+          spinner: "circular",
+          mode: "ios",
+        }); 
         await signIn(email, password);
-        handleButtonClick("Login successful");
+        
+        // handleButtonClick("Login successful");
         setEmail("");
         setPassword("");
         router.push("/home");
+        setTimeout(() => {
+          
+          handleButtonClick("Login successful");
+          // window.location.reload()
+        }, 1510);
       } catch (e) {
         setError(e.message);
         handleAlert(e.message);
       }
     }
   };
+  const hideTabs = () => {
+    const tabsEl = document.querySelector("ion-tab-bar");
 
+    if (tabsEl) {
+      tabsEl.hidden = true;
+    }
+  };
+
+  useIonViewWillEnter(() => hideTabs());
   return (
     <IonPage>
       <IonContent fullscreen className="login-main-div">

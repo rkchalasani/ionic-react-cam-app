@@ -7,10 +7,15 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
+  isPlatform,
   setupIonicReact,
+  useIonAlert,
+  useIonLoading,
+  useIonToast,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { ellipse, square, triangle } from "ionicons/icons";
+import { Browser } from "@capacitor/browser";
 // import Tab1 from './pages/Home/Hometab/Tab1';
 // import Tab2 from './pages/Tab2';
 // import Tab3 from './pages/Tab3';
@@ -41,41 +46,146 @@ import { AuthContextProvider } from "./context/AuthContext";
 import Tab1 from "./pages/Home/HomeChats/Tab1";
 import Tab2 from "./pages/Home/Feed/Tab2";
 import Tab3 from "./pages/Home/Settings/Tab3";
+import { useEffect, useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "./firebase";
+import { App as app } from "@capacitor/app";
 setupIonicReact();
 
-const App = () => (
-  <AuthContextProvider>
-    <IonApp>
-      <IonReactRouter>
-        <IonRouterOutlet>
-          <Route  path="/home/tab1">
-            <Tab1 />
-          </Route>
-          <Route  path="/home/tab2">
-            <Tab2 />
-          </Route>
-          <Route path="/home/tab3">
-            <Tab3 />
-          </Route>
-          <Route  path="/login">
-            <Login />
-          </Route>
-          <Route  path="/home">
-            <Home />
-          </Route>
-          <Route  path="/getstarted">
-            <Getstarted />
-          </Route>
-          <Route  path="/signup">
-            <Signup />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/getstarted" />
-          </Route>
-        </IonRouterOutlet>
-      </IonReactRouter>
-    </IonApp>
-  </AuthContextProvider>
-);
+const App = () => {
+  const [updateDetails, setUpdateDetails] = useState({});
+  const [appVersion, setAppVersion] = useState("");
+  // const [showLoading, setShowLoading] = useState(false);
+
+  const [show, dismiss] = useIonLoading();
+
+  const updateRef = doc(db, "chatify_by_ptg", "UCOOaZPG4YhpdL3HjEzA");
+
+  const [presentAlert] = useIonAlert();
+  const [present] = useIonToast();
+
+  const handleToast = (msg) => {
+    present({
+      message: msg,
+      position: "top",
+      animated: true,
+      duration: 2000,
+      color: "smoke",
+      mode: "ios",
+    });
+  };
+
+  const handleAlert = (message, title, button, appVersion) => {
+    presentAlert({
+      header: title,
+      subHeader: `Version: ${appVersion}`,
+      message: message,
+      buttons: [
+        {
+          text: button,
+          role: "Download",
+          handler: async () => {
+            show({
+              message: "Please wait...",
+              duration: 2000,
+              spinner: "circular",
+              cssClass: "lp-sp-spinner",
+              animated: true,
+              keyboardClose: true,
+              mode: "ios",
+            });
+            await Browser.open({
+              url: "https://play.google.com/store/apps/details?id=com.chatify.app",
+            });
+            dismiss();
+          },
+        },
+      ],
+      backdropDismiss: true,
+      translucent: true,
+      animated: true,
+      // cssClass: "lp-sp-alert",
+    });
+  };
+
+  const getAppInfo = async () => {
+    let info = await app.getInfo();
+    return info;
+  };
+
+  const getConfigData = async () => {
+    const docSnap = await getDoc(updateRef);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      console.log("Document data:", docSnap.data());
+      setUpdateDetails(data.updatemsg);
+      setAppVersion(data.current);
+    } else {
+      console.log("No such document!");
+    }
+  };
+
+  const checkUpdate = async () => {
+    try {
+      if (isPlatform("android")) {
+        const currentAppInfo = getAppInfo();
+        if (appVersion > (await currentAppInfo).version) {
+          const message = updateDetails.message;
+          const title = updateDetails.title;
+          const button = updateDetails.button;
+          handleAlert(message, title, button, appVersion);
+        }
+      } else {
+        const msg = "App is not running on android platform";
+        handleToast(msg);
+      }
+    } catch (error) {
+      handleAlert(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getConfigData();
+    if (isPlatform("android")) {
+      getAppInfo();
+    }
+  }, []);
+
+  checkUpdate();
+  return (
+    <AuthContextProvider>
+      <IonApp>
+        <IonReactRouter>
+          <IonRouterOutlet>
+            <Route path="/home/tab1">
+              <Tab1 />
+            </Route>
+            <Route path="/home/tab2">
+              <Tab2 />
+            </Route>
+            <Route path="/home/tab3">
+              <Tab3 />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/home">
+              <Home />
+            </Route>
+            <Route path="/getstarted">
+              <Getstarted />
+            </Route>
+            <Route path="/signup">
+              <Signup />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/getstarted" />
+            </Route>
+          </IonRouterOutlet>
+        </IonReactRouter>
+      </IonApp>
+    </AuthContextProvider>
+  );
+};
 
 export default App;
