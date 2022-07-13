@@ -40,11 +40,19 @@
 }
 .username-col {
   padding: 0%;
+  display: flex;
+ flex-direction: column;
+ justify-content: center;
+ /* align-items: center; */
+  padding-left: 5%;
+}
+.hello{
+  
 }
 .card-caption {
   color: whitesmoke;
   font-size: 12px;
-  padding: 4%;
+  /* padding: 4%; */
   opacity: 0.8;
 }
 .add-btn {

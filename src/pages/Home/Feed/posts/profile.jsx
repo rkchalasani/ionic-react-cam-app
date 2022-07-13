@@ -87,11 +87,11 @@ const New = ({ inputs, email, title }) => {
   const handleAdd = async (e, id) => {
     e.preventDefault();
     try {
-      await addDoc(collection(db, "myuser", auth.currentUser.uid, "propic"), {
+      await addDoc(collection(db, "users", auth.currentUser.uid, "posts"), {
         ...data,
         timeStamp: serverTimestamp(),
       });
-      router.push('/home/tab1')
+      router.push("/home/tab1");
     } catch (err) {
       console.log(err);
     }
@@ -101,9 +101,9 @@ const New = ({ inputs, email, title }) => {
   const [users, setUsers] = useState([]);
   const usersCollectionRef = collection(
     db,
-    "myuser",
+    "users",
     auth.currentUser.uid,
-    "propic"
+    "posts"
   );
   // const deleteUser = async (id) => {
   //   const userDoc = doc(db, "myuser",auth.currentUser.uid);
@@ -125,18 +125,10 @@ const New = ({ inputs, email, title }) => {
       <IonItem color="smoke" onClick={() => {}}>
         Edit
       </IonItem>
-      {/* <IonButton
-        color="smoke"
-        onClick={() => {
-          deleteUser(user.id);
-        }}
-      >
-        Delete
-      </IonButton> */}
     </IonRow>
   );
 
-  const [present, dismiss] = useIonPopover(Popover, {
+  const [ dismiss] = useIonPopover(Popover, {
     onDismiss: (data, role) => dismiss(data, role),
   });
   const [roleMsg, setRoleMsg] = useState("");
@@ -155,7 +147,6 @@ const New = ({ inputs, email, title }) => {
               className="back-btn"
               routerLink="/home/tab1"
             >
-              {" "}
               <IonIcon
                 className="back-icon"
                 color="smoke"
@@ -166,7 +157,6 @@ const New = ({ inputs, email, title }) => {
           {users.map((user) => {
             return (
               <IonRow className="img-row1">
-                {" "}
                 <IonAvatar className="avatar">
                   <IonImg className="post" src={user.img}></IonImg>
                 </IonAvatar>
@@ -174,7 +164,7 @@ const New = ({ inputs, email, title }) => {
             );
           })}
           <IonRow className="left">
-            <IonImg
+            {/* <IonImg
               className="img"
               height="400px"
               src={
@@ -183,7 +173,7 @@ const New = ({ inputs, email, title }) => {
                 // : "https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png"
               }
               alt=""
-            />
+            /> */}
           </IonRow>
           <form className="form" onSubmit={handleAdd}>
             <IonRow className="formInput">

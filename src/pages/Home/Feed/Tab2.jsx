@@ -138,7 +138,6 @@ const Tab2 = () => {
       await updateDoc(userRef, {
         name: uname,
       });
-      // handleToast("Name has been Successfully Updated!");
 
       setIsUpdate(false);
     } catch (error) {
@@ -177,7 +176,6 @@ const Tab2 = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="feed-content" fullscreen>
-      {/* <IonLabel className="Profile-name"></IonLabel> */}
         {users.map((currentUser) => {
           return (
             <IonCard className="feed-grid">
@@ -188,10 +186,15 @@ const Tab2 = () => {
                
               </IonAvatar>
                 <IonCol className="username-col">
+                  <IonRow className="hello">
                   <IonLabel className="card-subtitle" color="smoke">
                     {user.displayName}
                   </IonLabel>
+                  </IonRow>
+                  <IonRow className="hello">
                   <IonLabel className="card-caption">{currentUser.caption}</IonLabel>
+                  </IonRow>
+                 
                 </IonCol>
                 <IonIcon
                   onClick={(e) =>

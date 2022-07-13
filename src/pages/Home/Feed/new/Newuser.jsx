@@ -92,7 +92,7 @@ const New = ({ inputs, email, title }) => {
   return (
     <IonPage>
       <IonContent className="new-content">
-        <IonGrid className="new-grid">
+        <IonGrid className="new-grid1">
           <IonRow className="top">
             <IonCol>
               <IonLabel className="title" color="smoke">
@@ -104,7 +104,7 @@ const New = ({ inputs, email, title }) => {
               className="back-btn"
               routerLink="/home/tab1"
             >
-              {" "}
+             
               <IonIcon
                 className="back-icon"
                 color="smoke"

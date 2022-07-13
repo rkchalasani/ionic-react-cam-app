@@ -94,10 +94,12 @@ const Login = () => {
         handleLoading("Logging in..");
         setEmail("");
         setPassword("");
+        router.push("/home");
         setTimeout(() => {
-          router.push("/home");
+          
           handleButtonClick("Login successful");
         }, 1510);
+
       } catch (e) {
         setError(e.message);
         handleAlert(e.message);
