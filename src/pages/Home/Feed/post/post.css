@@ -1,10 +1,17 @@
-.post{
-    /* height: 300; */
-    width: 100%;
+.post {
+  /* height: 300; */
+  width: 100%;
 }
-.time{
-    display: flex;
-    justify-content: flex-end;
-align-items: center;
-padding: 2%;
+.time {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 10px;
+  /* padding: 2%; */
+}
+.del-btn {
+  /* width: 30px;
+    height: 30px; */
+  font-size: 10px;
+  /* border-radius: 0px; */
 }

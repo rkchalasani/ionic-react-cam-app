@@ -107,10 +107,11 @@
     border-radius: 50%;
   }
 .caption{
-  /* padding-left: 4%; */
+  /* padding-left: 4%;
   padding-right: 4%;
   padding-bottom: 4%;
-  padding-left: 7% ;
+  padding-left: 7% ; */
+  padding: 4%;
 }
 /*  */
 

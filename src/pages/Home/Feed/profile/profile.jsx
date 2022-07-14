@@ -34,7 +34,7 @@ import {
 import Propic from "../propic/propic";
 import { arrowBackCircle, backspace, ellipsisVertical } from "ionicons/icons";
 import { UserAuth } from "../../../../context/AuthContext";
-
+import { MDBBtn } from "mdbreact";
 const New = ({ inputs, email, title }) => {
   const { user } = UserAuth();
   const [file, setFile] = useState("");
@@ -141,7 +141,7 @@ const New = ({ inputs, email, title }) => {
           <IonRow className="left">
             <IonImg
               className="img"
-              height="400px"
+              // height="400px"
               src={
                 file
                   ? URL.createObjectURL(file)
@@ -153,12 +153,14 @@ const New = ({ inputs, email, title }) => {
           <form className="form" onSubmit={handleAdd}>
             <IonRow className="formInput">
               <input
+              className="form-control"
                 type="file"
                 id="file"
                 onChange={(e) => setFile(e.target.files[0])}
               />
             </IonRow>
-            <IonButton color="smoke" type="submit">
+            {/* <MDBBtn color="danger">Danger</MDBBtn> */}
+            <IonButton className="" color="smoke" type="submit">
               Post
             </IonButton>
           </form>

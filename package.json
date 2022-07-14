@@ -1,6 +1,6 @@
 {
   "name": "Chatify by PTG",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "private": true,
   "dependencies": {
     "@capacitor/android": "^3.6.0",
@@ -27,6 +27,7 @@
     "dayjs": "^1.11.3",
     "firebase": "^9.8.4",
     "ionicons": "^5.4.0",
+    "mdbreact": "^5.2.0",
     "momen": "^0.0.1-security",
     "moment": "^2.29.4",
     "react": "^17.0.1",

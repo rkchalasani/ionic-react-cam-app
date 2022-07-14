@@ -11,6 +11,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { auth, db, storage } from "../../../../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+// import '@fortawesome/fontawesome-free/css/all.min.css';
+// import 'bootstrap-css-only/css/bootstrap.min.css';
+// import 'mdbreact/dist/css/mdb.css';
 import {
   IonBackButton,
   IonButton,
@@ -24,8 +27,10 @@ import {
   IonRow,
   useIonRouter,
 } from "@ionic/react";
-import { arrowBackCircle, backspace } from "ionicons/icons";
+import { MDBInput } from "mdbreact";
+import { arrowBack, arrowBackCircle, backspace } from "ionicons/icons";
 // import { timeStamp } from "console";
+// import MDBFileupload from 'mdb-react-fileupload';
 
 const New = ({ inputs, email, title }) => {
   const [file, setFile] = useState("");
@@ -80,48 +85,65 @@ const New = ({ inputs, email, title }) => {
   const handleAdd = async (e, id) => {
     e.preventDefault();
     try {
-      await addDoc(collection(db, "user", 
-      // auth.currentUser.uid, "posts"
-      ), {
-        ...data,
-        createdAt: new Date(),
-        name: auth.currentUser.displayName,
-        email: auth.currentUser.email,
-        
-      });
+      await addDoc(
+        collection(
+          db,
+          "user"
+          // auth.currentUser.uid, "posts"
+        ),
+        {
+          ...data,
+          createdAt: new Date(),
+          name: auth.currentUser.displayName,
+          email: auth.currentUser.email,
+        }
+      );
       router.push("/home/tab1");
+      window.location.reload()
     } catch (err) {
       console.log(err);
     }
   };
-
-
+  const backTo = () => {
+    router.push("/home/tab1");
+  };
   return (
     <IonPage>
       <IonContent className="new-content">
         <IonGrid className="new-grid1">
-          <IonRow className="top">
-            <IonCol>
-              <IonLabel className="title" color="smoke">
-                {title}
-              </IonLabel>
-            </IonCol>
-            <IonButton
-              color="transparent"
-              className="back-btn"
-              routerLink="/home/tab1"
-            >
+          <IonRow className="newpost-row">
+            <IonCol className="newpost-row">
               <IonIcon
                 className="back-icon"
                 color="smoke"
-                icon={arrowBackCircle}
+                // size="small"
+                // routerLink="/home/tab1"
+                onClick={backTo}
+                icon={arrowBack}
               ></IonIcon>
+            </IonCol>
+
+            <IonButton
+              className="post-btn"
+              onClick={handleAdd}
+              color="smoke"
+              type="submit"
+            >
+              Post
             </IonButton>
+          </IonRow>
+
+          <IonRow className="top">
+            <IonCol>
+              <IonLabel className="title" color="smoke">
+                New post
+              </IonLabel>
+            </IonCol>
           </IonRow>
           <IonRow className="left">
             <IonImg
               className="img"
-              height="400px"
+              // height="400px"
               src={
                 file
                   ? URL.createObjectURL(file)
@@ -130,31 +152,23 @@ const New = ({ inputs, email, title }) => {
               alt=""
             />
           </IonRow>
-          <form className="form" onSubmit={handleAdd}>
-            <IonRow className="formInput">
-              <input
-                type="file"
-                id="file"
-                onChange={(e) => setFile(e.target.files[0])}
-              />
-            </IonRow>
-
-            {inputs.map((input) => (
-              <IonRow className="formInput dynamic" key={input.id}>
-                <IonLabel color="smoke">{input.label}</IonLabel>
-                <input
-                  id={input.id}
-                  type={input.type}
-                  placeholder={input.placeholder}
-                  onChange={handleInput}
-                  className="form-control"
-                />
-              </IonRow>
-            ))}
-            <IonButton color="smoke" type="submit">
-              Post
-            </IonButton>
-          </form>
+          <IonRow className="formInput">
+            <input
+              type="file"
+              id="file"
+              className="form-control"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+          </IonRow>
+          <IonRow className="formInput dynamic">
+            <input
+              id="caption"
+              type="type"
+              placeholder="Add a Caption"
+              onChange={handleInput}
+              className="form-control caption-input"
+            />
+          </IonRow>
         </IonGrid>
       </IonContent>
     </IonPage>

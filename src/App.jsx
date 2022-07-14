@@ -44,7 +44,7 @@ import Tab1 from "./pages/Home/HomeChats/Tab1";
 import Tab2 from "./pages/Home/Feed/Tab2";
 import Tab3 from "./pages/Home/Settings/Tab3";
 import Newuser from "./pages/Home/Feed/new/Newuser";
-import { userInputs } from "./formSource";
+// import { userInputs } from "./formSource";
 import Profile from "./pages/Home/Feed/profile/profile";
 import { doc, getDoc } from "firebase/firestore";
 import { App as app } from "@capacitor/app";
@@ -181,7 +181,7 @@ const App = () =>  {
             <Signup />
           </Route>
           <Route path="/new">
-            <Newuser inputs={userInputs} title="New post" />
+            <Newuser />
           </Route>
           <Route path="/profile">
             <Profile />

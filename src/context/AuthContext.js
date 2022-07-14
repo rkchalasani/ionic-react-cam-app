@@ -39,10 +39,9 @@ export const AuthContextProvider = ({ children }) => {
   const signIn = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
-  const addData = async (auth, email, name, img) => {
-    setDoc(doc(db, "profile"), {
+  const addData = async (auth, email, name) => {
+    setDoc(doc(db,"users", auth.currentUser.uid), {
       uid: auth.currentUser.uid,
-      img: img,
       name: name,
       email: email,
       createdAt: Timestamp.fromDate(new Date()),

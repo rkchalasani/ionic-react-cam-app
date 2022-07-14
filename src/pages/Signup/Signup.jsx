@@ -81,13 +81,12 @@ const Signup = () => {
           spinner: "lines-sharp",
           mode: "ios",
         });
-        await updateProfile(db,"profile", {
+        await updateProfile(auth.currentUser, {
           displayName: name,
-          photoURL: img,
         }).catch((e) => {
-          handleAlert(e.message);
+          console.log(e.message);
         });
-        await addData(auth, email, name, img);
+        await addData(auth, email, name);
 
         logout();
         setName("");
@@ -98,8 +97,8 @@ const Signup = () => {
           handleButtonClick("User successfully registered");
         }, 1510);
       } catch (e) {
-        setError(e.message);
-        handleAlert(e.message);
+        // setError(e.message);
+        console.log(e);
         setName("");
         setEmail("");
         setPassword("");

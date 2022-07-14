@@ -7,7 +7,7 @@ import { db } from "../../../../firebase";
 
 const delbtn = () => {
   const deleteUser = async (id) => {
-    const userDoc = doc(db, "feed", id);
+    const userDoc = doc(db, "user", id);
     await deleteDoc(userDoc);
     window.location.reload();
     console.log("clicked");
@@ -15,7 +15,7 @@ const delbtn = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [users, setUsers] = useState([]);
 
-  const usersCollectionRef = collection(db, "feed");
+  const usersCollectionRef = collection(db, "user");
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     const getUsers = async () => {
