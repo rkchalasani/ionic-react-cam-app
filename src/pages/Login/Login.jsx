@@ -101,7 +101,6 @@ const Login = () => {
         setEmail("");
         setPassword("");
       }
-
     }
   };
   const hideTabs = () => {
@@ -115,11 +114,11 @@ const Login = () => {
   useIonViewWillEnter(() => hideTabs());
 
   // const  = () => setLoading(true);
-  const openSignup=()=>{
+  const openSignup = () => {
     router.push("/signup");
     setEmail("");
     setPassword("");
-  }
+  };
   return (
     <IonPage>
       <IonContent fullscreen className="login-main-div">
@@ -171,9 +170,9 @@ const Login = () => {
             <IonButton
               color="smoke "
               className="loginpage-signup-btn ion-text-capitalize"
-              // routerLink="/signup"
-onClick={openSignup}
->
+              routerLink="/signup"
+              // onClick={openSignup}
+            >
               Signup
             </IonButton>
           </IonRow>

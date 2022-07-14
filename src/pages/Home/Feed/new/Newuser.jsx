@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { auth, db, storage } from "../../../../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {
   IonBackButton,
@@ -25,6 +25,7 @@ import {
   useIonRouter,
 } from "@ionic/react";
 import { arrowBackCircle, backspace } from "ionicons/icons";
+// import { timeStamp } from "console";
 
 const New = ({ inputs, email, title }) => {
   const [file, setFile] = useState("");
@@ -79,15 +80,21 @@ const New = ({ inputs, email, title }) => {
   const handleAdd = async (e, id) => {
     e.preventDefault();
     try {
-      await addDoc(collection(db, "users",auth.currentUser.uid, "posts"), {
+      await addDoc(collection(db, "user", 
+      // auth.currentUser.uid, "posts"
+      ), {
         ...data,
-        timeStamp: serverTimestamp(),
+        createdAt: new Date(),
+        name: auth.currentUser.displayName,
+        email: auth.currentUser.email,
+        
       });
       router.push("/home/tab1");
     } catch (err) {
       console.log(err);
     }
   };
+
 
   return (
     <IonPage>
@@ -104,7 +111,6 @@ const New = ({ inputs, email, title }) => {
               className="back-btn"
               routerLink="/home/tab1"
             >
-             
               <IonIcon
                 className="back-icon"
                 color="smoke"

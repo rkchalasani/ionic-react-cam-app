@@ -58,6 +58,7 @@ const Tab3 = () => {
         handleButtonClick("Logout Successfull");
       }, 2000);
       router.push("/login");
+      window.location.reload();
     } catch (e) {
       console.log(e.message);
     }

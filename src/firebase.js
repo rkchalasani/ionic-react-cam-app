@@ -11,7 +11,7 @@ const firebaseConfig = {
   storageBucket: "chatify-app-82c22.appspot.com",
   messagingSenderId: "481165381434",
   appId: "1:481165381434:web:1804b87bebba415496ca03",
-  measurementId: "G-RKMQ8S0JB9",
+  measurementId: "G-RKMQ8S0JB9"
 };
 
 const app = initializeApp(firebaseConfig);

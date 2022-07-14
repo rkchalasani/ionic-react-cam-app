@@ -51,14 +51,9 @@ import "./Tab2.css";
 import { storage, db, auth } from "../../../firebase";
 // import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import {
-  getDoc,
   doc,
   deleteDoc,
-  onSnapshot,
-  collection,
-  addDoc,
-  updateDoc,
-  getDocs,
+  orderBy,
 } from "firebase/firestore";
 import Posts from "./post/post";
 import { UserAuth } from "../../../context/AuthContext";
@@ -66,44 +61,19 @@ import { updateProfile } from "firebase/auth";
 
 const Tab2 = () => {
   const { user, userlist, setUserlist } = UserAuth();
-  const [img, setImg] = useState();
   const router = useIonRouter();
-  const [apiData, setApiData] = useState([]);
-  // const [user, setUser] = useState();
-  const [link, setLink] = useState();
   const openNew = () => {
     router.push("/new");
     window.location.reload();
   };
   const openProfile = () => {
     router.push("/profile");
-    // window.location.reload();
   };
-  const [newName, setNewName] = useState("");
-  const [newAge, setNewAge] = useState(0);
-  const [newImg, setNewImg] = useState("");
-
-  const [users, setUsers] = useState([]);
-  const usersCollectionRef = collection(
-    db,
-    "users",auth.currentUser.uid, "posts"
-  );
   const deleteUser = async (id) => {
-    const userDoc = doc(db, "feed" );
+    const userDoc = doc(db, "user" );
     await deleteDoc(userDoc);
     console.log("clicked");
   };
-
-  const [data, setData] = useState([]);
-  useEffect(() => {
- 
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-
-    getUsers();
-  }, []);
   const Popover = () => (
     <IonRow className="edit-delete">
       <IonItem color="smoke" onClick={() => {}}>
@@ -119,41 +89,10 @@ const Tab2 = () => {
       </IonButton>
     </IonRow>
   );
-  const user_id = user.uid;
 
-  const [uname, setUname] = useState(user.displayName);
-  const [ email, setEmail] = useState(user.email)
-  const [isUpdate, setIsUpdate] = useState(false);
-  // const handleUpdate = async () => {
-  //   const userRef = doc(db, "users", user_id);
-
-  //   try {
-  //     await updateProfile(auth.currentUser, {
-  //       displayName: uname,
-  //       displayEmail:email
-  //     })
-  //       .then(() => {
-  //         console.log(auth.currentUser.displayName);
-  //       })
-  //       .catch((error) => {
-  //         // handleAlert(error.message);
-  //       });
-
-  //     await updateDoc(userRef, {
-  //       name: uname,
-  //       email:email
-  //     });
-
-  //     setIsUpdate(false);
-  //   } catch (error) {
-  //     // handleAlert(error.message);
-  //   }
-  // };
   const [present, dismiss] = useIonPopover(Popover, {
     onDismiss: (data, role) => dismiss(data, role),
   });
-  // const [roleMsg, setRoleMsg] = useState("");
-
   return (
     <IonPage>
       <IonHeader>
@@ -180,10 +119,7 @@ const Tab2 = () => {
           </IonRow>
         </IonToolbar>
       </IonHeader>
-      {/* {userlist.map((user) => {
-              return <IonLabel>{user.name}</IonLabel>;
-            })} */}
-      <Posts/>
+      <Posts />
     </IonPage>
   );
 };

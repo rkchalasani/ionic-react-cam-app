@@ -19,7 +19,7 @@ import { useState } from "react";
 import { UserAuth } from "../../context/AuthContext";
 import { alert } from "ionicons/icons";
 import { updateEmail, updateProfile } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 const Signup = () => {
   const [present] = useIonToast();
   async function handleButtonClick(message) {
@@ -36,6 +36,7 @@ const Signup = () => {
   const { logout, addData } = UserAuth();
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
+  const [img, setImg] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -80,20 +81,22 @@ const Signup = () => {
           spinner: "lines-sharp",
           mode: "ios",
         });
-        await updateProfile(auth.currentUser, {
+        await updateProfile(db,"profile", {
           displayName: name,
+          photoURL: img,
         }).catch((e) => {
           handleAlert(e.message);
         });
-        await addData(auth, email,name);
-        
+        await addData(auth, email, name, img);
+
         logout();
         setName("");
         setEmail("");
         setPassword("");
         router.push("/login");
         setTimeout(() => {
-          handleButtonClick("User successfully registered");        }, 1510);
+          handleButtonClick("User successfully registered");
+        }, 1510);
       } catch (e) {
         setError(e.message);
         handleAlert(e.message);

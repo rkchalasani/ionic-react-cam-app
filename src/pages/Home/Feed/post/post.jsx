@@ -45,6 +45,9 @@ import {
   personOutline,
   search,
 } from "ionicons/icons";
+import Moment from "react-moment";
+import dayjs from "dayjs";
+
 //   import { userColumns, userRows } from "../../../datatablesource";
 //   import axios from "axios";
 import { useEffect, useRef, useState } from "react";
@@ -62,6 +65,7 @@ import {
   getDocs,
   query,
   where,
+  orderBy,
 } from "firebase/firestore";
 //   import Posts from "./profile/profile";
 import { UserAuth } from "../../../../context/AuthContext";
@@ -73,27 +77,38 @@ const Tab2 = () => {
   const { user, userlist, setUserList } = UserAuth();
   const [users, setUsers] = useState([]);
   const [userr, setUserr] = useState([]);
+  const [post, setPost] = useState([]);
 
   const usersCollectionRef = collection(
     db,
-    "users",
-    auth.currentUser.uid,
-    "posts"
-  );
-  const userCollectionRef = collection(
-    db,
-    "users",
-    auth.currentUser.uid,
     "profile"
+    // "uid"
+    // auth.currentUser.uid,
+    // "posts"
   );
+  const usersCollection = collection(
+    //posts
+    db,
+    "user"
+    // "uid"
+    // auth.currentUser.uid,
+    // "posts"
+  );
+  // const profileImg = collection(db, "users", auth.currentUser.uid, "posts");
 
   const [data, setData] = useState([]);
   useEffect(() => {
     const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
+      const datas = await getDocs(usersCollection, orderBy("createdAt", "asc"));
+      setPost(datas.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      const data = await getDocs(
+        usersCollectionRef,
+        orderBy("createdAt", "asc")
+      );
       setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      const dataa = await getDocs(userCollectionRef);
-      setUserr(dataa.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      // const dataa = await getDocs(profileImg);
+      // setUserr(dataa.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      // console.log()
     };
 
     getUsers();
@@ -105,31 +120,41 @@ const Tab2 = () => {
     onDismiss: (data, role) => dismiss(data, role),
   });
   const [roleMsg, setRoleMsg] = useState("");
+  // const timeStamp = (not)=>{
+  // const time = dayjs(not.createdAt).fromNow();
 
+  // }
   // useEffect(() => {
 
   // }, []);
   return (
     <IonContent className="feed-content" fullscreen>
-      {users.map((currentUser) => {
+      {post.map((currentUser) => {
+        // console.log(currentUser.timeStamp.toString());
+
         return (
-          <IonCard className="feed-grid">
+          <IonCard className="feed-grid" key={currentUser.id}>
             <IonRow className="username-row">
               <IonAvatar className="img-row">
                 <Propic />
-                {userr.map((user) => {
-                  return <IonImg className="post" src={user.img}></IonImg>;
-                })}
+                {/* {users.map((users) => {
+                  return <IonImg className="post" src={users.img}></IonImg>;
+                })} */}
+                {/* {post.map((currentUser) => {
+                  return <IonImg className="post" src={currentUser.img}></IonImg>;
+                })} */}
                 {/* <IonImg src={userr.img}></IonImg> */}
               </IonAvatar>
               <IonCol className="username-col">
                 <IonRow className="hello">
                   <IonLabel className="card-subtitle" color="smoke">
-                    {user.displayName}
+                    {currentUser.name}
                   </IonLabel>
                 </IonRow>
                 <IonRow className="hello">
-                  <IonLabel className="card-caption">{user.email}</IonLabel>
+                  <IonLabel className="card-caption">
+                    {currentUser.email}
+                  </IonLabel>
                 </IonRow>
               </IonCol>
               <IonIcon
@@ -153,14 +178,13 @@ const Tab2 = () => {
                 {currentUser.caption}
               </IonLabel>
             </IonRow>
+            {/* {userr.map((currentUser) => {
+              return <IonImg className="post" src={currentUser.img}></IonImg>;
+            })} */}
             <IonImg className="post" src={currentUser.img}></IonImg>
-            {/* <video
-              className="post"
-              muted
-              autoPlay
-              loop
-              src={currentUser.img}
-            ></video> */}
+            <IonRow className="time">
+              <Moment fromNow>{currentUser.createdAt.toDate()}</Moment>
+            </IonRow>
           </IonCard>
         );
       })}

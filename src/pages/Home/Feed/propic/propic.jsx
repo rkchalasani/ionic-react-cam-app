@@ -30,8 +30,8 @@ const propic = () => {
   const usersCollectionRef = collection(
     db,
     "profile",
-    auth.currentUser.uid,
-    "posts"
+    // auth.currentUser.uid,
+    // "profile"
   );
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -50,9 +50,9 @@ const propic = () => {
     // <IonImg src={user.img}>
     // </IonImg>
     <>
-      {users.map((currentUser) => {
-        return <IonImg className="post" src={currentUser.img}></IonImg>;
-      })}
+     {users.map((currentUser) => {
+            return <IonImg className="post" src={currentUser.img}></IonImg>;
+          })}
     </>
   );
 };

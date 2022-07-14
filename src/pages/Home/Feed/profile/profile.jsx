@@ -36,6 +36,7 @@ import { arrowBackCircle, backspace, ellipsisVertical } from "ionicons/icons";
 import { UserAuth } from "../../../../context/AuthContext";
 
 const New = ({ inputs, email, title }) => {
+  const { user } = UserAuth();
   const [file, setFile] = useState("");
   const [data, setData] = useState({});
   const [per, setPerc] = useState(null);
@@ -78,61 +79,39 @@ const New = ({ inputs, email, title }) => {
     };
     file && uploadFile();
   }, [file]);
-  const handleInput = (e) => {
-    const id = e.target.id;
-    const value = e.target.value;
+  // const handleInput = (e) => {
+  //   const id = e.target.id;
+  //   const value = e.target.value;
 
-    setData({ ...data, [id]: value });
-  };
+  //   setData({ ...data, [id]: value });
+  // };
+  const updatePropic = async()=>{
+    await updateProfile(db, "user", {
+      ...data,
+      photoURL: file,
+    }).catch((e) => {
+      // handleAlert(e.message);
+    });
+  }
+
 
   const handleAdd = async (e, id) => {
     e.preventDefault();
     try {
-      await addDoc(collection(db, "users", auth.currentUser.uid, "profile"), {
+      await addDoc(collection(db, "profile", 
+      // auth.currentUser.uid, "posts"
+      ), {
         ...data,
-        timeStamp: serverTimestamp(),
+        createdAt: new Date(),
+        name: auth.currentUser.displayName,
+        email: auth.currentUser.email,
+        
       });
       router.push("/home/tab1");
     } catch (err) {
       console.log(err);
     }
   };
-  const { user } = UserAuth();
-
-  const [users, setUsers] = useState([]);
-  const usersCollectionRef = collection(
-    db,
-    "users",
-    auth.currentUser.uid,
-    "profile"
-  );
-  // const deleteUser = async (id) => {
-  //   const userDoc = doc(db, "myuser",auth.currentUser.uid);
-  //   await deleteDoc(userDoc);
-  //   console.log("clicked");
-  // };
-
-  // const [data, setData] = useState([]);
-  useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-
-    getUsers();
-  }, []);
-  const Popover = () => (
-    <IonRow className="edit-delete">
-      <IonItem color="smoke" onClick={() => {}}>
-        Edit
-      </IonItem>
-    </IonRow>
-  );
-
-  const [dismiss] = useIonPopover(Popover, {
-    onDismiss: (data, role) => dismiss(data, role),
-  });
-  const [roleMsg, setRoleMsg] = useState("");
   return (
     <IonPage>
       <IonContent className="new-content">
@@ -156,9 +135,9 @@ const New = ({ inputs, email, title }) => {
             </IonButton>
           </IonRow>
           {/* <Propic /> */}
-          {users.map((currentUser) => {
+          {/* {users.map((currentUser) => {
             return <IonImg className="post" src={currentUser.img}></IonImg>;
-          })}
+          })} */}
           <IonRow className="left">
             <IonImg
               className="img"

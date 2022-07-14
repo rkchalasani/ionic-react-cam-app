@@ -119,7 +119,7 @@ const App = () =>  {
     const docSnap = await getDoc(updateRef);
     if (docSnap.exists()) {
       const data = docSnap.data();
-      console.log("Document data:", docSnap.data());
+      // console.log("Document data:", docSnap.data());
       setUpdateDetails(data.updatemsg);
       setAppVersion(data.current);
     } else {
