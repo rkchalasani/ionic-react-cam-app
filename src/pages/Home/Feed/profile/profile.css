@@ -1,4 +1,10 @@
-
+.profile-content {
+  /* --background: #24383F; */
+  --background: linear-gradient(rgb(19, 33, 36, 0.6), rgb(19, 33, 36, 0.6)),
+    url("../../../../../public/assets/images/Get-Started1.png") no-repeat
+      center/cover fixed;
+  /* padding: 5%; */
+}
 
 .pro-pic-container {
   /* --background: transparent;
@@ -14,10 +20,24 @@
   flex-direction: column;
 }
 
+.new-grid {
+  padding: 7%;
+  display: flex;
+  /* background: #132124; */
+  background: linear-gradient(rgb(19, 33, 36, 0.6), rgb(19, 33, 36, 0.6)),
+    url("../../../../../public/assets/images/Get-Started1.png") no-repeat
+      center/cover fixed;
+  /* height: 80%; */
+  /* justify-content: space-around; */
+  flex-direction: column;
+  /* align-items: space-around; */
+}
 
-
-
-
+.grid {
+  padding: 6%;
+  background: #24383f;
+  border-radius: 30px 30px 0 0;
+}
 .flex-row-label {
   font-family: "Quicksand";
   font-weight: 600;
@@ -25,7 +45,16 @@
   line-height: 21px;
   color: #000000;
 }
-
+.pro-row {
+  display: flex;
+  justify-content: center;
+  padding-top: 5%;
+}
+.backbtn {
+  padding-left: 7%;
+  padding-top: 7%;
+  padding-bottom: 4%;
+}
 .flex-row-value {
   display: flex;
   justify-content: center;
@@ -62,11 +91,44 @@
   border-radius: 8px;
   margin-right: 10px;
 }
-.img-row1{
-   display: flex;
-   justify-content: center;
+.img-row1 {
+  display: flex;
+  justify-content: center;
 }
-.avatar{
+.avatar {
   width: 200px;
   height: 200px;
+}
+.avatar1 {
+  position: relative;
+
+  width: 250px;
+
+  height: 250px;
+
+  overflow: hidden;
+
+  /* display: flex;
+
+  justify-content: center;
+
+  align-items: center; */
+
+  /* background-size: cover; */
+
+  /* position: center; */
+
+  border-radius: 10%;
+}
+.name-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  flex-direction: column;
+}
+.icon-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 4%;
 }

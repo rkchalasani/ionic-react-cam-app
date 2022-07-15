@@ -96,6 +96,7 @@ const New = ({ inputs, email, title }) => {
           createdAt: new Date(),
           name: auth.currentUser.displayName,
           email: auth.currentUser.email,
+          avatar: auth.currentUser.photoURL
         }
       );
       router.push("/home/tab1");

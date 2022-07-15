@@ -35,19 +35,20 @@
   color: white;
   display: flex;
   justify-content: center;
-  padding: 4%;
+  /* padding: 4%; */
+  padding-bottom: 2%;
+  padding-left: 4%;
+  padding-top: 4%;
+  padding-right: 4%;
   align-items: center;
 }
 .username-col {
   padding: 0%;
   display: flex;
- flex-direction: column;
- justify-content: center;
- /* align-items: center; */
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
   padding-left: 5%;
-}
-.hello{
-  
 }
 .card-caption {
   color: whitesmoke;
@@ -70,10 +71,7 @@
   font-size: 2rem;
   display: flex;
   justify-content: center;
-  padding-left: 5%;
-  padding-right: 5%;
-  padding-top: 3%;
-  padding-bottom: 3%;
+  /* padding: 2%; */
   align-items: center;
 }
 .search-row1 {
@@ -81,7 +79,7 @@
   font-size: 2rem;
   display: flex;
   justify-content: center;
-  padding-right: 1.5%;
+  padding: 1%;
   align-items: center;
 }
 .col2 {
@@ -93,20 +91,21 @@
   justify-content: flex-end;
 }
 .icon {
-  padding-left: 2%;
-  padding-right: 3%;
+  /* padding-left: 3%; */
+  padding-right: 4%;
 }
-.img-row{
-    position: relative;
-    width: 35px;
-    height: 35px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-  }
-.caption{
+.img-row {
+  position: relative;
+  width: 35px;
+  height: 35px;
+  overflow: hidden;
+  /* padding-right: 4%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.caption {
   /* padding-left: 4%;
   padding-right: 4%;
   padding-bottom: 4%;
@@ -115,3 +114,34 @@
 }
 /*  */
 
+.new-post-row {
+  display: flex;
+  /* padding-top: 3%;
+  padding-left: 3%; */
+  padding: 3%;
+
+  justify-content: center;
+  align-items: center;
+}
+.new-post7 {
+  /* color: whitesmoke; */
+  /* font-size: 1.4rem; */
+  /* padding-left: 1.5%; */
+padding-left: 10px;
+}
+.col4 {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 3%;
+}
+.button-new{
+  width: 200px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-row{
+  padding: 3%;
+}

@@ -9,6 +9,7 @@ import {
   IonRow,
   useIonAlert,
   useIonRouter,
+  useIonViewWillEnter,
 } from "@ionic/react";
 import { updateProfile } from "firebase/auth";
 import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
@@ -27,13 +28,14 @@ const propic = () => {
   const { user } = UserAuth();
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [users, setUsers] = useState([]);
-  const usersCollectionRef = collection(
-    db,
-    "profile",
-    // auth.currentUser.uid,
-    // "profile"
-  );
-
+  const usersCollectionRef = collection(db, "users",
+  //  auth.currentUser.uid
+   );
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const router = useIonRouter();
+  const openProfile = () => {
+    router.push("/profile");
+  };
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [data, setData] = useState([]);
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -47,12 +49,17 @@ const propic = () => {
   }, []);
 
   return (
-    // <IonImg src={user.img}>
-    // </IonImg>
     <>
-     {users.map((currentUser) => {
-            return <IonImg className="post" src={currentUser.img}></IonImg>;
-          })}
+      {users.map((currentUser) => {
+        return (
+          <IonImg
+          onClick={openProfile}
+          // style={{ height: 23, width: 23 }}
+          className=""
+          src={currentUser.photoURL}
+        ></IonImg>
+        );
+      })}
     </>
   );
 };

@@ -41,7 +41,7 @@ import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import { AuthContextProvider } from "./context/AuthContext";
 import Tab1 from "./pages/Home/HomeChats/Tab1";
-import Tab2 from "./pages/Home/Feed/Tab2";
+import Feed from "./pages/Home/Feed/Feed";
 import Tab3 from "./pages/Home/Settings/Tab3";
 import Newuser from "./pages/Home/Feed/new/Newuser";
 // import { userInputs } from "./formSource";
@@ -61,7 +61,7 @@ const App = () =>  {
 
   const [show, dismiss] = useIonLoading();
 
-  const updateRef = doc(db, "chatify_by_ptg", "UCOOaZPG4YhpdL3HjEzA");
+  const updateRef = doc(db, "chatify_by_PTG", "dtvG3X4CjLV7CXMIRPES");
 
   const [presentAlert] = useIonAlert();
   const [present] = useIonToast();
@@ -142,7 +142,7 @@ const App = () =>  {
         // handleToast(msg);
       }
     } catch (error) {
-      handleAlert(error.message);
+      // handleAlert(error.message);
     }
   };
 
@@ -160,7 +160,7 @@ const App = () =>  {
       <IonReactRouter>
         <IonRouterOutlet>
           <Route path="/home/tab1">
-            <Tab2 />
+            <Feed />
           </Route>
           <Route path="/home/tab2">
             <Tab1 />

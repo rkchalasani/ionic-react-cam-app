@@ -20,7 +20,7 @@ import {
   settingsSharp,
 } from "ionicons/icons";
 import Tab1 from "./Home/HomeChats/Tab1";
-import Tab2 from "./Home/Feed/Tab2";
+import Feed from "./Home/Feed/Feed";
 import Tab3 from "./Home/Settings/Tab3";
 import { Redirect, Route } from "react-router-dom";
 import Login from "./Login/Login";
@@ -38,7 +38,7 @@ const Home = () => {
           <IonRouterOutlet>
             <Route path="/home/tab1">
               <ProtectedRoute>
-                <Tab2 />
+                <Feed />
               </ProtectedRoute>
             </Route>
             <Route path="/home/tab2">
@@ -65,10 +65,10 @@ const Home = () => {
           </Route>
           </IonRouterOutlet>
           <IonTabBar className="tabbar-div" slot="bottom" color="darkgreen">
-          <IonTabButton tab="tab2" href="/home/tab1">
+          <IonTabButton tab="tab1" href="/home/tab1">
               <IonIcon icon={home} />
             </IonTabButton>
-            <IonTabButton tab="tab1" href="/home/tab2">
+            <IonTabButton tab="tab2" href="/home/tab2">
               <IonIcon icon={chatbox} />
             </IonTabButton>         
             <IonTabButton tab="tab3" href="/home/tab3">

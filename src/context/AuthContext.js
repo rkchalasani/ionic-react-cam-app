@@ -39,11 +39,12 @@ export const AuthContextProvider = ({ children }) => {
   const signIn = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
-  const addData = async (auth, email, name) => {
+  const addData = async (auth, email, name, img) => {
     setDoc(doc(db,"users", auth.currentUser.uid), {
       uid: auth.currentUser.uid,
       name: name,
       email: email,
+      // img: img,
       createdAt: Timestamp.fromDate(new Date()),
     });
   };

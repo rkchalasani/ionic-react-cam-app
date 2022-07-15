@@ -30,9 +30,18 @@ import {
   IonRow,
   useIonPopover,
   useIonRouter,
+  useIonViewWillEnter,
 } from "@ionic/react";
 import Propic from "../propic/propic";
-import { arrowBackCircle, backspace, ellipsisVertical } from "ionicons/icons";
+import {
+  arrowBackCircle,
+  arrowBackCircleOutline,
+  backspace,
+  createOutline,
+  ellipsisVertical,
+  trashBin,
+  trashOutline,
+} from "ionicons/icons";
 import { UserAuth } from "../../../../context/AuthContext";
 import { MDBBtn } from "mdbreact";
 const New = ({ inputs, email, title }) => {
@@ -72,7 +81,7 @@ const New = ({ inputs, email, title }) => {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setData((prev) => ({ ...prev, img: downloadURL }));
+            setData(() => ({ img: downloadURL }));
           });
         }
       );
@@ -85,75 +94,113 @@ const New = ({ inputs, email, title }) => {
 
   //   setData({ ...data, [id]: value });
   // };
-  const updatePropic = async()=>{
-    await updateProfile(db, "user", {
-      ...data,
-      photoURL: file,
-    }).catch((e) => {
-      // handleAlert(e.message);
-    });
-  }
+  // const updatePropic = async()=>{
+  //   await updateProfile(db, "user", {
+  //     ...data,
 
+  //   }).catch((e) => {
+  //     // handleAlert(e.message);
+  //   });
+  // }
 
   const handleAdd = async (e, id) => {
     e.preventDefault();
     try {
-      await addDoc(collection(db, "profile", 
-      // auth.currentUser.uid, "posts"
-      ), {
-        ...data,
-        createdAt: new Date(),
-        name: auth.currentUser.displayName,
-        email: auth.currentUser.email,
-        
+      await updateDoc(
+        doc(
+          db,
+          "users",
+          auth.currentUser.uid
+          //  "posts"
+        ),
+        {
+          photoURL: data.img,
+          // createdAt: new Date(),
+          // name: auth.currentUser.displayName,
+          // email: auth.currentUser.email,
+          // photoURL: file,
+        }
+      );
+      await updateProfile(auth.currentUser, {
+        photoURL: data.img,
+      }).catch((e) => {
+        console.log(e.message);
       });
       router.push("/home/tab1");
     } catch (err) {
       console.log(err);
     }
   };
+  const pushHome = () => {
+    router.push("/home/tab1");
+  };
+
+  const hideTabs = () => {
+    const tabsEl = document.querySelector("ion-tab-bar");
+
+    if (tabsEl) {
+      tabsEl.hidden = true;
+    }
+  };
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useIonViewWillEnter(() => hideTabs());
   return (
     <IonPage>
-      <IonContent className="new-content">
-        <IonGrid className="new-grid">
-          <IonRow className="top">
-            <IonCol>
-              <IonLabel className="title" color="smoke">
-                {user.displayName}
-              </IonLabel>
-            </IonCol>
-            <IonButton
-              color="transparent"
-              className="back-btn"
-              routerLink="/home/tab1"
-            >
-              <IonIcon
-                className="back-icon"
-                color="smoke"
-                icon={arrowBackCircle}
-              ></IonIcon>
-            </IonButton>
-          </IonRow>
-          {/* <Propic /> */}
-          {/* {users.map((currentUser) => {
+      <IonContent className="profile-content">
+        {/* <IonGrid color="darkgreen" className="new-grid"> */}
+        <IonRow className="backbtn">
+          <IonIcon
+            className="back-icon"
+            color="smoke"
+            onClick={pushHome}
+            icon={arrowBackCircleOutline}
+          ></IonIcon>
+        </IonRow>
+        {/* <Propic /> */}
+        {/* {users.map((currentUser) => {
             return <IonImg className="post" src={currentUser.img}></IonImg>;
           })} */}
-          <IonRow className="left">
-            <IonImg
-              className="img"
-              // height="400px"
-              src={
-                file
-                  ? URL.createObjectURL(file)
-                  : "https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png"
-              }
-              alt=""
-            />
+        <IonRow className="pro-row">
+          <IonAvatar className="avatar1">
+            <IonImg src={auth.currentUser.photoURL}></IonImg>
+          </IonAvatar>
+        </IonRow>
+        <IonRow className="icon-row">
+          <IonIcon className="icon" size="large" color="smoke" icon={createOutline}></IonIcon>
+          <IonIcon size="large"  className="icon"color="smoke" icon={trashOutline}></IonIcon>
+        </IonRow>
+
+        {/* <IonGrid> */}
+
+        {/* </IonGrid> */}
+        {/* <IonRow className="left">
+            <IonAvatar className="avatar1">
+              <IonImg
+                // className="img"
+                // height="400px"
+                src={
+                  file
+                    ? URL.createObjectURL(file)
+                    : "https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png"
+                }
+                alt=""
+              />
+            </IonAvatar>
+          </IonRow> */}
+
+        {/* </IonGrid> */}
+        <IonGrid className="grid">
+          <IonRow className="name-row">
+            <IonLabel color="smoke">{auth.currentUser.displayName}</IonLabel>
+            <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
           </IonRow>
+          <IonRow>Bio:</IonRow>
+          <IonRow>Bio:</IonRow>
           <form className="form" onSubmit={handleAdd}>
             <IonRow className="formInput">
               <input
-              className="form-control"
+                className="form-control"
                 type="file"
                 id="file"
                 onChange={(e) => setFile(e.target.files[0])}
