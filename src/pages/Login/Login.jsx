@@ -4,6 +4,7 @@ import {
   IonContent,
   IonGrid,
   IonHeader,
+  IonIcon,
   IonImg,
   IonInput,
   IonLabel,
@@ -16,12 +17,14 @@ import {
   useIonToast,
   useIonViewWillEnter,
 } from "@ionic/react";
+
 import "./Login.css";
 import { UserAuth } from "../../context/AuthContext";
 import { useIonRouter } from "@ionic/react";
 import { useEffect, useState } from "react";
-import { alert } from "ionicons/icons";
+import { alert, logoFacebook, logoGoogle } from "ionicons/icons";
 const Login = () => {
+
   const { signIn, user } = UserAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,6 +32,8 @@ const Login = () => {
   const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
   const [show, dismiss] = useIonLoading();
+
+
 
   async function handleButtonClick(message) {
     present({
@@ -156,12 +161,14 @@ const Login = () => {
             <IonButton
               onClick={handleClick}
               color="smoke"
-              className="loginbutton  "
+              className="loginbutton"
               // disabled={isLoading}
               // onClick={!isLoading ? handleClick : null}
             >
-              {/* {isLoading ? "Logging in.." : "Login"} */}Login
+              {/* {isLoading ? "Logging in.." : "Login"} */}
+              Login
             </IonButton>
+          
           </IonRow>
           <IonRow className="create-acc-row">
             <IonLabel className="loginpage-text">

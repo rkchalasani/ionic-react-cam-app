@@ -50,11 +50,10 @@ import { doc, getDoc } from "firebase/firestore";
 import { App as app } from "@capacitor/app";
 import { useEffect, useState } from "react";
 import { db } from "./firebase";
-import { Browser } from '@capacitor/browser';
+import { Browser } from "@capacitor/browser";
 setupIonicReact();
 
-
-const App = () =>  {
+const App = () => {
   const [updateDetails, setUpdateDetails] = useState({});
   const [appVersion, setAppVersion] = useState("");
   // const [showLoading, setShowLoading] = useState(false);
@@ -138,8 +137,6 @@ const App = () =>  {
           handleAlert(message, title, button, appVersion);
         }
       } else {
-        // const msg = "App is not running on android platform";
-        // handleToast(msg);
       }
     } catch (error) {
       // handleAlert(error.message);
@@ -155,45 +152,45 @@ const App = () =>  {
 
   checkUpdate();
   return (
-  <AuthContextProvider>
-    <IonApp>
-      <IonReactRouter>
-        <IonRouterOutlet>
-          <Route path="/home/tab1">
-            <Feed />
-          </Route>
-          <Route path="/home/tab2">
-            <Tab1 />
-          </Route>
-          <Route path="/home/tab3">
-            <Tab3 />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/home">
-            <Home />
-          </Route>
-          <Route path="/getstarted">
-            <Getstarted />
-          </Route>
-          <Route path="/signup">
-            <Signup />
-          </Route>
-          <Route path="/new">
-            <Newuser />
-          </Route>
-          <Route path="/profile">
-            <Profile />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/getstarted" />
-          </Route>
-        </IonRouterOutlet>
-      </IonReactRouter>
-    </IonApp>
-  </AuthContextProvider>
-)
-  };
+    <AuthContextProvider>
+      <IonApp>
+        <IonReactRouter>
+          <IonRouterOutlet>
+            <Route path="/home/tab1">
+              <Feed />
+            </Route>
+            <Route path="/home/tab2">
+              <Tab1 />
+            </Route>
+            <Route path="/home/tab3">
+              <Tab3 />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/home">
+              <Home />
+            </Route>
+            <Route path="/getstarted">
+              <Getstarted />
+            </Route>
+            <Route path="/signup">
+              <Signup />
+            </Route>
+            <Route path="/new">
+              <Newuser />
+            </Route>
+            <Route path="/profile">
+              <Profile />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/getstarted" />
+            </Route>
+          </IonRouterOutlet>
+        </IonReactRouter>
+      </IonApp>
+    </AuthContextProvider>
+  );
+};
 
 export default App;

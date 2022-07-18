@@ -100,7 +100,7 @@ const New = ({ inputs, email, title }) => {
         }
       );
       router.push("/home/tab1");
-      window.location.reload()
+      // window.location.reload()
     } catch (err) {
       console.log(err);
     }
