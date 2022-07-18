@@ -1,5 +1,5 @@
 import "./new.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   addDoc,
   collection,
@@ -15,8 +15,10 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 // import 'bootstrap-css-only/css/bootstrap.min.css';
 // import 'mdbreact/dist/css/mdb.css';
 import {
+  IonAvatar,
   IonBackButton,
   IonButton,
+  IonCard,
   IonCol,
   IonContent,
   IonGrid,
@@ -30,11 +32,18 @@ import {
   useIonViewWillEnter,
 } from "@ionic/react";
 import { MDBInput } from "mdbreact";
-import { arrowBack, arrowBackCircle, backspace } from "ionicons/icons";
+import {
+  arrowBack,
+  arrowBackCircle,
+  attachOutline,
+  backspace,
+  cloudUpload,
+} from "ionicons/icons";
 // import { timeStamp } from "console";
 // import MDBFileupload from 'mdb-react-fileupload';
 
 const New = ({ inputs, email, title }) => {
+  const [cap, setCap] = useState("");
   const [file, setFile] = useState("");
   const [data, setData] = useState({});
   const [per, setPerc] = useState(null);
@@ -90,7 +99,7 @@ const New = ({ inputs, email, title }) => {
       await addDoc(
         collection(
           db,
-          // "user"
+          "user"
           // auth.currentUser.uid, "posts"
         ),
         {
@@ -98,13 +107,14 @@ const New = ({ inputs, email, title }) => {
           createdAt: new Date(),
           name: auth.currentUser.displayName,
           email: auth.currentUser.email,
-          avatar: auth.currentUser.photoURL
+          avatar: auth.currentUser.photoURL,
         }
       );
-      router.push("/home/tab1");
+      // router.push("/home/tab1");
       // window.location.reload()
     } catch (err) {
       console.log(err);
+      // setData("");
     }
   };
   const backTo = () => {
@@ -116,75 +126,59 @@ const New = ({ inputs, email, title }) => {
       tabsEl.hidden = true;
     }
   };
+  const hiddenFileInput = useRef(null);
+  const handleClick = (event) => {
+    hiddenFileInput.current.click();
+  };
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useIonViewWillEnter(() => hideTabs());
   return (
-    <IonPage>
-      <IonContent className="new-content">
-        <IonGrid className="new-grid1">
-          <IonRow className="newpost-row">
-            <IonCol className="newpost-row">
-              <IonIcon
-                className="back-icon"
-                color="smoke"
-                // size="small"
-                // routerLink="/home/tab1"
-                onClick={backTo}
-                icon={arrowBack}
-              ></IonIcon>
-            </IonCol>
+    <>
+      <IonCard className="newpost-card" color="darkgreen">
+        <IonRow className="newpost-row">
+          <IonAvatar
+            className="newpost-avatar"
+            style={{ width: 50, height: 50 }}
+          >
+            <IonImg src={auth.currentUser.photoURL}></IonImg>
+          </IonAvatar>
 
-            <IonButton
-              className="post-btn"
-              onClick={handleAdd}
-              color="smoke"
-              type="submit"
-            >
-              Post
-            </IonButton>
-          </IonRow>
-
-          <IonRow className="top">
-            <IonCol>
-              <IonLabel className="title" color="smoke">
-                New post
-              </IonLabel>
-            </IonCol>
-          </IonRow>
-          <IonRow className="left">
-            <IonImg
-              className="img"
-              // height="400px"
-              src={
-                file
-                  ? URL.createObjectURL(file)
-                  : "https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png"
-              }
-              alt=""
-            />
-          </IonRow>
-          <IonRow className="formInput">
-            <input
-              type="file"
-              id="file"
-              className="form-control"
-              onChange={(e) => setFile(e.target.files[0])}
-            />
-          </IonRow>
-          <IonRow className="formInput dynamic">
-            <IonInput
-            color='smoke'
-              id="caption"
-              type="type"
-              placeholder="Add a Caption"
-              onIonChange={handleInput}
-              // className="form-control caption-input"
-            />
-          </IonRow>
-        </IonGrid>
-      </IonContent>
-    </IonPage>
+          <input
+            type="file"
+            id="file"
+            className="form-control"
+            ref={hiddenFileInput}
+            style={{ display: "none" }}
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+          <IonInput
+            color="smoke"
+            id="caption"
+            type="type"
+            placeholder="Add a Caption"
+            onIonChange={handleInput}
+          />
+          <IonIcon
+            className="icon"
+            size="large"
+            color="smoke"
+            onClick={handleClick}
+            icon={cloudUpload}
+          ></IonIcon>
+        </IonRow>
+        <IonRow className="btn-class">
+          <IonButton
+            className="post-btn"
+            onClick={handleAdd}
+            color="smoke"
+            type="submit"
+          >
+            Post
+          </IonButton>
+        </IonRow>
+      </IonCard>
+    </>
   );
 };
 

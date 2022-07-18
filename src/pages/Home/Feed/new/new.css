@@ -48,3 +48,19 @@
   display: flex;
   align-items: center;
 }
+.newpost-card{
+  /* display: flex; */
+}
+.newpost-avatar{
+  --border-radius: 10%;
+}
+.newpost-row{
+ 
+ display: flex;
+ justify-content: flex-end;
+ padding: 2%;
+  /* padding: 4%; */
+}
+.btn-class{
+  padding: 1.2%;
+}
