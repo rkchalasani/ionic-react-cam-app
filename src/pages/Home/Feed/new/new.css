@@ -1,36 +1,50 @@
-.new-content{
+.new-content {
   --background: linear-gradient(rgb(19, 33, 36, 0.3), rgb(19, 33, 36, 0.3)),
-    url("../../../../../public/assets/images/Get-Started1.png") no-repeat center/cover
-      fixed;
+    url("../../../../../public/assets/images/Get-Started1.png") no-repeat
+      center/cover fixed;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
 }
 
-.new-grid1{
+.new-grid1 {
   padding: 7%;
   display: flex;
-  height: 80%;
+  /* height: 90%; */
+  background-color: black;
+  margin: 5%;
+  border-radius: 30px;
   justify-content: space-around;
   flex-direction: column;
   /* align-items: space-around; */
 }
 
-.img{
+.img {
   /* padding: 5%; */
   /* width: ; */
   height: 300px;
 }
-.title{
+.title {
   font-size: 1.7rem;
   /* padding-bottom: 5%; */
 }
-.back-icon{
+.back-icon {
   width: 45px;
   height: 45px;
 }
-.top{
+.top {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.back-icon{width: 35px; }
-.post-btn{height: 30px;}
-.newpost-row{display: flex; align-items: center;}
+.back-icon {
+  width: 35px;
+}
+.post-btn {
+  height: 30px;
+}
+.newpost-row {
+  display: flex;
+  align-items: center;
+}

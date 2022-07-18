@@ -32,7 +32,7 @@ import {
   useIonRouter,
   useIonViewWillEnter,
 } from "@ionic/react";
-import Propic from "../propic/propic";
+// import Propic from "../propic/propic";
 import {
   arrowBackCircle,
   arrowBackCircleOutline,
@@ -120,12 +120,6 @@ const New = ({ inputs, email, title }) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useIonViewWillEnter(() => hideTabs());
 
-  const deleteUser = async (id) => {
-    const userDoc = doc(db, "users", auth.currentUser.uid);
-    await deleteDoc(userDoc);
-    router.push("/home");
-    console.log("clicked");
-  };
   const hiddenFileInput = useRef(null);
   const handleClick = (event) => {
     hiddenFileInput.current.click();
@@ -152,9 +146,8 @@ const New = ({ inputs, email, title }) => {
             Post
           </IonButton>
         </IonRow>
-
         <IonRow className="pro-row">
-          <IonAvatar className="avatar1">
+          <IonAvatar className="avatar-img">
             <IonImg
               src={
                 auth.currentUser.photoURL
@@ -163,54 +156,57 @@ const New = ({ inputs, email, title }) => {
               }
             ></IonImg>
           </IonAvatar>
+          <IonCol className="name-col">
+            <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
+            <IonLabel className="font" color="smoke">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
+              quasi quae nihil ad, est excepturi ipsam! Voluptatum a obcaecati
+              laboriosam, similique quae incidunt culpa. Esse unde aliquam
+              blanditiis in suscipit.
+            </IonLabel>
+          </IonCol>
         </IonRow>
         <IonRow className="icon-row">
-          {"https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png" ? (
-            <IonIcon
-              className="icon"
-              size="large"
-              color="smoke"
-              onClick={handleClick}
-              icon={createOutline}
-            ></IonIcon>
-          ) : (
-            <IonIcon onClick={handleClick} icon={cloudUpload}></IonIcon>
-          )}
+          {" "}
+          <IonIcon
+            className="icon"
+            size="large"
+            color="smoke"
+            onClick={handleClick}
+            icon={cloudUpload}
+          ></IonIcon>
           <IonIcon
             size="large"
             className="icon"
             color="smoke"
             icon={trashOutline}
           ></IonIcon>
-          {/* </IonButton> */}
         </IonRow>
         <IonGrid className="grid">
-          <IonRow className="name-row">
-            <IonLabel color="smoke">..Bio..</IonLabel>
-          </IonRow>
-          <IonRow className="email-row">
-            <IonLabel color="smoke">Email</IonLabel>  
+          <IonRow className="email-row1">
+            <IonLabel color="smoke">Username</IonLabel>
             <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
           </IonRow>
           <IonRow className="email-row">
-            <IonLabel color="smoke">Username</IonLabel>  
+            <IonLabel color="smoke">Phone</IonLabel>
             <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
           </IonRow>
           <IonRow className="email-row">
-            <IonLabel color="smoke">Company</IonLabel>  
+            <IonLabel color="smoke">Company</IonLabel>
             <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
           </IonRow>
           <IonRow className="email-row">
-            <IonLabel color="smoke">Phone</IonLabel>  
+            <IonLabel color="smoke">Title</IonLabel>
             <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
           </IonRow>
           <IonRow className="email-row">
-            <IonLabel color="smoke">Email</IonLabel>  
+            <IonLabel color="smoke">Website</IonLabel>
             <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
           </IonRow>
-          {/* <IonRow>Bio:</IonRow>
-          <IonRow>Bio:</IonRow> */}
-          {/* <form className="form" onSubmit={}> */}
+          <IonRow className="email-row">
+            <IonLabel color="smoke">About you</IonLabel>
+            <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
+          </IonRow>
           <IonRow className="formInput">
             <input
               className="form-control"
@@ -221,8 +217,6 @@ const New = ({ inputs, email, title }) => {
               onChange={(e) => setFile(e.target.files[0])}
             />
           </IonRow>
-
-          {/* </form> */}
         </IonGrid>
       </IonContent>
     </IonPage>

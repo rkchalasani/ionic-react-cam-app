@@ -1,5 +1,5 @@
 .profile-content {
-    --background: #132124;
+  --background: #132124;
   /* --background: #24383F; */
   /* --background: linear-gradient(rgb(19, 33, 36, 0.6), rgb(19, 33, 36, 0.6)),
     url("../../../../../public/assets/images/Get-Started1.png") no-repeat
@@ -35,9 +35,12 @@
 }
 
 .grid {
-  padding: 6%;
+  padding-bottom: 6%;
+  padding-left: 6%;
+  padding-right: 6%;
   background: #24383f;
-  border-radius: 30px 30px 0 0;
+  border-radius: 30px ;
+  margin: 4%;
 }
 .flex-row-label {
   font-family: "Quicksand";
@@ -49,12 +52,22 @@
 .pro-row {
   display: flex;
   justify-content: center;
-  /* padding-top: 5%; */
+  align-items: center;
+  padding-left: 5%;
 }
 .backbtn {
-  padding-left: 7%;
-  padding-top: 7%;
-  padding-bottom: 7%;
+  padding-left: 5%;
+  padding-top: 5%;
+  padding-bottom: 3%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 5%;
+}
+.avatar-img{
+  width: 120px;
+  --border-radius: 15%;
+  height: 120px;
 }
 .flex-row-value {
   display: flex;
@@ -74,7 +87,11 @@
   color: #000000;
   width: 200px;
 }
-
+.font{
+  font-size: 12px;
+  line-height: 20px;
+  padding-right: 10%;
+}
 .update-row {
   display: flex;
   justify-content: center;
@@ -103,9 +120,9 @@
 .avatar1 {
   position: relative;
 
-  width: 250px;
+  width: 100px;
 
-  height: 250px;
+  height: 100px;
 
   overflow: hidden;
 
@@ -133,8 +150,25 @@
   justify-content: flex-end;
   padding: 4%;
 }
-.email-row{
+.email-row {
   margin-top: 10%;
   display: flex;
   flex-direction: column;
+}
+.email-row1 {
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+}
+.name-col {
+  padding-left: 5%;
+  line-height: 40px;
+  font-size: 1.3rem;
+  display: flex;
+  /* align-items: center; */
+  flex-direction: column;
+  justify-content: center;
+}
+.img-avatar1 {
+  --border-radius: 7%;
 }

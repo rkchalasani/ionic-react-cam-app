@@ -22,10 +22,12 @@ import {
   IonGrid,
   IonIcon,
   IonImg,
+  IonInput,
   IonLabel,
   IonPage,
   IonRow,
   useIonRouter,
+  useIonViewWillEnter,
 } from "@ionic/react";
 import { MDBInput } from "mdbreact";
 import { arrowBack, arrowBackCircle, backspace } from "ionicons/icons";
@@ -88,7 +90,7 @@ const New = ({ inputs, email, title }) => {
       await addDoc(
         collection(
           db,
-          "user"
+          // "user"
           // auth.currentUser.uid, "posts"
         ),
         {
@@ -108,6 +110,15 @@ const New = ({ inputs, email, title }) => {
   const backTo = () => {
     router.push("/home/tab1");
   };
+  const hideTabs = () => {
+    const tabsEl = document.querySelector("ion-tab-bar");
+    if (tabsEl) {
+      tabsEl.hidden = true;
+    }
+  };
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useIonViewWillEnter(() => hideTabs());
   return (
     <IonPage>
       <IonContent className="new-content">
@@ -162,12 +173,13 @@ const New = ({ inputs, email, title }) => {
             />
           </IonRow>
           <IonRow className="formInput dynamic">
-            <input
+            <IonInput
+            color='smoke'
               id="caption"
               type="type"
               placeholder="Add a Caption"
-              onChange={handleInput}
-              className="form-control caption-input"
+              onIonChange={handleInput}
+              // className="form-control caption-input"
             />
           </IonRow>
         </IonGrid>

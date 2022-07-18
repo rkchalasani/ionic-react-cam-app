@@ -29,13 +29,13 @@ import {
   onSnapshot,
   query,
 } from "firebase/firestore";
-import Propic from "../propic/propic";
+// import Propic from "../propic/propic";
 
 const Tab2 = () => {
   const deleteUser = async (id) => {
     const userDoc = doc(db, "user", id);
     await deleteDoc(userDoc);
-    window.location.reload();
+    // window.location.reload();
     console.log("clicked");
   };
   const [users, setUsers] = useState([]);
@@ -44,7 +44,7 @@ const Tab2 = () => {
 
   useEffect(() => {
     const getUsers = async () => {
-      const usersCollection = collection(db, "users");
+      // const usersCollection = collection(db, "users");
       const postCollection = collection(db, "user");
       const q = query(postCollection, orderBy("createdAt", "desc"));
       onSnapshot(q, (querySnapshot) => {
@@ -104,7 +104,7 @@ const Tab2 = () => {
                 {currentUser.caption}
               </IonLabel>
             </IonRow>
-            {/* {
+            {
               currentUser.img
               ?
               <IonAvatar className="post-avatar">
@@ -113,10 +113,10 @@ const Tab2 = () => {
 
               :
                  <IonImg src={currentUser.img}></IonImg>
-            } */}
-            <IonAvatar className="post-avatar">
+            }
+            {/* <IonAvatar className="post-avatar">
               <IonImg src={currentUser.img}></IonImg>
-            </IonAvatar>
+            </IonAvatar> */}
             <IonRow className="time">
               <IonCol className="moment">
                 <Moment fromNow>{currentUser.createdAt.toDate()}</Moment>

@@ -155,5 +155,21 @@
   align-items: center;
 }
 .new-icon {
-  padding-right: 4%;
+  padding-right: 7%;
+}
+.modal-class{
+  --background: #132124;
+}
+.newpost-card{
+  /* padding: 4%; */
+}
+.newpost-avatar{
+  --border-radius: 10%;
+}
+.newpost-row{
+ 
+ display: flex;
+ justify-content: flex-end;
+ padding: 2%;
+  /* padding: 4%; */
 }

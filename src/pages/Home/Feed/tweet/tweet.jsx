@@ -29,7 +29,7 @@ import {
   onSnapshot,
   query,
 } from "firebase/firestore";
-import Propic from "../propic/propic";
+// import Propic from "../propic/propic";
 
 const Tweet = () => {
   const deleteUser = async (id) => {
