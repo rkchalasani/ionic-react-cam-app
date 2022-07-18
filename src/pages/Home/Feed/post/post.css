@@ -21,3 +21,13 @@
   display: flex;
   justify-content: center;
 }
+.moment{
+  margin-left: 3%;
+}
+.post-avatar{
+  --border-radius: 0%;
+  /* width: 100%; */
+  /* height: 100%; */
+  width: 100vw;
+  height: 40vh;
+}

@@ -1,8 +1,9 @@
 .profile-content {
+    --background: #132124;
   /* --background: #24383F; */
-  --background: linear-gradient(rgb(19, 33, 36, 0.6), rgb(19, 33, 36, 0.6)),
+  /* --background: linear-gradient(rgb(19, 33, 36, 0.6), rgb(19, 33, 36, 0.6)),
     url("../../../../../public/assets/images/Get-Started1.png") no-repeat
-      center/cover fixed;
+      center/cover fixed; */
   /* padding: 5%; */
 }
 
@@ -48,12 +49,12 @@
 .pro-row {
   display: flex;
   justify-content: center;
-  padding-top: 5%;
+  /* padding-top: 5%; */
 }
 .backbtn {
   padding-left: 7%;
   padding-top: 7%;
-  padding-bottom: 4%;
+  padding-bottom: 7%;
 }
 .flex-row-value {
   display: flex;
@@ -131,4 +132,9 @@
   display: flex;
   justify-content: flex-end;
   padding: 4%;
+}
+.email-row{
+  margin-top: 10%;
+  display: flex;
+  flex-direction: column;
 }

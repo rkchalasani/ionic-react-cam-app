@@ -33,6 +33,7 @@ import { UserAuth } from "../../../context/AuthContext";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { auth, db } from "../../../firebase";
+import Tweet from "./tweet/tweet";
 
 const Tab2 = () => {
   const router = useIonRouter();
@@ -45,6 +46,16 @@ const Tab2 = () => {
     // window.location.reload();
   };
 
+  const hideTabs = () => {
+    const tabsEl = document.querySelector("ion-tab-bar");
+
+    if (tabsEl) {
+      tabsEl.hidden = false;
+    }
+  };
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useIonViewWillEnter(() => hideTabs());
   return (
     <IonPage>
       <IonHeader>
@@ -56,45 +67,47 @@ const Tab2 = () => {
                 src="assets/images/Group 22.png "
               ></IonImg>
             </IonCol>
-            <IonCol className="col4">
-              <IonAvatar className="img-row">
-                {/* <Propic /> */}
-
+            <IonCol className="feed-col1">
+              {/* <IonRow className="btn-row"> */}
+                {/* <IonButton
+                  
+                  color="darkgreen"
+                  // className="button-new "
+                > */}
+                <IonIcon
+                  color="smoke"
+                  onClick={openNew}
+                  className="new-icon"
+                  // routerLink="/new"
+                  icon={duplicateOutline}
+                ></IonIcon>
+                {/* </IonCol> */}
+                {/* </IonButton> */}
+                {/* <IonAvatar className="img-row"> */}
                 <IonAvatar className="img-avatar">
-                  {/* <Propic /> */}
                   <IonImg
+                    style={{ width: 40, height: 40 }}
+                    // className=""
                     onClick={openProfile}
-                    // style={{ height: 23, width: 23 }}
-                    className=""
-                    src={auth.currentUser.photoURL}
+                    src={
+                      auth.currentUser.photoURL
+                        ? auth.currentUser.photoURL
+                        : "https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png"
+                    }
+                    // src={auth.currentUser.photoURL}
                   ></IonImg>
                 </IonAvatar>
-              </IonAvatar>
+                {/* </IonAvatar> */}
+              {/* </IonRow> */}
             </IonCol>
           </IonRow>
         </IonToolbar>
       </IonHeader>
 
       <IonContent className="feed-content" fullscreen>
-        <IonRow className="btn-row">
-          <IonButton
-            onClick={openNew}
-            color="darkgreen"
-            className="button-new "
-          >
-            <IonIcon
-              color="smoke"
-              style={{ width: 30, height: 30 }}
-              icon={duplicateOutline}
-            ></IonIcon>
-            <IonLabel color="smoke" className="new-post7">
-              New Post
-            </IonLabel>
-            {/* </IonCol> */}
-          </IonButton>
-        </IonRow>
-
         <Posts />
+        <Tweet/>
+
       </IonContent>
     </IonPage>
   );

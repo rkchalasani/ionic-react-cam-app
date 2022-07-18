@@ -1,4 +1,4 @@
-import "./post.css";
+// import "./post.css";
 import {
   IonAvatar,
   IonButton,
@@ -31,7 +31,7 @@ import {
 } from "firebase/firestore";
 import Propic from "../propic/propic";
 
-const Tab2 = () => {
+const Tweet = () => {
   const deleteUser = async (id) => {
     const userDoc = doc(db, "user", id);
     await deleteDoc(userDoc);
@@ -104,19 +104,9 @@ const Tab2 = () => {
                 {currentUser.caption}
               </IonLabel>
             </IonRow>
-            {/* {
-              currentUser.img
-              ?
-              <IonAvatar className="post-avatar">
+            {/* <IonAvatar className="post-avatar">
               <IonImg src={currentUser.img}></IonImg>
-            </IonAvatar>
-
-              :
-                 <IonImg src={currentUser.img}></IonImg>
-            } */}
-            <IonAvatar className="post-avatar">
-              <IonImg src={currentUser.img}></IonImg>
-            </IonAvatar>
+            </IonAvatar> */}
             <IonRow className="time">
               <IonCol className="moment">
                 <Moment fromNow>{currentUser.createdAt.toDate()}</Moment>
@@ -134,9 +124,8 @@ const Tab2 = () => {
           </IonCard>
         );
       })}
-   
     </>
   );
 };
 
-export default Tab2;
+export default Tweet;
