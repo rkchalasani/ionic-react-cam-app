@@ -16,7 +16,12 @@ import {
   IonRow,
   useIonViewWillEnter,
 } from "@ionic/react";
-import { ellipsisVertical, trash, trashBin } from "ionicons/icons";
+import {
+  ellipsisVertical,
+  trash,
+  trashBin,
+  trashOutline,
+} from "ionicons/icons";
 import Moment from "react-moment";
 import { useEffect, useRef, useState } from "react";
 import { storage, db, auth } from "../../../../firebase";
@@ -29,7 +34,7 @@ import {
   onSnapshot,
   query,
 } from "firebase/firestore";
-// import Propic from "../propic/propic";
+import Delbtn from "../delete/delbtn";
 
 const Tab2 = () => {
   const deleteUser = async (id) => {
@@ -39,30 +44,21 @@ const Tab2 = () => {
     console.log("clicked");
   };
   const [users, setUsers] = useState([]);
-  const [userr, setUserr] = useState([]);
-  const [post, setPost] = useState([]);
 
+  const usersCollectionRef = collection(db, "user");
+  const [post, setPost] = useState([]);
   useEffect(() => {
     const getUsers = async () => {
-      // const usersCollection = collection(db, "users");
       const postCollection = collection(db, "user");
       const q = query(postCollection, orderBy("createdAt", "desc"));
       onSnapshot(q, (querySnapshot) => {
         let posts = [];
         querySnapshot.forEach((doc) => {
-          posts.push(doc.data());
+          posts.push({ ...doc.data(), id: doc.id });
         });
         setPost(posts);
-        // setPost(q.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
       });
     };
-    // getMsgs();
-
-    // const datas = await getDocs(postCollection);
-    // setPost(datas.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    // const data = await getDocs(usersCollection, orderBy("createdAt"));
-    // setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    // };
     getUsers();
   }, []);
 
@@ -80,7 +76,6 @@ const Tab2 = () => {
                       ? currentUser.avatar
                       : "https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png"
                   }
-                  
                 ></IonImg>
               </IonAvatar>
               <IonCol className="username-col">
@@ -106,16 +101,13 @@ const Tab2 = () => {
                 {currentUser.caption}
               </IonLabel>
             </IonRow>
-            {
-              currentUser.img
-              ?
+            {currentUser.img ? (
               <IonAvatar className="post-avatar">
+                <IonImg src={currentUser.img}></IonImg>
+              </IonAvatar>
+            ) : (
               <IonImg src={currentUser.img}></IonImg>
-            </IonAvatar>
-
-              :
-                 <IonImg src={currentUser.img}></IonImg>
-            }
+            )}
             {/* <IonAvatar className="post-avatar">
               <IonImg src={currentUser.img}></IonImg>
             </IonAvatar> */}
@@ -123,7 +115,7 @@ const Tab2 = () => {
               <IonCol className="moment">
                 <Moment fromNow>{currentUser.createdAt.toDate()}</Moment>
               </IonCol>
-              <IonButton
+              {/* <IonButton
                 color="lightgreen"
                 className="del-btn"
                 onClick={() => {
@@ -131,12 +123,24 @@ const Tab2 = () => {
                 }}
               >
                 <IonIcon icon={trash}></IonIcon>
-              </IonButton>
+              </IonButton> */}
+              {/* <Delbtn/> */}
+              {auth.currentUser.email === currentUser.email ? (
+                <IonButton
+                  color="lightgreen"
+                  onClick={() => {
+                    deleteUser(currentUser.id);
+                  }}
+                >
+                  <IonIcon icon={trash}></IonIcon>
+                </IonButton>
+              ) : (
+                <IonRow></IonRow>
+              )}
             </IonRow>
           </IonCard>
         );
       })}
-   
     </>
   );
 };

@@ -42,13 +42,22 @@ import {
   share,
   trash,
 } from "ionicons/icons";
-import Newuser from './new/Newuser'
+import Newuser from "./new/Newuser";
 import "./Feed.css";
 // import Propic from "./propic/propic";
 import Posts from "./post/post";
 import { UserAuth } from "../../../context/AuthContext";
 import { useEffect, useRef, useState } from "react";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import { auth, db, storage } from "../../../firebase";
 import Tweet from "./tweet/tweet";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
@@ -70,7 +79,58 @@ const Tab2 = () => {
   };
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useIonViewWillEnter(() => hideTabs());
+  const deleteUser = async (id) => {
+    const userDoc = doc(db, "user", id);
+    // const usersCollection = collection(db, "user", id);
+    const data = getDocs(userDoc);
+    setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    await deleteDoc(userDoc);
+    // window.location.reload();
+    console.log("clicked");
+  };
+  const [users, setUsers] = useState([]);
+  const [userr, setUserr] = useState([]);
+  const [post, setPost] = useState([]);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const postCollection = collection(db, "user");
+      const q = query(postCollection, orderBy("createdAt", "desc"));
+      onSnapshot(q, (querySnapshot) => {
+        let posts = [];
+        querySnapshot.forEach((doc) => {
+          posts.push(doc.data());
+        });
+        setPost(posts);
+      });
+    };
+    getUsers();
+  }, []);
   const router = useIonRouter();
+  const [data, setData] = useState([]);
+  const [isInfiniteDisabled, setInfiniteDisabled] = useState(false);
+
+  const pushData = () => {
+    const max = post.length + 5;
+    const min = max - 5;
+    const newData = [];
+    for (let i = min; i < max; i++) {}
+  };
+  const loadData = (ev) => {
+    setTimeout(() => {
+      pushData();
+      console.log("Loaded data");
+      ev.target.complete();
+      if (data.length === 5) {
+        setInfiniteDisabled(data.length < 5);
+      }
+    }, 500);
+  };
+
+  useIonViewWillEnter(() => {
+    pushData();
+  });
+
   return (
     <IonPage>
       <IonHeader>
@@ -83,14 +143,6 @@ const Tab2 = () => {
               ></IonImg>
             </IonCol>
             <IonCol className="feed-col1">
-              {/* <IonIcon
-                color="smoke"
-                onClick={openNew}
-                // onClick={() => setShowActionSheet(true)}
-                expand="block"
-                className="new-icon"
-                icon={duplicateOutline}
-              ></IonIcon> */}
               <IonAvatar className="img-avatar">
                 <IonImg
                   style={{ width: 40, height: 40 }}
@@ -107,9 +159,19 @@ const Tab2 = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="feed-content" fullscreen>
-        <Newuser/>
-        {/* */}
+        <Newuser />
         <Posts />
+
+        <IonInfiniteScroll
+          onIonInfinite={loadData}
+          threshold="100px"
+          disabled={isInfiniteDisabled}
+        >
+          <IonInfiniteScrollContent
+            loadingSpinner="bubbles"
+            loadingText="Loading more data..."
+          ></IonInfiniteScrollContent>
+        </IonInfiniteScroll>
       </IonContent>
     </IonPage>
   );

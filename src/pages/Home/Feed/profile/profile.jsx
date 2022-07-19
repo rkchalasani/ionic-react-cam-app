@@ -28,6 +28,7 @@ import {
   IonLabel,
   IonPage,
   IonRow,
+  useIonLoading,
   useIonPopover,
   useIonRouter,
   useIonViewWillEnter,
@@ -48,6 +49,15 @@ import { MDBBtn } from "mdbreact";
 const New = ({ inputs, email, title }) => {
   const { user } = UserAuth();
   const [file, setFile] = useState("");
+  const [show, dismiss] = useIonLoading();
+  const handleLoad = (m) => {
+    show({
+      message: m,
+      duration: 2000,
+      spinner: "lines-sharp",
+      mode: "ios",
+    });
+  };
   const [data, setData] = useState({});
   const [per, setPerc] = useState(null);
   const router = useIonRouter();
@@ -56,6 +66,8 @@ const New = ({ inputs, email, title }) => {
       const name = new Date().getTime() + file.name;
 
       console.log(name);
+
+      handleLoad("uploading..");
       const storageRef = ref(storage, file.name);
       const uploadTask = uploadBytesResumable(storageRef, file);
 

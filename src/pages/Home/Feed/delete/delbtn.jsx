@@ -1,7 +1,8 @@
 // import React from 'react'
 
-import { IonButton, IonRow } from "@ionic/react";
+import { IonButton, IonIcon, IonRow } from "@ionic/react";
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
+import { trash, trashBin, trashOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { db } from "../../../../firebase";
 
@@ -9,7 +10,7 @@ const delbtn = () => {
   const deleteUser = async (id) => {
     const userDoc = doc(db, "user", id);
     await deleteDoc(userDoc);
-    window.location.reload();
+    // window.location.reload();
     console.log("clicked");
   };
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -30,12 +31,12 @@ const delbtn = () => {
       {users.map((currentUser) => {
         return (
           <IonButton
-            color="smoke"
+            color="lightgreen"
             onClick={() => {
               deleteUser(currentUser.id);
             }}
           >
-            Delete
+            <IonIcon icon={trashOutline}></IonIcon>
           </IonButton>
         );
       })}

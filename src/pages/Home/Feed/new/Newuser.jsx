@@ -44,29 +44,35 @@ import {
 // import MDBFileupload from 'mdb-react-fileupload';
 
 const New = ({ inputs, email, title }) => {
-  const [cap, setCap] = useState("");
+  const [caption, setCaption] = useState("");
+  const [image, setImage] = useState("");
+
   const [file, setFile] = useState("");
   const [data, setData] = useState({});
+  const [dataa, setDataa] = useState({});
+
   const [per, setPerc] = useState(null);
   const router = useIonRouter();
+  const [show, dismiss] = useIonLoading();
+  const handleLoad = (m) => {
+    show({
+      message: m,
+      spinner: "lines-sharp",
+      mode: "ios",
+    });
+  };
   useEffect(() => {
-    const uploadFile = () => {
+    const uploadFile = (e) => {
       const name = new Date().getTime() + file.name;
+      // const id = e.target.id;
+      // const value = e.target.value;
 
       console.log(name);
+      handleLoad("uploading..");
       const storageRef = ref(storage, file.name);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      const [show, dismiss] = useIonLoading();
-      const handleLoad = ()=>{
-        show({
-          message: "Logging in..",
-          duration: 2000,
-          spinner: "lines-sharp",
-          mode: "ios",
-        });
-      }
 
       uploadTask.on(
         "state_changed",
@@ -74,13 +80,12 @@ const New = ({ inputs, email, title }) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
-        
-        
+
           setPerc(progress);
           switch (snapshot.state) {
             case "paused":
               console.log("Upload is paused");
-            
+
               break;
             case "running":
               console.log("Upload is running");
@@ -88,12 +93,12 @@ const New = ({ inputs, email, title }) => {
             default:
               break;
           }
+          dismiss();
         },
         (error) => {
           console.log(error);
-          // handleLoad("uploading");
         },
-        () => {
+        (e) => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setData((prev) => ({ ...prev, img: downloadURL }));
           });
@@ -102,35 +107,26 @@ const New = ({ inputs, email, title }) => {
     };
     file && uploadFile();
   }, [file]);
-  const handleInput = (e) => {
-    const id = e.target.id;
-    const value = e.target.value;
-
-    setData({ ...data, [id]: value });
-  };
 
   const handleAdd = async (e, id) => {
     e.preventDefault();
     try {
-      await addDoc(
-        collection(
-          db,
-          "user"
-          // auth.currentUser.uid, "posts"
-        ),
-        {
-          ...data,
-          createdAt: new Date(),
-          name: auth.currentUser.displayName,
-          email: auth.currentUser.email,
-          avatar: auth.currentUser.photoURL,
-        }
-      );
-      // router.push("/home/tab1");
-      // window.location.reload()
+      await addDoc(collection(db, "user"), {
+        ...data,
+        createdAt: new Date(),
+        caption: caption,
+        name: auth.currentUser.displayName,
+        email: auth.currentUser.email,
+        avatar: auth.currentUser.photoURL,
+      });
+      await updateProfile(db, "user", {
+        caption: caption,
+      }).catch((e) => {
+        console.log(e.message);
+      });
+      setCaption("");
     } catch (err) {
       console.log(err);
-      // setData("");
     }
   };
   const backTo = () => {
@@ -171,9 +167,10 @@ const New = ({ inputs, email, title }) => {
           <IonInput
             color="smoke"
             id="caption"
-            type="type"
+            type="text"
+            value={caption}
             placeholder="Add a Caption"
-            onIonChange={handleInput}
+            onIonChange={(e) => setCaption(e.detail.value)}
           />
           <IonIcon
             className="icon"
