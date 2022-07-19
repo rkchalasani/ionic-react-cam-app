@@ -28,6 +28,7 @@ import {
   IonLabel,
   IonPage,
   IonRow,
+  useIonLoading,
   useIonRouter,
   useIonViewWillEnter,
 } from "@ionic/react";
@@ -56,16 +57,30 @@ const New = ({ inputs, email, title }) => {
       const storageRef = ref(storage, file.name);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const [show, dismiss] = useIonLoading();
+      const handleLoad = ()=>{
+        show({
+          message: "Logging in..",
+          duration: 2000,
+          spinner: "lines-sharp",
+          mode: "ios",
+        });
+      }
+
       uploadTask.on(
         "state_changed",
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
+        
+        
           setPerc(progress);
           switch (snapshot.state) {
             case "paused":
               console.log("Upload is paused");
+            
               break;
             case "running":
               console.log("Upload is running");
@@ -76,6 +91,7 @@ const New = ({ inputs, email, title }) => {
         },
         (error) => {
           console.log(error);
+          // handleLoad("uploading");
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {

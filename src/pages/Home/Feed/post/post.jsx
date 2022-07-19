@@ -53,6 +53,7 @@ const Tab2 = () => {
           posts.push(doc.data());
         });
         setPost(posts);
+        // setPost(q.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
       });
     };
     // getMsgs();
@@ -79,6 +80,7 @@ const Tab2 = () => {
                       ? currentUser.avatar
                       : "https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png"
                   }
+                  
                 ></IonImg>
               </IonAvatar>
               <IonCol className="username-col">
