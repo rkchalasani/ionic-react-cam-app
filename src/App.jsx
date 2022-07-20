@@ -33,6 +33,7 @@ import { AuthContextProvider } from "./context/AuthContext";
 import Friends from "./pages/Home/Friends/friends";
 import Feed from "./pages/Home/Feed/Feed";
 import Settings from "./pages/Home/Settings/settings";
+import Profilepage from "./pages/Home/Profile/UserAccount";
 import { doc, getDoc } from "firebase/firestore";
 import { App as app } from "@capacitor/app";
 import { useEffect, useState } from "react";
@@ -139,6 +140,10 @@ const App = () => {
             </Route>
             <Route path="/signup">
               <Signup />
+            </Route>
+
+            <Route path="/home/profile">
+              <Profilepage />
             </Route>
             <Route exact path="/">
               <Redirect to="/getstarted" />

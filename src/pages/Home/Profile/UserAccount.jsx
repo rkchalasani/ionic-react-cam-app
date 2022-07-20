@@ -1,31 +1,27 @@
-import "./profile.css";
+import "./UserAccount.css";
 import { useEffect, useRef, useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { auth, db, storage } from "../../../../firebase";
+import { auth, db, storage } from "../../../firebase";
 import { updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {
   IonAvatar,
-  IonCol,
   IonContent,
   IonGrid,
+  IonHeader,
   IonIcon,
   IonImg,
   IonLabel,
   IonPage,
   IonRow,
+  IonToolbar,
   useIonLoading,
   useIonRouter,
-  useIonViewWillEnter,
 } from "@ionic/react";
-import {
-  arrowBackCircleOutline,
-  checkmarkCircle,
-  cloudUpload,
-  trashOutline,
-} from "ionicons/icons";
-const Profile = () => {
+import { checkmarkCircle, cloudUpload, trashOutline } from "ionicons/icons";
+
+const Profilepage = () => {
   const [file, setFile] = useState("");
   const [show, dismiss] = useIonLoading();
   const handleLoad = (m) => {
@@ -37,7 +33,6 @@ const Profile = () => {
     });
   };
   const [data, setData] = useState({});
-  const [per, setPerc] = useState(null);
   const router = useIonRouter();
   useEffect(() => {
     const uploadFile = () => {
@@ -53,7 +48,6 @@ const Profile = () => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
-          setPerc(progress);
           switch (snapshot.state) {
             case "paused":
               console.log("Upload is paused");
@@ -80,7 +74,7 @@ const Profile = () => {
       );
     };
     file && uploadFile();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file]);
   const handleAdd = async (e, id) => {
     e.preventDefault();
@@ -98,33 +92,17 @@ const Profile = () => {
       console.log(err);
     }
   };
-  const pushHome = () => {
-    router.push("/home/feed");
-  };
-  const hideTabs = () => {
-    const tabsEl = document.querySelector("ion-tab-bar");
-    if (tabsEl) {
-      tabsEl.hidden = true;
-    }
-  };
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  useIonViewWillEnter(() => hideTabs());
   const hiddenFileInput = useRef(null);
   const handleClick = (event) => {
     hiddenFileInput.current.click();
   };
   return (
     <IonPage>
+      <IonHeader color="darkgreen">
+        <IonToolbar color="darkgreen"></IonToolbar>
+      </IonHeader>
       <IonContent className="profile-content">
         <IonRow className="backbtn">
-          <IonCol>
-            <IonIcon
-              className="back-icon"
-              color="smoke"
-              onClick={pushHome}
-              icon={arrowBackCircleOutline}
-            ></IonIcon>
-          </IonCol>
           <IonIcon
             className="icon"
             size="large"
@@ -209,4 +187,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Profilepage;
