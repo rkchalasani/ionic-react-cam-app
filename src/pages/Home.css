@@ -1,6 +1,4 @@
 .tabbar-div {
   --background: linear-gradient(#132124, #132124);
-  /* border: 1px solid #132124; */
-  /* padding: 2px; */
   box-shadow: 0 0  7px 7px rgba(0, 0, 0, 0.208);
 }
