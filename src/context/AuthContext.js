@@ -10,16 +10,13 @@ import {
 import {
   FacebookAuthProvider,
   GithubAuthProvider,
-  sendEmailVerification,
 } from "firebase/auth";
 import { auth, db } from "../firebase";
-import { addDoc, doc, setDoc, Timestamp } from "firebase/firestore";
+import { doc, setDoc, Timestamp } from "firebase/firestore";
 
 const UserContext = createContext();
-// const [userlist, setUserlist] = useState()
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
-
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
@@ -35,24 +32,20 @@ export const AuthContextProvider = ({ children }) => {
     const gitprovider = new GithubAuthProvider();
     signInWithPopup(auth, gitprovider);
   };
-
   const signIn = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
   const addData = async (auth, email, name, img) => {
-    setDoc(doc(db,"users", auth.currentUser.uid), {
+    setDoc(doc(db, "users", auth.currentUser.uid), {
       uid: auth.currentUser.uid,
       name: name,
       email: email,
-      // img: img,
       createdAt: Timestamp.fromDate(new Date()),
     });
   };
-
   const logout = () => {
     return signOut(auth);
   };
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -72,8 +65,6 @@ export const AuthContextProvider = ({ children }) => {
         signIn,
         googleSignIn,
         addData,
-        // setUserlist,
-        // userlist,
         facebookSignIn,
         githubSignIn,
       }}

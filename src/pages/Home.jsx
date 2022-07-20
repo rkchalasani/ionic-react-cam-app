@@ -1,34 +1,21 @@
 import {
   IonApp,
   IonIcon,
-  IonLabel,
-  IonRedirect,
-  IonRoute,
   IonRouterOutlet,
   IonTabBar,
   IonTabButton,
   IonTabs,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import {
-  albums,
-  call,
-  chatbox,
-  home,
-  homeSharp,
-  settings,
-  settingsSharp,
-} from "ionicons/icons";
-import Tab1 from "./Home/HomeChats/Tab1";
+import { chatbox, home, settingsSharp } from "ionicons/icons";
+import Friends from "./Home/Friends/friends";
 import Feed from "./Home/Feed/Feed";
-import Tab3 from "./Home/Settings/Tab3";
+import Settings from "./Home/Settings/settings";
 import { Redirect, Route } from "react-router-dom";
 import Login from "./Login/Login";
-import Chats from "./Home/Chats/chats";
 import "./Home.css";
-import Newuser from "./Home/Feed/new/Newuser";
 import ProtectedRoute from "../components/ProtectedRoute";
-import Profile from "./Home/Feed/profile/profile";
+import Profile from "./Home/Feed/Profile/profile";
 
 const Home = () => {
   return (
@@ -36,19 +23,19 @@ const Home = () => {
       <IonReactRouter>
         <IonTabs>
           <IonRouterOutlet>
-            <Route path="/home/tab1">
+            <Route path="/home/feed">
               <ProtectedRoute>
                 <Feed />
               </ProtectedRoute>
             </Route>
-            <Route path="/home/tab2">
+            <Route path="/home/friends">
               <ProtectedRoute>
-                <Tab1 />
+                <Friends />
               </ProtectedRoute>
             </Route>
-            <Route path="/home/tab3">
+            <Route path="/home/settings">
               <ProtectedRoute>
-                <Tab3 />
+                <Settings />
               </ProtectedRoute>
             </Route>
             <Route exact path="/home">
@@ -57,21 +44,18 @@ const Home = () => {
             <Route path="/login">
               <Login />
             </Route>
-            <Route path="/new">
-              <Newuser />
-            </Route>
             <Route path="/profile">
               <Profile />
             </Route>
           </IonRouterOutlet>
           <IonTabBar className="tabbar-div" slot="bottom" color="darkgreen">
-            <IonTabButton tab="tab1" href="/home/tab1">
+            <IonTabButton tab="tab1" href="/home/feed">
               <IonIcon icon={home} />
             </IonTabButton>
-            <IonTabButton tab="tab2" href="/home/tab2">
+            <IonTabButton tab="tab2" href="/home/friends">
               <IonIcon icon={chatbox} />
             </IonTabButton>
-            <IonTabButton tab="tab3" href="/home/tab3">
+            <IonTabButton tab="tab3" href="/home/settings">
               <IonIcon icon={settingsSharp} />
             </IonTabButton>
           </IonTabBar>

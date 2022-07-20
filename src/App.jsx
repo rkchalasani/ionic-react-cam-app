@@ -1,12 +1,7 @@
 import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
-  IonIcon,
-  IonLabel,
   IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
   isPlatform,
   setupIonicReact,
   useIonAlert,
@@ -14,7 +9,6 @@ import {
   useIonToast,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { ellipse, square, triangle } from "ionicons/icons";
 // import Tab1 from './pages/Home/Hometab/Tab1';
 // import Tab2 from './pages/Tab2';
 // import Tab3 from './pages/Tab3';
@@ -40,12 +34,11 @@ import Home from "./pages/Home";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import { AuthContextProvider } from "./context/AuthContext";
-import Tab1 from "./pages/Home/HomeChats/Tab1";
+import Friends from "./pages/Home/Friends/friends";
 import Feed from "./pages/Home/Feed/Feed";
-import Tab3 from "./pages/Home/Settings/Tab3";
-import Newuser from "./pages/Home/Feed/new/Newuser";
-// import { userInputs } from "./formSource";
-import Profile from "./pages/Home/Feed/profile/profile";
+import Settings from "./pages/Home/Settings/settings";
+import Newuser from "./pages/Home/Feed/NewPost/newpost";
+import Profile from "./pages/Home/Feed/Profile/profile";
 import { doc, getDoc } from "firebase/firestore";
 import { App as app } from "@capacitor/app";
 import { useEffect, useState } from "react";
@@ -56,15 +49,10 @@ setupIonicReact();
 const App = () => {
   const [updateDetails, setUpdateDetails] = useState({});
   const [appVersion, setAppVersion] = useState("");
-  // const [showLoading, setShowLoading] = useState(false);
-
   const [show, dismiss] = useIonLoading();
-
   const updateRef = doc(db, "chatify_by_PTG", "dtvG3X4CjLV7CXMIRPES");
-
   const [presentAlert] = useIonAlert();
   const [present] = useIonToast();
-
   const handleToast = (msg) => {
     present({
       message: msg,
@@ -75,7 +63,6 @@ const App = () => {
       mode: "ios",
     });
   };
-
   const handleAlert = (message, title, button, appVersion) => {
     presentAlert({
       header: title,
@@ -105,27 +92,22 @@ const App = () => {
       backdropDismiss: true,
       translucent: true,
       animated: true,
-      // cssClass: "lp-sp-alert",
     });
   };
-
   const getAppInfo = async () => {
     let info = await app.getInfo();
     return info;
   };
-
   const getConfigData = async () => {
     const docSnap = await getDoc(updateRef);
     if (docSnap.exists()) {
       const data = docSnap.data();
-      // console.log("Document data:", docSnap.data());
       setUpdateDetails(data.updatemsg);
       setAppVersion(data.current);
     } else {
       console.log("No such document!");
     }
   };
-
   const checkUpdate = async () => {
     try {
       if (isPlatform("android")) {
@@ -139,10 +121,8 @@ const App = () => {
       } else {
       }
     } catch (error) {
-      // handleAlert(error.message);
     }
   };
-
   useEffect(() => {
     getConfigData();
     if (isPlatform("android")) {
@@ -156,14 +136,14 @@ const App = () => {
       <IonApp>
         <IonReactRouter>
           <IonRouterOutlet>
-            <Route path="/home/tab1">
+            <Route path="/home/feed">
               <Feed />
             </Route>
-            <Route path="/home/tab2">
-              <Tab1 />
+            <Route path="/home/friends">
+              <Friends />
             </Route>
-            <Route path="/home/tab3">
-              <Tab3 />
+            <Route path="/home/settings">
+              <Settings />
             </Route>
             <Route path="/login">
               <Login />
@@ -176,9 +156,6 @@ const App = () => {
             </Route>
             <Route path="/signup">
               <Signup />
-            </Route>
-            <Route path="/new">
-              <Newuser />
             </Route>
             <Route path="/profile">
               <Profile />

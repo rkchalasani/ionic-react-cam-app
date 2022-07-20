@@ -2,14 +2,11 @@ import {
   IonButton,
   IonContent,
   IonGrid,
-  IonHeader,
   IonImg,
   IonInput,
   IonLabel,
   IonPage,
   IonRow,
-  IonTitle,
-  IonToolbar,
   useIonAlert,
   useIonLoading,
   useIonRouter,
@@ -18,8 +15,8 @@ import {
 import { useState } from "react";
 import { UserAuth } from "../../context/AuthContext";
 import { alert } from "ionicons/icons";
-import { updateEmail, updateProfile } from "firebase/auth";
-import { auth, db } from "../../firebase";
+import { updateProfile } from "firebase/auth";
+import { auth } from "../../firebase";
 const Signup = () => {
   const [present] = useIonToast();
   async function handleButtonClick(message) {
@@ -34,13 +31,10 @@ const Signup = () => {
   }
   const [presentAlert] = useIonAlert();
   const { logout, addData } = UserAuth();
-  const [username, setUsername] = useState("");
   const [name, setName] = useState("");
-  const [img, setImg] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const { createUser, currentUser } = UserAuth();
+  const { createUser } = UserAuth();
   const router = useIonRouter();
   async function handleAlert(message) {
     presentAlert({
@@ -50,8 +44,12 @@ const Signup = () => {
       mode: "ios",
     });
   }
-  const [show, dismiss] = useIonLoading();
-
+  const [show] = useIonLoading();
+  const resetInput = () => {
+    setName("");
+    setEmail("");
+    setPassword("");
+  };
   const handleSubmit = async () => {
     var atposition = email.indexOf("@");
     var dotposition = email.lastIndexOf(".");
@@ -87,35 +85,32 @@ const Signup = () => {
           console.log(e.message);
         });
         await addData(auth, email, name);
-
         logout();
-        setName("");
-        setEmail("");
-        setPassword("");
+        resetInput();
         router.push("/login");
         setTimeout(() => {
           handleButtonClick("User successfully registered");
         }, 1510);
       } catch (e) {
         console.log(e);
-        setName("");
-        setEmail("");
-        setPassword("");
+        handleAlert(e.message);
+        resetInput();
       }
     }
   };
   const openLogin = () => {
     router.push("/login");
-    setName("");
-    setEmail("");
-    setPassword("");
+    resetInput();
   };
   return (
     <IonPage>
       <IonContent fullscreen className="signup-main-div">
         <IonGrid className="signup-grid">
           <IonRow>
-            <IonImg className="chatifylogo" src="assets/images/Group 22.png">
+            <IonImg
+              className="chatifylogo"
+              src="assets/images/Chatify-logo.png"
+            >
               {" "}
             </IonImg>
           </IonRow>

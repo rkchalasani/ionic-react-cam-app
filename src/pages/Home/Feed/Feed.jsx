@@ -1,46 +1,25 @@
 import {
-  IonActionSheet,
   IonAvatar,
-  IonButton,
-  IonButtons,
-  IonCard,
   IonCol,
   IonContent,
-  IonGrid,
   IonHeader,
-  IonIcon,
   IonImg,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonModal,
   IonPage,
   IonRow,
-  IonTitle,
   IonToolbar,
   useIonRouter,
   useIonViewWillEnter,
 } from "@ionic/react";
-import Newuser from "./new/Newuser";
+import Newpost from "./NewPost/newpost";
 import "./Feed.css";
-import Posts from "./post/post";
-import { useEffect, useRef, useState } from "react";
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
-import { auth, db, storage } from "../../../firebase";
+import Posts from "./Post/post";
+import { useEffect, useState } from "react";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { auth, db } from "../../../firebase";
 
-const Tab2 = () => {
+const Feed = () => {
   const openProfile = () => {
     router.push("/profile");
   };
@@ -52,16 +31,7 @@ const Tab2 = () => {
   };
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useIonViewWillEnter(() => hideTabs());
-  const deleteUser = async (id) => {
-    const userDoc = doc(db, "user", id);
-    const data = getDocs(userDoc);
-    setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    await deleteDoc(userDoc);
-    console.log("clicked");
-  };
-  const [users, setUsers] = useState([]);
   const [post, setPost] = useState([]);
-
   useEffect(() => {
     const getUsers = async () => {
       const postCollection = collection(db, "user");
@@ -79,7 +49,6 @@ const Tab2 = () => {
   const router = useIonRouter();
   const [data, setData] = useState([]);
   const [isInfiniteDisabled, setInfiniteDisabled] = useState(false);
-
   const pushData = () => {
     const max = post.length + 5;
     const min = max - 5;
@@ -96,7 +65,6 @@ const Tab2 = () => {
       }
     }, 500);
   };
-
   useIonViewWillEnter(() => {
     pushData();
   });
@@ -109,7 +77,7 @@ const Tab2 = () => {
             <IonCol className="col2">
               <IonImg
                 style={{ height: 53 }}
-                src="assets/images/Group 22.png "
+                src="assets/images/Chatify-logo.png "
               ></IonImg>
             </IonCol>
             <IonCol className="feed-col1">
@@ -129,9 +97,8 @@ const Tab2 = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="feed-content" fullscreen>
-        <Newuser />
+        <Newpost />
         <Posts />
-
         <IonInfiniteScroll
           onIonInfinite={loadData}
           threshold="100px"
@@ -147,4 +114,4 @@ const Tab2 = () => {
   );
 };
 
-export default Tab2;
+export default Feed;

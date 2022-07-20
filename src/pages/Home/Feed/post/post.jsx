@@ -4,38 +4,28 @@ import {
   IonButton,
   IonCard,
   IonCol,
-  IonContent,
-  IonInfiniteScroll,
-  IonInfiniteScrollContent,
-  IonItem,
   IonLabel,
-  IonList,
   IonIcon,
   IonImg,
-  // IonLabel,
   IonRow,
-  useIonViewWillEnter,
 } from "@ionic/react";
 import {
   ellipsisVertical,
   trash,
-  trashBin,
-  trashOutline,
 } from "ionicons/icons";
 import Moment from "react-moment";
-import { useEffect, useRef, useState } from "react";
-import { storage, db, auth } from "../../../../firebase";
+import { useEffect, useState } from "react";
+import { db, auth } from "../../../../firebase";
 import {
   doc,
   deleteDoc,
   collection,
-  getDocs,
   orderBy,
   onSnapshot,
   query,
 } from "firebase/firestore";
 
-const Tab2 = () => {
+const Post = () => {
   const deleteUser = async (id) => {
     const userDoc = doc(db, "user", id);
     await deleteDoc(userDoc);
@@ -127,4 +117,4 @@ const Tab2 = () => {
   );
 };
 
-export default Tab2;
+export default Post;

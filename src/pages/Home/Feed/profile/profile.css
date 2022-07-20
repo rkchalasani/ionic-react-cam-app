@@ -1,7 +1,6 @@
 .profile-content {
   --background: #132124;
 }
-
 .pro-pic-container {
   display: flex;
   justify-content: center;
@@ -27,13 +26,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* padding-left: 5%; */
 }
 .avatar-img {
   width: 250px;
   --border-radius: 15%;
   height: 250px;
-  /* margin-bottom: 4%; */
 }
 .backbtn {
   padding: 5%;
@@ -41,7 +38,6 @@
   justify-content: center;
   align-items: center;
 }
-
 .flex-row-value {
   display: flex;
   justify-content: center;
@@ -63,7 +59,6 @@
 .font {
   font-size: 12px;
   line-height: 20px;
-  /* padding-right: 10%; */
 }
 .update-row {
   display: flex;
@@ -71,7 +66,6 @@
   align-items: center;
   margin: 1.5rem 1rem;
 }
-
 .update-icon {
   margin-top: 5px;
   margin-right: 5px;
@@ -92,13 +86,9 @@
 }
 .avatar1 {
   position: relative;
-
   width: 100px;
-
   height: 100px;
-
   overflow: hidden;
-
   border-radius: 10%;
 }
 .name-row {

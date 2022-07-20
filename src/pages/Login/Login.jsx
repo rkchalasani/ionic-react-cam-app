@@ -1,17 +1,12 @@
 import {
   IonButton,
-  IonCol,
   IonContent,
   IonGrid,
-  IonHeader,
-  IonIcon,
   IonImg,
   IonInput,
   IonLabel,
   IonPage,
   IonRow,
-  IonTitle,
-  IonToolbar,
   useIonAlert,
   useIonLoading,
   useIonToast,
@@ -20,17 +15,17 @@ import {
 import "./Login.css";
 import { UserAuth } from "../../context/AuthContext";
 import { useIonRouter } from "@ionic/react";
-import { useEffect, useState } from "react";
-import { alert, logoFacebook, logoGoogle } from "ionicons/icons";
+import { useState } from "react";
+import { alert } from "ionicons/icons";
 
 const Login = () => {
-  const { signIn, user } = UserAuth();
+  const { signIn } = UserAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
-  const [show, dismiss] = useIonLoading();
+  const [show] = useIonLoading();
   async function handleButtonClick(message) {
     present({
       message: message,
@@ -52,6 +47,10 @@ const Login = () => {
       color: "light",
     });
   }
+  const resetInput = () => {
+    setEmail("");
+    setPassword("");
+  };
   const router = useIonRouter();
   const handleClick = async (e) => {
     var atposition = email.indexOf("@");
@@ -75,8 +74,7 @@ const Login = () => {
           spinner: "lines-sharp",
           mode: "ios",
         });
-        setEmail("");
-        setPassword("");
+        resetInput();
         router.push("/home");
         setTimeout(() => {
           handleButtonClick("Login successful");
@@ -84,11 +82,14 @@ const Login = () => {
       } catch (e) {
         setError(e.message);
         handleAlert(e.message);
-        setEmail("");
-        setPassword("");
+        resetInput();
       }
     }
   };
+  const openSignup = () =>{
+    router.push("/signup");
+    resetInput();
+  }
   const hideTabs = () => {
     const tabsEl = document.querySelector("ion-tab-bar");
     if (tabsEl) {
@@ -101,7 +102,7 @@ const Login = () => {
       <IonContent fullscreen className="login-main-div">
         <IonGrid className="main-grid">
           <IonRow>
-            <IonImg className="chatifylogo" src="assets/images/Group 22.png">
+            <IonImg className="chatifylogo" src="assets/images/Chatify-logo.png">
               {" "}
             </IonImg>
           </IonRow>
@@ -145,7 +146,8 @@ const Login = () => {
             <IonButton
               color="smoke "
               className="loginpage-signup-btn ion-text-capitalize"
-              routerLink="/signup"
+              // routerLink="/signup"
+              onClick={openSignup}
             >
               Signup
             </IonButton>

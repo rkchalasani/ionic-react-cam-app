@@ -1,53 +1,31 @@
 import "./profile.css";
 import { useEffect, useRef, useState } from "react";
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  serverTimestamp,
-  setDoc,
-  updateDoc,
-} from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { auth, db, storage } from "../../../../firebase";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {
   IonAvatar,
-  IonBackButton,
-  IonButton,
-  IonCard,
   IonCol,
   IonContent,
   IonGrid,
   IonIcon,
   IonImg,
-  IonItem,
   IonLabel,
   IonPage,
   IonRow,
   useIonLoading,
-  useIonPopover,
   useIonRouter,
   useIonViewWillEnter,
 } from "@ionic/react";
 import {
-  arrowBackCircle,
   arrowBackCircleOutline,
-  backspace,
   checkmark,
   cloudUpload,
-  createOutline,
-  ellipsisVertical,
-  trashBin,
   trashOutline,
 } from "ionicons/icons";
-import { UserAuth } from "../../../../context/AuthContext";
-import { MDBBtn } from "mdbreact";
-const New = ({ inputs, email, title }) => {
-  const { user } = UserAuth();
+const Profile = () => {
   const [file, setFile] = useState("");
   const [show, dismiss] = useIonLoading();
   const handleLoad = (m) => {
@@ -64,9 +42,7 @@ const New = ({ inputs, email, title }) => {
   useEffect(() => {
     const uploadFile = () => {
       const name = new Date().getTime() + file.name;
-
       console.log(name);
-
       handleLoad("uploading..");
       const storageRef = ref(storage, file.name);
       const uploadTask = uploadBytesResumable(storageRef, file);
@@ -124,18 +100,14 @@ const New = ({ inputs, email, title }) => {
   const pushHome = () => {
     router.push("/home/tab1");
   };
-
   const hideTabs = () => {
     const tabsEl = document.querySelector("ion-tab-bar");
-
     if (tabsEl) {
       tabsEl.hidden = true;
     }
   };
-
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useIonViewWillEnter(() => hideTabs());
-
   const hiddenFileInput = useRef(null);
   const handleClick = (event) => {
     hiddenFileInput.current.click();
@@ -236,4 +208,4 @@ const New = ({ inputs, email, title }) => {
   );
 };
 
-export default New;
+export default Profile;
