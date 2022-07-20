@@ -1,6 +1,0 @@
-{
-	"appId": "com.chatify.app",
-	"appName": "Chatify",
-	"webDir": "build",
-	"bundledWebRuntime": false
-}

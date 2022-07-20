@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">Chatify</string>
-    <string name="title_activity_main">Chatify</string>
-    <string name="package_name">com.chatify.app</string>
-    <string name="custom_url_scheme">com.chatify.app</string>
-</resources>
