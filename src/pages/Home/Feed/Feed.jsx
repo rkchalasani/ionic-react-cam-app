@@ -47,27 +47,6 @@ const Feed = () => {
     getUsers();
   }, []);
   const router = useIonRouter();
-  const [data, setData] = useState([]);
-  const [isInfiniteDisabled, setInfiniteDisabled] = useState(false);
-  const pushData = () => {
-    const max = post.length + 5;
-    const min = max - 5;
-    const newData = [];
-    for (let i = min; i < max; i++) {}
-  };
-  const loadData = (ev) => {
-    setTimeout(() => {
-      pushData();
-      console.log("Loaded data");
-      ev.target.complete();
-      if (data.length === 5) {
-        setInfiniteDisabled(data.length < 5);
-      }
-    }, 500);
-  };
-  useIonViewWillEnter(() => {
-    pushData();
-  });
 
   return (
     <IonPage>
@@ -99,16 +78,6 @@ const Feed = () => {
       <IonContent className="feed-content" fullscreen>
         <Newpost />
         <Posts />
-        <IonInfiniteScroll
-          onIonInfinite={loadData}
-          threshold="100px"
-          disabled={isInfiniteDisabled}
-        >
-          <IonInfiniteScrollContent
-            loadingSpinner="bubbles"
-            loadingText="Loading more data..."
-          ></IonInfiniteScrollContent>
-        </IonInfiniteScroll>
       </IonContent>
     </IonPage>
   );

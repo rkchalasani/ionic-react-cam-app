@@ -22,7 +22,6 @@ const Login = () => {
   const { signIn } = UserAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
   const [show] = useIonLoading();
@@ -80,16 +79,15 @@ const Login = () => {
           handleButtonClick("Login successful");
         }, 1510);
       } catch (e) {
-        setError(e.message);
         handleAlert(e.message);
         resetInput();
       }
     }
   };
-  const openSignup = () =>{
+  const openSignup = () => {
     router.push("/signup");
     resetInput();
-  }
+  };
   const hideTabs = () => {
     const tabsEl = document.querySelector("ion-tab-bar");
     if (tabsEl) {
@@ -102,7 +100,10 @@ const Login = () => {
       <IonContent fullscreen className="login-main-div">
         <IonGrid className="main-grid">
           <IonRow>
-            <IonImg className="chatifylogo" src="assets/images/Chatify-logo.png">
+            <IonImg
+              className="chatifylogo"
+              src="assets/images/Chatify-logo.png"
+            >
               {" "}
             </IonImg>
           </IonRow>

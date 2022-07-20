@@ -24,7 +24,7 @@ const Settings = () => {
   const { logout } = UserAuth();
   const router = useIonRouter();
   const [present] = useIonToast();
-  const [show, dismiss] = useIonLoading();
+  const [show] = useIonLoading();
   async function handleLoading(message) {
     show({
       message: message,

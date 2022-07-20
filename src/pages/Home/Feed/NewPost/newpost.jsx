@@ -21,7 +21,6 @@ const NewPost = () => {
   const [caption, setCaption] = useState("");
   const [file, setFile] = useState("");
   const [data, setData] = useState({});
-  const [per, setPerc] = useState(null);
   const [show, dismiss] = useIonLoading();
   const handleLoad = (m) => {
     show({
@@ -44,7 +43,6 @@ const NewPost = () => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
-          setPerc(progress);
           switch (snapshot.state) {
             case "paused":
               console.log("Upload is paused");

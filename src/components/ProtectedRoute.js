@@ -1,4 +1,4 @@
-import { Navigate, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 
 const ProtectedRoute = ({ children }) => {
