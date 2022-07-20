@@ -15,7 +15,7 @@ import { Redirect, Route } from "react-router-dom";
 import Login from "./Login/Login";
 import "./Home.css";
 import ProtectedRoute from "../components/ProtectedRoute";
-import Profile from "./Home/Feed/Profile/Profile";
+// import Profile from "./Home/Feed/Profile/Profile";
 
 const Home = () => {
   return (
@@ -44,9 +44,9 @@ const Home = () => {
             <Route path="/login">
               <Login />
             </Route>
-            <Route path="/profile">
+            {/* <Route path="/profile">
               <Profile />
-            </Route>
+            </Route> */}
           </IonRouterOutlet>
           <IonTabBar className="tabbar-div" slot="bottom" color="darkgreen">
             <IonTabButton tab="tab1" href="/home/feed">
