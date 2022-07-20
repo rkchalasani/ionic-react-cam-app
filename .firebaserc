@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "chat-application-ef9f6",
+    "default": "chatify-app-82c22",
     "chatify": "chat-application-ef9f6"
   },
   "targets": {}

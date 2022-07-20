@@ -38,6 +38,7 @@ import {
   arrowBackCircle,
   arrowBackCircleOutline,
   backspace,
+  checkmark,
   cloudUpload,
   createOutline,
   ellipsisVertical,
@@ -88,7 +89,7 @@ const New = ({ inputs, email, title }) => {
             default:
               break;
           }
-          if(progress === 100){
+          if (progress === 100) {
             dismiss();
           }
         },
@@ -151,16 +152,28 @@ const New = ({ inputs, email, title }) => {
               onClick={pushHome}
               icon={arrowBackCircleOutline}
             ></IonIcon>
+            
           </IonCol>
-
-          <IonButton
-            onClick={handleAdd}
-            className=""
+          <IonIcon
+            className="icon"
+            size="large"
             color="smoke"
-            type="submit"
-          >
-            Post
-          </IonButton>
+            onClick={handleClick}
+            icon={cloudUpload}
+          ></IonIcon>
+          <IonIcon
+            className="icon"
+            color="smoke"
+            style={{ width: 35, height: 35 }}
+            icon={checkmark}
+            onClick={handleAdd}
+          ></IonIcon>
+          <IonIcon
+            size="large"
+            className="icon"
+            color="smoke"
+            icon={trashOutline}
+          ></IonIcon>
         </IonRow>
         <IonRow className="pro-row">
           <IonAvatar className="avatar-img">
@@ -172,32 +185,21 @@ const New = ({ inputs, email, title }) => {
               }
             ></IonImg>
           </IonAvatar>
-          <IonCol className="name-col">
-            <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
-            <IonLabel className="font" color="smoke">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
-              quasi quae nihil ad, est excepturi ipsam! Voluptatum a obcaecati
-              laboriosam, similique quae incidunt culpa. Esse unde aliquam
-              blanditiis in suscipit.
-            </IonLabel>
-          </IonCol>
         </IonRow>
         <IonRow className="icon-row">
           {" "}
-          <IonIcon
-            className="icon"
-            size="large"
-            color="smoke"
-            onClick={handleClick}
-            icon={cloudUpload}
-          ></IonIcon>
-          <IonIcon
-            size="large"
-            className="icon"
-            color="smoke"
-            icon={trashOutline}
-          ></IonIcon>
+        
         </IonRow>
+        <IonRow className="name-col">
+          <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
+          <IonLabel className="font" color="smoke">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
+            quasi quae nihil ad, est excepturi ipsam! Voluptatum a obcaecati
+            laboriosam, similique quae incidunt culpa. Esse unde aliquam
+            blanditiis in suscipit.
+          </IonLabel>
+        </IonRow>
+
         <IonGrid className="grid">
           <IonRow className="email-row1">
             <IonLabel color="smoke">Username</IonLabel>

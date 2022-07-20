@@ -1,45 +1,19 @@
 .profile-content {
   --background: #132124;
-  /* --background: #24383F; */
-  /* --background: linear-gradient(rgb(19, 33, 36, 0.6), rgb(19, 33, 36, 0.6)),
-    url("../../../../../public/assets/images/Get-Started1.png") no-repeat
-      center/cover fixed; */
-  /* padding: 5%; */
 }
 
 .pro-pic-container {
-  /* --background: transparent;
-  box-shadow: none;
-  -webkit-box-shadow: none;
-  margin: 3rem 3rem;
-  width: auto;
-  height: auto;
-  border-radius: 20px; */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-
-.new-grid {
-  padding: 7%;
-  display: flex;
-  /* background: #132124; */
-  background: linear-gradient(rgb(19, 33, 36, 0.6), rgb(19, 33, 36, 0.6)),
-    url("../../../../../public/assets/images/Get-Started1.png") no-repeat
-      center/cover fixed;
-  /* height: 80%; */
-  /* justify-content: space-around; */
-  flex-direction: column;
-  /* align-items: space-around; */
-}
-
 .grid {
   padding-bottom: 6%;
   padding-left: 6%;
   padding-right: 6%;
   background: #24383f;
-  border-radius: 30px ;
+  border-radius: 30px;
   margin: 4%;
 }
 .flex-row-label {
@@ -53,22 +27,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 5%;
+  /* padding-left: 5%; */
+}
+.avatar-img {
+  width: 250px;
+  --border-radius: 15%;
+  height: 250px;
+  /* margin-bottom: 4%; */
 }
 .backbtn {
-  padding-left: 5%;
-  padding-top: 5%;
-  padding-bottom: 3%;
+  padding: 5%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-right: 5%;
 }
-.avatar-img{
-  width: 120px;
-  --border-radius: 15%;
-  height: 120px;
-}
+
 .flex-row-value {
   display: flex;
   justify-content: center;
@@ -87,10 +60,10 @@
   color: #000000;
   width: 200px;
 }
-.font{
+.font {
   font-size: 12px;
   line-height: 20px;
-  padding-right: 10%;
+  /* padding-right: 10%; */
 }
 .update-row {
   display: flex;
@@ -126,16 +99,6 @@
 
   overflow: hidden;
 
-  /* display: flex;
-
-  justify-content: center;
-
-  align-items: center; */
-
-  /* background-size: cover; */
-
-  /* position: center; */
-
   border-radius: 10%;
 }
 .name-row {
@@ -148,6 +111,7 @@
 .icon-row {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   padding: 4%;
 }
 .email-row {
@@ -161,7 +125,8 @@
   flex-direction: column;
 }
 .name-col {
-  padding-left: 5%;
+  padding-left: 10%;
+  padding-right: 10%;
   line-height: 40px;
   font-size: 1.3rem;
   display: flex;
