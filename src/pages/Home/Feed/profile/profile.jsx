@@ -21,7 +21,7 @@ import {
 } from "@ionic/react";
 import {
   arrowBackCircleOutline,
-  checkmark,
+  checkmarkCircle,
   cloudUpload,
   trashOutline,
 } from "ionicons/icons";
@@ -80,6 +80,7 @@ const Profile = () => {
       );
     };
     file && uploadFile();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file]);
   const handleAdd = async (e, id) => {
     e.preventDefault();
@@ -135,7 +136,7 @@ const Profile = () => {
             className="icon"
             color="smoke"
             style={{ width: 35, height: 35 }}
-            icon={checkmark}
+            icon={checkmarkCircle}
             onClick={handleAdd}
           ></IonIcon>
           <IonIcon

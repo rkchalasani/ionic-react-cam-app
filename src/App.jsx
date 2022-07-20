@@ -52,16 +52,6 @@ const App = () => {
   const updateRef = doc(db, "chatify_by_PTG", "dtvG3X4CjLV7CXMIRPES");
   const [presentAlert] = useIonAlert();
   const [present] = useIonToast();
-  const handleToast = (msg) => {
-    present({
-      message: msg,
-      position: "top",
-      animated: true,
-      duration: 2000,
-      color: "smoke",
-      mode: "ios",
-    });
-  };
   const handleAlert = (message, title, button, appVersion) => {
     presentAlert({
       header: title,

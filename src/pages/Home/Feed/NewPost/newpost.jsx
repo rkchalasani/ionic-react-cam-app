@@ -70,6 +70,7 @@ const NewPost = () => {
       );
     };
     file && uploadFile();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file]);
   const handleAdd = async (e, id) => {
     e.preventDefault();
