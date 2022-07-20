@@ -98,7 +98,7 @@ const Profile = () => {
     }
   };
   const pushHome = () => {
-    router.push("/home/tab1");
+    router.push("/home/feed");
   };
   const hideTabs = () => {
     const tabsEl = document.querySelector("ion-tab-bar");
