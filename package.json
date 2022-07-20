@@ -23,7 +23,6 @@
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
     "axios": "^0.27.2",
-    "bootstrap": "^5.1.3",
     "dayjs": "^1.11.3",
     "firebase": "^9.8.4",
     "ionicons": "^5.4.0",

@@ -1,7 +1,6 @@
 import "./newpost.css";
 import { useEffect, useRef, useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { auth, db, storage } from "../../../../firebase";
 import { updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
