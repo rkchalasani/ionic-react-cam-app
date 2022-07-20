@@ -1,0 +1,304 @@
+:root {
+  --ion-color-new: #24383f;
+  --ion-color-new-rgb: 36, 56, 63;
+  --ion-color-new-contrast: #ffffff;
+  --ion-color-new-contrast-rgb: 255, 255, 255;
+  --ion-color-new-shade: #203137;
+  --ion-color-new-tint: #3a4c52;
+}
+
+.ion-color-new {
+  --ion-color-base: var(--ion-color-new);
+  --ion-color-base-rgb: var(--ion-color-new-rgb);
+  --ion-color-contrast: var(--ion-color-new-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-new-contrast-rgb);
+  --ion-color-shade: var(--ion-color-new-shade);
+  --ion-color-tint: var(--ion-color-new-tint);
+}
+
+:root {
+  --ion-color-darkgreen: #132124;
+  --ion-color-darkgreen-rgb: 19, 33, 36;
+  --ion-color-darkgreen-contrast: #ffffff;
+  --ion-color-darkgreen-contrast-rgb: 255, 255, 255;
+  --ion-color-darkgreen-shade: #111d20;
+  --ion-color-darkgreen-tint: #2b373a;
+}
+
+.ion-color-darkgreen {
+  --ion-color-base: var(--ion-color-darkgreen);
+  --ion-color-base-rgb: var(--ion-color-darkgreen-rgb);
+  --ion-color-contrast: var(--ion-color-darkgreen-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-darkgreen-contrast-rgb);
+  --ion-color-shade: var(--ion-color-darkgreen-shade);
+  --ion-color-tint: var(--ion-color-darkgreen-tint);
+}
+.login-main-div {
+  --background: linear-gradient(rgb(19, 33, 36, 0.3), rgb(19, 33, 36, 0.3)),
+    url("../../../public/assets/images/Chatify-bg-image.png") no-repeat
+      center/cover fixed;
+  z-index: -999;
+  height: 100%;
+}
+.main-grid {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 7%;
+}
+.signup-main-div {
+  --background: linear-gradient(rgb(19, 33, 36, 0.3), rgb(19, 33, 36, 0.3)),
+    url("../../../public/assets/images/Chatify-bg-image.png") no-repeat
+      center/cover fixed;
+  height: 100%;
+}
+.chatifylogo {
+  width: 250px;
+}
+.signup-grid {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 7%;
+}
+.rect4 {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  left: 10px;
+  top: -30px;
+}
+.rect5 {
+  position: relative;
+  width: 130px;
+  height: 130px;
+}
+.rect8 {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  left: 270px;
+}
+.rect3 {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  left: 320px;
+  top: 24px;
+}
+.rect3-grid {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0px;
+}
+.rect31 {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  left: 320px;
+  top: 24px;
+}
+.recta {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  left: 151px;
+  top: 686px;
+}
+.rectb {
+  position: absolute;
+  width: 168px;
+  height: 168px;
+  left: -40px;
+  top: 190px;
+}
+.welcome-text {
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+}
+.welcome-grid {
+  display: flex;
+  flex-direction: column;
+  margin: 0px;
+}
+.logintext1 {
+  width: 226px;
+  height: 88px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 35px;
+  line-height: 44px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+}
+.logintextb {
+  width: 190px;
+  height: 32px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  text-align: right;
+  color: #ffffff;
+}
+.signuptext {
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  text-align: right;
+  color: #ffffff;
+}
+.login-input-grid {
+  padding: 9%;
+  margin: 0px;
+}
+.login-input1 {
+  border-radius: 7px;
+  text-align: center;
+  background: #d5d5d5;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+}
+.login-input2 {
+  margin-top: 25px;
+  background: #d5d5d5;
+  text-align: center;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 7px;
+}
+.signup-name-input {
+  border-radius: 7px;
+  text-align: center;
+  background: #d5d5d5;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+}
+.signup-email-input {
+  height: 55px;
+  margin-top: 25px;
+  text-align: center;
+  background: #d5d5d5;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 7px;
+}
+.signup-password-input {
+  height: 55px;
+  margin-top: 25px;
+  text-align: center;
+  background: #d5d5d5;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 7px;
+}
+.loginbutton {
+  margin-top: 20px;
+  width: 120px;
+  border-radius: 10px;
+}
+.loginbtn-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.signuppage-joinbutton {
+  margin-top: 25px;
+  width: 120px;
+  border-radius: 10px;
+}
+.forgottext {
+  margin-top: 15px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 12px;
+
+  color: #ffffff;
+}
+.forgottext1 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 12px;
+
+  color: #ffffff;
+}
+.signuppage-text {
+  font-style: normal;
+  color: black;
+  font-weight: 400;
+  line-height: 10px;
+  font-size: 13px;
+  color: #ffffff;
+}
+.loginpage-text {
+  font-style: normal;
+  color: black;
+  font-weight: 400;
+  line-height: 10px;
+  font-size: 13px;
+  color: #ffffff;
+}
+.signuppage-login-btn {
+  width: 70px;
+  font-size: 10px;
+  height: 30px;
+  margin-top: 20px;
+}
+.loginpage-signup-btn {
+  margin-top: 20px;
+  width: 70px;
+  font-size: 10px;
+  height: 30px;
+}
+.create-acc-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.signup-btn-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+.welcome-row {
+  padding: 5%;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 10%;
+}
+.signup-row {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 10%;
+}
+.signuppage-login-btn-row {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.input-grid {
+  display: flex;
+  flex-direction: column;
+}
+.signup-input-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login-input-row {
+  display: flex;
+  flex-direction: column;
+}
+.loginpage-alert {
+  --background: whitesmoke;
+}

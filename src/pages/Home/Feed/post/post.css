@@ -1,0 +1,24 @@
+.post {
+  width: 100%;
+}
+.time {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 10px;
+}
+.del-btn {
+  font-size: 10px;
+}
+.feed-row {
+  display: flex;
+  justify-content: center;
+}
+.moment {
+  margin-left: 3%;
+}
+.post-avatar {
+  --border-radius: 0%;
+  width: 100vw;
+  height: 40vh;
+}

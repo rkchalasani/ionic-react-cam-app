@@ -234,3 +234,19 @@ http://ionicframework.com/docs/theming/ */
     --ion-card-background: #1e1e1e;
   }
 }
+:root {
+	--ion-color-smoke: #e6e6e6;
+	--ion-color-smoke-rgb: 230,230,230;
+	--ion-color-smoke-contrast: #000000;
+	--ion-color-smoke-contrast-rgb: 0,0,0;
+	--ion-color-smoke-shade: #cacaca;
+	--ion-color-smoke-tint: #e9e9e9;
+}
+.ion-color-smoke {
+	--ion-color-base: var(--ion-color-smoke);
+	--ion-color-base-rgb: var(--ion-color-smoke-rgb);
+	--ion-color-contrast: var(--ion-color-smoke-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-smoke-contrast-rgb);
+	--ion-color-shade: var(--ion-color-smoke-shade);
+	--ion-color-tint: var(--ion-color-smoke-tint);
+}

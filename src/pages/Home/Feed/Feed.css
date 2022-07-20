@@ -1,0 +1,146 @@
+.feed-content {
+  --background: linear-gradient(#24383f, #24383f);
+}
+.feed-grid {
+  background: #132124;
+  margin: 10px;
+}
+.menu-icon {
+  width: 22px;
+  height: 22px;
+}
+.heart-icon {
+  width: 22px;
+  height: 22px;
+  padding: 5%;
+}
+.comment-icon {
+  width: 20px;
+  height: 20px;
+  padding: 5%;
+}
+.icon-col {
+  display: flex;
+  justify-content: flex-end;
+  padding: 7px;
+}
+.feed-card {
+  border-radius: 20px;
+}
+.card-div {
+  display: flex;
+  flex-direction: column;
+}
+.username-row {
+  color: white;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 2%;
+  padding-left: 4%;
+  padding-top: 4%;
+  padding-right: 4%;
+  align-items: center;
+}
+.username-col {
+  padding: 0%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 5%;
+}
+.card-caption {
+  color: whitesmoke;
+  font-size: 12px;
+  opacity: 0.8;
+}
+.add-btn {
+  width: 40px;
+}
+.edit-delete {
+  display: flex;
+  flex-direction: column;
+}
+.edit-btn {
+  height: 40px;
+}
+.search-row {
+  color: white;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search-row1 {
+  color: white;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  padding: 1%;
+  align-items: center;
+}
+.col2 {
+  display: flex;
+  justify-content: flex-start;
+}
+.col3 {
+  display: flex;
+  justify-content: flex-end;
+}
+.icon {
+  padding-right: 4%;
+}
+.img-row {
+  position: relative;
+  width: 35px;
+  height: 35px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.caption {
+  padding: 4%;
+}
+/*  */
+
+.new-post-row {
+  display: flex;
+  padding: 3%;
+
+  justify-content: center;
+  align-items: center;
+}
+.new-post7 {
+  padding-left: 10px;
+}
+.col4 {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 3%;
+}
+.button-new {
+  width: 200px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.feed-col1 {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.new-icon {
+  padding-right: 7%;
+}
+.modal-class {
+  --background: #132124;
+}

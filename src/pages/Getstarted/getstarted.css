@@ -1,0 +1,122 @@
+.getstarted-maindiv {
+  --background: linear-gradient(rgb(19, 33, 36, 0.3), rgb(19, 33, 36, 0.3)),
+    url("../../../public/assets/images/Chatify-bg-image.png") no-repeat center/cover
+      fixed;
+  height: 100%;
+}
+.getstarted-btn {
+  border-radius: 10px;
+  width: 150px;
+  margin-top: 50px;
+  margin-left: 10px;
+}
+.getstarted-grid {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 8%;
+}
+.para {
+  display: flex;
+  position: absolute;
+  justify-content: flex-end;
+  z-index: -99;
+}
+.para1 {
+  display: flex;
+  justify-content: flex-end;
+}
+.btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  align-items: flex-start;
+}
+
+.out1-row {
+  height: 30vh;
+  margin-left: -50px;
+}
+.out1 {
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  transform-origin: top;
+}
+.bounce-1 {
+  animation-name: bounce-1;
+  animation-timing-function: linear;
+}
+@keyframes bounce-1 {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-100px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.out2-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: -80px;
+  height: 30vh;
+  z-index: -99;
+}
+.out2 {
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  transform-origin: bottom;
+}
+.bounce-1 {
+  animation-name: bounce-1;
+  animation-timing-function: linear;
+}
+@keyframes bounce-1 {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-100px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.out3-row {
+  height: 30vh;
+  margin-left: -80px;
+  z-index: -99;
+}
+.out3 {
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  transform-origin: bottom;
+}
+.bounce-1 {
+  animation-name: bounce-1;
+  animation-timing-function: linear;
+}
+@keyframes bounce-1 {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-50px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.out-grid {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: -99;
+  height: 100vh;
+  width: 100%;
+}
