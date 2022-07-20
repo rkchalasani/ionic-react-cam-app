@@ -4,25 +4,22 @@ import {
   IonContent,
   IonHeader,
   IonImg,
-  IonInfiniteScroll,
-  IonInfiniteScrollContent,
   IonPage,
   IonRow,
   IonToolbar,
-  useIonRouter,
   useIonViewWillEnter,
 } from "@ionic/react";
 import Newpost from "./NewPost/newpost";
 import "./Feed.css";
 import Posts from "./post/post";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { auth, db } from "../../../firebase";
 
 const Feed = () => {
   const openProfile = () => {
     // router.push("/profile");
-    console.log("wait")
+    console.log("wait");
   };
   const hideTabs = () => {
     const tabsEl = document.querySelector("ion-tab-bar");
@@ -32,7 +29,6 @@ const Feed = () => {
   };
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useIonViewWillEnter(() => hideTabs());
-  const [post, setPost] = useState([]);
   useEffect(() => {
     const getUsers = async () => {
       const postCollection = collection(db, "user");
@@ -42,12 +38,10 @@ const Feed = () => {
         querySnapshot.forEach((doc) => {
           posts.push(doc.data());
         });
-        setPost(posts);
       });
     };
     getUsers();
   }, []);
-  const router = useIonRouter();
 
   return (
     <IonPage>
