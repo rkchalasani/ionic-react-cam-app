@@ -26,6 +26,7 @@ const delbtn = () => {
 
     getUsers();
   }, []);
+  
   return (
     <IonRow>
       {users.map((currentUser) => {

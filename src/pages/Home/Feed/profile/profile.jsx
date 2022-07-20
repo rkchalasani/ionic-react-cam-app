@@ -88,7 +88,11 @@ const New = ({ inputs, email, title }) => {
             default:
               break;
           }
+          if(progress === 100){
+            dismiss();
+          }
         },
+
         (error) => {
           console.log(error);
         },

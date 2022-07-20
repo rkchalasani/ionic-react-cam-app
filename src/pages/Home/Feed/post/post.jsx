@@ -40,12 +40,8 @@ const Tab2 = () => {
   const deleteUser = async (id) => {
     const userDoc = doc(db, "user", id);
     await deleteDoc(userDoc);
-    // window.location.reload();
     console.log("clicked");
   };
-  const [users, setUsers] = useState([]);
-
-  const usersCollectionRef = collection(db, "user");
   const [post, setPost] = useState([]);
   useEffect(() => {
     const getUsers = async () => {
@@ -108,23 +104,10 @@ const Tab2 = () => {
             ) : (
               <IonImg src={currentUser.img}></IonImg>
             )}
-            {/* <IonAvatar className="post-avatar">
-              <IonImg src={currentUser.img}></IonImg>
-            </IonAvatar> */}
             <IonRow className="time">
               <IonCol className="moment">
                 <Moment fromNow>{currentUser.createdAt.toDate()}</Moment>
               </IonCol>
-              {/* <IonButton
-                color="lightgreen"
-                className="del-btn"
-                onClick={() => {
-                  deleteUser(currentUser.id);
-                }}
-              >
-                <IonIcon icon={trash}></IonIcon>
-              </IonButton> */}
-              {/* <Delbtn/> */}
               {auth.currentUser.email === currentUser.email ? (
                 <IonButton
                   color="lightgreen"

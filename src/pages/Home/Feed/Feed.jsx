@@ -114,7 +114,9 @@ const Tab2 = () => {
     const max = post.length + 5;
     const min = max - 5;
     const newData = [];
-    for (let i = min; i < max; i++) {}
+    for (let i = min; i < max; i++) {
+      
+    }
   };
   const loadData = (ev) => {
     setTimeout(() => {

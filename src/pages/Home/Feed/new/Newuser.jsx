@@ -40,8 +40,6 @@ import {
   backspace,
   cloudUpload,
 } from "ionicons/icons";
-// import { timeStamp } from "console";
-// import MDBFileupload from 'mdb-react-fileupload';
 
 const New = ({ inputs, email, title }) => {
   const [caption, setCaption] = useState("");
@@ -64,8 +62,6 @@ const New = ({ inputs, email, title }) => {
   useEffect(() => {
     const uploadFile = (e) => {
       const name = new Date().getTime() + file.name;
-      // const id = e.target.id;
-      // const value = e.target.value;
 
       console.log(name);
       handleLoad("uploading..");
@@ -93,7 +89,9 @@ const New = ({ inputs, email, title }) => {
             default:
               break;
           }
-          dismiss();
+          if(progress === 100){
+            dismiss();
+          }
         },
         (error) => {
           console.log(error);
