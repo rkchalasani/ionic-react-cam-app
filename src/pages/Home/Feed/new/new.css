@@ -11,23 +11,18 @@
 .new-grid1 {
   padding: 7%;
   display: flex;
-  /* height: 90%; */
   background-color: black;
   margin: 5%;
   border-radius: 30px;
   justify-content: space-around;
   flex-direction: column;
-  /* align-items: space-around; */
 }
 
 .img {
-  /* padding: 5%; */
-  /* width: ; */
   height: 300px;
 }
 .title {
   font-size: 1.7rem;
-  /* padding-bottom: 5%; */
 }
 .back-icon {
   width: 45px;
@@ -48,19 +43,14 @@
   display: flex;
   align-items: center;
 }
-.newpost-card{
-  /* display: flex; */
-}
-.newpost-avatar{
+.newpost-avatar {
   --border-radius: 10%;
 }
-.newpost-row{
- 
- display: flex;
- justify-content: flex-end;
- padding: 2%;
-  /* padding: 4%; */
+.newpost-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 2%;
 }
-.btn-class{
+.btn-class {
   padding: 1.2%;
 }

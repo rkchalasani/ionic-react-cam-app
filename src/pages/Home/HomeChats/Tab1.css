@@ -16,11 +16,6 @@
 }
 .tab1mainpage {
   --background: linear-gradient(#132124, #132124);
-    /* --background: linear-gradient(#24383f, #24383f); */
-    /* --background: linear-gradient(rgb(19, 33, 36, 0.3), rgb(19, 33, 36, 0.3)),
-    url("../../../../public/assets/images/Get-Started1.png") no-repeat center/cover
-      fixed;
-  z-index: -999; */
 }
 
 .card-class {
@@ -36,8 +31,6 @@
   width: 50px;
   border-radius: 100px !important;
   position: relative;
-  /* width: 200px;
-  height: 200px; */
   overflow: hidden;
   border-radius: 50%;
 }
@@ -62,33 +55,18 @@
 }
 .tab1-grid {
   background: #24383f;
-  /* border-radius: 30px 30px 0 0; */
 }
-.frnds{
-  /* padding: %; */
+.frnds {
   font-size: 20px;
   margin: 4%;
 }
-.img-avatar{
-
+.img-avatar {
   position: relative;
-
   width: 55px;
-
   height: 55px;
-
   overflow: hidden;
-
   display: flex;
-
   justify-content: center;
-
   align-items: center;
-
-  /* background-size: cover; */
-
-  /* position: center; */
-
   border-radius: 10%;
-
 }

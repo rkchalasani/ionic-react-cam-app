@@ -34,7 +34,6 @@ import {
   onSnapshot,
   query,
 } from "firebase/firestore";
-import Delbtn from "../delete/delbtn";
 
 const Tab2 = () => {
   const deleteUser = async (id) => {

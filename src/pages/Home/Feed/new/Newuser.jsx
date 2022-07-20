@@ -44,11 +44,9 @@ import {
 const New = ({ inputs, email, title }) => {
   const [caption, setCaption] = useState("");
   const [image, setImage] = useState("");
-
   const [file, setFile] = useState("");
   const [data, setData] = useState({});
   const [dataa, setDataa] = useState({});
-
   const [per, setPerc] = useState(null);
   const router = useIonRouter();
   const [show, dismiss] = useIonLoading();
@@ -67,9 +65,7 @@ const New = ({ inputs, email, title }) => {
       handleLoad("uploading..");
       const storageRef = ref(storage, file.name);
       const uploadTask = uploadBytesResumable(storageRef, file);
-
       // eslint-disable-next-line react-hooks/rules-of-hooks
-
       uploadTask.on(
         "state_changed",
         (snapshot) => {
@@ -89,7 +85,7 @@ const New = ({ inputs, email, title }) => {
             default:
               break;
           }
-          if(progress === 100){
+          if (progress === 100) {
             dismiss();
           }
         },

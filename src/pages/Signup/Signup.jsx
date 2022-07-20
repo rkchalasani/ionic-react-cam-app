@@ -97,7 +97,6 @@ const Signup = () => {
           handleButtonClick("User successfully registered");
         }, 1510);
       } catch (e) {
-        // setError(e.message);
         console.log(e);
         setName("");
         setEmail("");
@@ -164,7 +163,6 @@ const Signup = () => {
             <IonButton
               color="smoke"
               className="signuppage-login-btn ion-text-capitalize"
-              // routerLink="/login"
               onClick={openLogin}
             >
               Login

@@ -35,7 +35,6 @@
   color: white;
   display: flex;
   justify-content: center;
-  /* padding: 4%; */
   padding-bottom: 2%;
   padding-left: 4%;
   padding-top: 4%;
@@ -47,13 +46,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: center; */
   padding-left: 5%;
 }
 .card-caption {
   color: whitesmoke;
   font-size: 12px;
-  /* padding: 4%; */
   opacity: 0.8;
 }
 .add-btn {
@@ -71,7 +68,6 @@
   font-size: 2rem;
   display: flex;
   justify-content: center;
-  /* padding: 2%; */
   align-items: center;
 }
 .search-row1 {
@@ -91,7 +87,6 @@
   justify-content: flex-end;
 }
 .icon {
-  /* padding-left: 3%; */
   padding-right: 4%;
 }
 .img-row {
@@ -99,34 +94,24 @@
   width: 35px;
   height: 35px;
   overflow: hidden;
-  /* padding-right: 4%; */
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
 }
 .caption {
-  /* padding-left: 4%;
-  padding-right: 4%;
-  padding-bottom: 4%;
-  padding-left: 7% ; */
   padding: 4%;
 }
 /*  */
 
 .new-post-row {
   display: flex;
-  /* padding-top: 3%;
-  padding-left: 3%; */
   padding: 3%;
 
   justify-content: center;
   align-items: center;
 }
 .new-post7 {
-  /* color: whitesmoke; */
-  /* font-size: 1.4rem; */
-  /* padding-left: 1.5%; */
   padding-left: 10px;
 }
 .col4 {
@@ -143,7 +128,6 @@
   justify-content: center;
 }
 .btn-row {
-  /* padding: 3%; */
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -157,7 +141,6 @@
 .new-icon {
   padding-right: 7%;
 }
-.modal-class{
+.modal-class {
   --background: #132124;
 }
-

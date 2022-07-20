@@ -13,28 +13,6 @@ const GetStarted = () => {
   return (
     <IonPage>
       <IonContent className="getstarted-maindiv">
-        {/* <IonGrid className="out-grid">
-        <IonRow className="out1-row">
-          <IonImg
-            class="out1 bounce-1"
-            src="assets/images/out1.png"
-          ></IonImg>
-        </IonRow>
-        <IonRow className="out2-row">
-          <IonImg
-            class="out2 bounce-1"
-            src="assets/images/out2.png"
-          ></IonImg>
-        </IonRow>
-        <IonRow className="out3-row">
-          <IonImg
-            class="out2 bounce-1"
-            src="assets/images/out3.png"
-          ></IonImg>
-        </IonRow>
-        </IonGrid> */}
-        {/* <IonLabel color='light'>app version :</IonLabel> */}
-       
         <IonGrid className="getstarted-grid">
           <IonRow className="chat">
             <IonImg

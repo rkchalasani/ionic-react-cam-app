@@ -33,7 +33,6 @@ import {
   useIonRouter,
   useIonViewWillEnter,
 } from "@ionic/react";
-// import Propic from "../propic/propic";
 import {
   arrowBackCircle,
   arrowBackCircleOutline,
@@ -152,7 +151,6 @@ const New = ({ inputs, email, title }) => {
               onClick={pushHome}
               icon={arrowBackCircleOutline}
             ></IonIcon>
-            
           </IonCol>
           <IonIcon
             className="icon"
@@ -186,10 +184,7 @@ const New = ({ inputs, email, title }) => {
             ></IonImg>
           </IonAvatar>
         </IonRow>
-        <IonRow className="icon-row">
-          {" "}
-        
-        </IonRow>
+        <IonRow className="icon-row"> </IonRow>
         <IonRow className="name-col">
           <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
           <IonLabel className="font" color="smoke">

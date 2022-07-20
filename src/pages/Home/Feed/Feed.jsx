@@ -24,29 +24,9 @@ import {
   useIonRouter,
   useIonViewWillEnter,
 } from "@ionic/react";
-import {
-  addCircleOutline,
-  arrowBack,
-  attach,
-  attachOutline,
-  caretForwardCircle,
-  chevronForwardOutline,
-  clipboard,
-  clipboardOutline,
-  closeCircle,
-  duplicate,
-  duplicateOutline,
-  heart,
-  personOutline,
-  search,
-  share,
-  trash,
-} from "ionicons/icons";
 import Newuser from "./new/Newuser";
 import "./Feed.css";
-// import Propic from "./propic/propic";
 import Posts from "./post/post";
-import { UserAuth } from "../../../context/AuthContext";
 import { useEffect, useRef, useState } from "react";
 import {
   addDoc,
@@ -59,17 +39,10 @@ import {
   query,
 } from "firebase/firestore";
 import { auth, db, storage } from "../../../firebase";
-import Tweet from "./tweet/tweet";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 const Tab2 = () => {
-  // const openNew = () => {
-  //   // router.push("/new");
-  //   // window.location.reload();
-  // };
   const openProfile = () => {
     router.push("/profile");
-    // window.location.reload();
   };
   const hideTabs = () => {
     const tabsEl = document.querySelector("ion-tab-bar");
@@ -81,15 +54,12 @@ const Tab2 = () => {
   useIonViewWillEnter(() => hideTabs());
   const deleteUser = async (id) => {
     const userDoc = doc(db, "user", id);
-    // const usersCollection = collection(db, "user", id);
     const data = getDocs(userDoc);
     setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     await deleteDoc(userDoc);
-    // window.location.reload();
     console.log("clicked");
   };
   const [users, setUsers] = useState([]);
-  const [userr, setUserr] = useState([]);
   const [post, setPost] = useState([]);
 
   useEffect(() => {
@@ -114,9 +84,7 @@ const Tab2 = () => {
     const max = post.length + 5;
     const min = max - 5;
     const newData = [];
-    for (let i = min; i < max; i++) {
-      
-    }
+    for (let i = min; i < max; i++) {}
   };
   const loadData = (ev) => {
     setTimeout(() => {

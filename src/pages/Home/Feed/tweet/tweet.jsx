@@ -29,7 +29,6 @@ import {
   onSnapshot,
   query,
 } from "firebase/firestore";
-// import Propic from "../propic/propic";
 
 const Tweet = () => {
   const deleteUser = async (id) => {
@@ -55,13 +54,6 @@ const Tweet = () => {
         setPost(posts);
       });
     };
-    // getMsgs();
-
-    // const datas = await getDocs(postCollection);
-    // setPost(datas.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    // const data = await getDocs(usersCollection, orderBy("createdAt"));
-    // setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    // };
     getUsers();
   }, []);
 
@@ -104,9 +96,6 @@ const Tweet = () => {
                 {currentUser.caption}
               </IonLabel>
             </IonRow>
-            {/* <IonAvatar className="post-avatar">
-              <IonImg src={currentUser.img}></IonImg>
-            </IonAvatar> */}
             <IonRow className="time">
               <IonCol className="moment">
                 <Moment fromNow>{currentUser.createdAt.toDate()}</Moment>

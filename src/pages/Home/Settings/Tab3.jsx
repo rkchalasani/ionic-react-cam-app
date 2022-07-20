@@ -23,7 +23,6 @@ import {
   person,
   thermometer,
 } from "ionicons/icons";
-// import { setTimeout } from "timers";
 import { UserAuth } from "../../../context/AuthContext";
 import "./Tab3.css";
 

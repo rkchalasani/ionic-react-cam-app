@@ -61,16 +61,16 @@ const Home = () => {
               <Newuser />
             </Route>
             <Route path="/profile">
-            <Profile />
-          </Route>
+              <Profile />
+            </Route>
           </IonRouterOutlet>
           <IonTabBar className="tabbar-div" slot="bottom" color="darkgreen">
-          <IonTabButton tab="tab1" href="/home/tab1">
+            <IonTabButton tab="tab1" href="/home/tab1">
               <IonIcon icon={home} />
             </IonTabButton>
             <IonTabButton tab="tab2" href="/home/tab2">
               <IonIcon icon={chatbox} />
-            </IonTabButton>         
+            </IonTabButton>
             <IonTabButton tab="tab3" href="/home/tab3">
               <IonIcon icon={settingsSharp} />
             </IonTabButton>

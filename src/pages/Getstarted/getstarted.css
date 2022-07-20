@@ -1,7 +1,7 @@
 .getstarted-maindiv {
-   --background: linear-gradient(rgb(19, 33, 36,0.3),rgb(19, 33, 36,0.3)),url('../../../public/assets/images/Get-Started1.png') 
-   no-repeat center/cover fixed;
-   /* --background: linear-gradient(#132124,#132124); */
+  --background: linear-gradient(rgb(19, 33, 36, 0.3), rgb(19, 33, 36, 0.3)),
+    url("../../../public/assets/images/Get-Started1.png") no-repeat center/cover
+      fixed;
   height: 100%;
 }
 .getstarted-btn {
@@ -35,7 +35,6 @@
   align-items: flex-start;
 }
 
-
 .out1-row {
   height: 30vh;
   margin-left: -50px;
@@ -50,14 +49,20 @@
   animation-timing-function: linear;
 }
 @keyframes bounce-1 {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-100px); }
-  100% { transform: translateY(0); }
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-100px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 .out2-row {
   display: flex;
-justify-content: flex-end;
-margin-right: -80px;
+  justify-content: flex-end;
+  margin-right: -80px;
   height: 30vh;
   z-index: -99;
 }
@@ -71,9 +76,15 @@ margin-right: -80px;
   animation-timing-function: linear;
 }
 @keyframes bounce-1 {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-100px); }
-  100% { transform: translateY(0); }
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-100px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 .out3-row {
   height: 30vh;
@@ -90,11 +101,17 @@ margin-right: -80px;
   animation-timing-function: linear;
 }
 @keyframes bounce-1 {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-50px); }
-  100% { transform: translateY(0); }
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-50px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
-.out-grid{
+.out-grid {
   position: absolute;
   display: flex;
   flex-direction: column;

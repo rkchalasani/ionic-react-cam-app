@@ -17,14 +17,13 @@ import {
   useIonToast,
   useIonViewWillEnter,
 } from "@ionic/react";
-
 import "./Login.css";
 import { UserAuth } from "../../context/AuthContext";
 import { useIonRouter } from "@ionic/react";
 import { useEffect, useState } from "react";
 import { alert, logoFacebook, logoGoogle } from "ionicons/icons";
-const Login = () => {
 
+const Login = () => {
   const { signIn, user } = UserAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,9 +31,6 @@ const Login = () => {
   const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
   const [show, dismiss] = useIonLoading();
-
-
-
   async function handleButtonClick(message) {
     present({
       message: message,
@@ -57,21 +53,7 @@ const Login = () => {
     });
   }
   const router = useIonRouter();
-
-  // function simulateNetworkRequest() {
-  //   return new Promise((resolve) => setTimeout(resolve, 2000));
-  // }
-  // const [isLoading, setLoading] = useState(false);
-
-  // useEffect(() => {
-  // if (isLoading) {
-  // simulateNetworkRequest().then(() => {
-  // setLoading(false);
-  // });
-  // }
-  // }, [isLoading]);
   const handleClick = async (e) => {
-    // handleLoading("Logging in..");
     var atposition = email.indexOf("@");
     var dotposition = email.lastIndexOf(".");
     if (email == null || email === "" || password == null || password === "") {
@@ -86,7 +68,6 @@ const Login = () => {
       handleButtonClick("Please enter correct email");
     } else {
       try {
-        // setLoading(true);
         await signIn(email, password);
         show({
           message: "Logging in..",
@@ -110,20 +91,11 @@ const Login = () => {
   };
   const hideTabs = () => {
     const tabsEl = document.querySelector("ion-tab-bar");
-
     if (tabsEl) {
       tabsEl.hidden = true;
     }
   };
-
   useIonViewWillEnter(() => hideTabs());
-
-  // const  = () => setLoading(true);
-  const openSignup = () => {
-    router.push("/signup");
-    setEmail("");
-    setPassword("");
-  };
   return (
     <IonPage>
       <IonContent fullscreen className="login-main-div">
@@ -162,13 +134,9 @@ const Login = () => {
               onClick={handleClick}
               color="smoke"
               className="loginbutton"
-              // disabled={isLoading}
-              // onClick={!isLoading ? handleClick : null}
             >
-              {/* {isLoading ? "Logging in.." : "Login"} */}
               Login
             </IonButton>
-          
           </IonRow>
           <IonRow className="create-acc-row">
             <IonLabel className="loginpage-text">
@@ -178,7 +146,6 @@ const Login = () => {
               color="smoke "
               className="loginpage-signup-btn ion-text-capitalize"
               routerLink="/signup"
-              // onClick={openSignup}
             >
               Signup
             </IonButton>

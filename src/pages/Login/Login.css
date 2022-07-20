@@ -34,7 +34,6 @@
   --ion-color-tint: var(--ion-color-darkgreen-tint);
 }
 .login-main-div {
-  /* --background: linear-gradient(#24383f, #24383f); */
   --background: linear-gradient(rgb(19, 33, 36, 0.3), rgb(19, 33, 36, 0.3)),
     url("../../../public/assets/images/Get-Started1.png") no-repeat center/cover
       fixed;
@@ -49,7 +48,6 @@
   padding: 7%;
 }
 .signup-main-div {
-  /* --background: linear-gradient(#24383f, #24383f); */
   --background: linear-gradient(rgb(19, 33, 36, 0.3), rgb(19, 33, 36, 0.3)),
     url("../../../public/assets/images/Get-Started1.png") no-repeat center/cover
       fixed;
@@ -202,15 +200,12 @@
   margin-top: 20px;
   width: 120px;
   border-radius: 10px;
-  /* background-color: #24383f; */
 }
-.loginbtn-row{
-  
+.loginbtn-row {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
 }
 .signuppage-joinbutton {
   margin-top: 25px;
@@ -298,7 +293,6 @@
 .signup-input-row {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
 }
 .login-input-row {

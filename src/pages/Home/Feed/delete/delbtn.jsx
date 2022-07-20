@@ -10,7 +10,6 @@ const delbtn = () => {
   const deleteUser = async (id) => {
     const userDoc = doc(db, "user", id);
     await deleteDoc(userDoc);
-    // window.location.reload();
     console.log("clicked");
   };
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -26,7 +25,7 @@ const delbtn = () => {
 
     getUsers();
   }, []);
-  
+
   return (
     <IonRow>
       {users.map((currentUser) => {
