@@ -21,7 +21,8 @@ import { auth, db } from "../../../firebase";
 
 const Feed = () => {
   const openProfile = () => {
-    router.push("/profile");
+    // router.push("/profile");
+    console.log("wait")
   };
   const hideTabs = () => {
     const tabsEl = document.querySelector("ion-tab-bar");
