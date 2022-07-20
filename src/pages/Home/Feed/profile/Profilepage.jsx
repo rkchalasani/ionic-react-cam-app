@@ -25,7 +25,7 @@ import {
   cloudUpload,
   trashOutline,
 } from "ionicons/icons";
-const Profilepage = () => {
+const UserAccount = () => {
   const [file, setFile] = useState("");
   const [show, dismiss] = useIonLoading();
   const handleLoad = (m) => {
@@ -209,4 +209,4 @@ const Profilepage = () => {
   );
 };
 
-export default Profilepage;
+export default UserAccount;
