@@ -76,5 +76,8 @@
       "last 1 safari version"
     ]
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "overrides": {
+    "autoprefixer": "10.4.5"
+  }
 }
