@@ -39,7 +39,7 @@ const Home = () => {
               </ProtectedRoute>
             </Route>
             <Route exact path="/home">
-              <Redirect to="/home/tab1" />
+              <Redirect to="/home/feed" />
             </Route>
             <Route path="/login">
               <Login />

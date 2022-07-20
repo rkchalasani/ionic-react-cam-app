@@ -14,7 +14,7 @@ import {
 } from "@ionic/react";
 import Newpost from "./NewPost/newpost";
 import "./Feed.css";
-import Posts from "./Post/post";
+import Posts from "./post/post";
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { auth, db } from "../../../firebase";

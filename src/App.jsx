@@ -37,7 +37,6 @@ import { AuthContextProvider } from "./context/AuthContext";
 import Friends from "./pages/Home/Friends/friends";
 import Feed from "./pages/Home/Feed/Feed";
 import Settings from "./pages/Home/Settings/settings";
-import Newuser from "./pages/Home/Feed/NewPost/newpost";
 import Profile from "./pages/Home/Feed/Profile/profile";
 import { doc, getDoc } from "firebase/firestore";
 import { App as app } from "@capacitor/app";
