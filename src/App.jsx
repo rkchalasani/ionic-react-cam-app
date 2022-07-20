@@ -6,12 +6,8 @@ import {
   setupIonicReact,
   useIonAlert,
   useIonLoading,
-  useIonToast,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-// import Tab1 from './pages/Home/Hometab/Tab1';
-// import Tab2 from './pages/Tab2';
-// import Tab3 from './pages/Tab3';
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -37,7 +33,6 @@ import { AuthContextProvider } from "./context/AuthContext";
 import Friends from "./pages/Home/Friends/friends";
 import Feed from "./pages/Home/Feed/Feed";
 import Settings from "./pages/Home/Settings/settings";
-import UserAccount from "./pages/Home/Feed/Profile/Profilepage";
 import { doc, getDoc } from "firebase/firestore";
 import { App as app } from "@capacitor/app";
 import { useEffect, useState } from "react";
@@ -51,7 +46,6 @@ const App = () => {
   const [show, dismiss] = useIonLoading();
   const updateRef = doc(db, "chatify_by_PTG", "dtvG3X4CjLV7CXMIRPES");
   const [presentAlert] = useIonAlert();
-  const [present] = useIonToast();
   const handleAlert = (message, title, button, appVersion) => {
     presentAlert({
       header: title,
@@ -109,14 +103,14 @@ const App = () => {
         }
       } else {
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
   useEffect(() => {
     getConfigData();
     if (isPlatform("android")) {
       getAppInfo();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   checkUpdate();
@@ -145,9 +139,6 @@ const App = () => {
             </Route>
             <Route path="/signup">
               <Signup />
-            </Route>
-            <Route path="/profile">
-              <UserAccount />
             </Route>
             <Route exact path="/">
               <Redirect to="/getstarted" />
