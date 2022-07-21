@@ -34,7 +34,7 @@ const GetStarted = () => {
               className="getstarted-btn"
               routerLink="/login"
             >
-              Get Started
+              Get Started 21-07-2022 - 12:44pm    
             </IonButton>
           </IonRow>
         </IonGrid>
