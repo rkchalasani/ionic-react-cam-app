@@ -2,6 +2,7 @@ import {
   IonButton,
   IonContent,
   IonGrid,
+  IonIcon,
   IonImg,
   IonInput,
   IonLabel,
@@ -16,7 +17,7 @@ import "./Login.css";
 import { UserAuth } from "../../context/AuthContext";
 import { useIonRouter } from "@ionic/react";
 import { useState } from "react";
-import { alert } from "ionicons/icons";
+import { alert, logoFacebook, logoGoogle } from "ionicons/icons";
 
 const Login = () => {
   const { signIn } = UserAuth();
@@ -138,6 +139,15 @@ const Login = () => {
               className="loginbutton"
             >
               Login
+            </IonButton>
+            <IonButton
+              onClick={handleClick}
+              color="smoke"
+              // className="loginbutton"
+            >
+              <IonIcon icon={logoGoogle}>
+
+              </IonIcon>
             </IonButton>
           </IonRow>
           <IonRow className="create-acc-row">

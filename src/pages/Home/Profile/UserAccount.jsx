@@ -6,6 +6,8 @@ import { updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {
   IonAvatar,
+  IonButton,
+  IonCol,
   IonContent,
   IonGrid,
   IonHeader,
@@ -18,7 +20,16 @@ import {
   useIonLoading,
   useIonRouter,
 } from "@ionic/react";
-import { checkmarkCircle, cloudUpload, trashOutline } from "ionicons/icons";
+import {
+  bookmark,
+  bookmarkOutline,
+  bookmarksOutline,
+  checkmarkCircleOutline,
+  cloudUpload,
+  heart,
+  heartOutline,
+  search,
+} from "ionicons/icons";
 
 const Profilepage = () => {
   const [file, setFile] = useState("");
@@ -86,7 +97,7 @@ const Profilepage = () => {
       }).catch((e) => {
         console.log(e.message);
       });
-      router.push("/home");
+      setFile("");
     } catch (err) {
       console.log(err);
     }
@@ -97,32 +108,19 @@ const Profilepage = () => {
   };
   return (
     <IonPage>
-      <IonHeader color="darkgreen">
-        <IonToolbar color="darkgreen"></IonToolbar>
+
+      <IonHeader>
+        <IonToolbar color="darkgreen">
+          <IonRow className="search-row">
+            <IonCol className="friends-col">
+              <IonLabel className="frnds" color="smoke">
+                My Profile
+              </IonLabel>
+            </IonCol>
+          </IonRow>
+        </IonToolbar>
       </IonHeader>
       <IonContent className="profile-content">
-        <IonRow className="backbtn">
-          <IonIcon
-            className="icon"
-            size="large"
-            color="smoke"
-            onClick={handleClick}
-            icon={cloudUpload}
-          ></IonIcon>
-          <IonIcon
-            className="icon"
-            color="smoke"
-            style={{ width: 35, height: 35 }}
-            icon={checkmarkCircle}
-            onClick={handleAdd}
-          ></IonIcon>
-          <IonIcon
-            size="large"
-            className="icon"
-            color="smoke"
-            icon={trashOutline}
-          ></IonIcon>
-        </IonRow>
         <IonRow className="pro-row">
           <IonAvatar className="avatar-img">
             <IonImg
@@ -133,8 +131,49 @@ const Profilepage = () => {
               }
             ></IonImg>
           </IonAvatar>
+          <IonRow className="backbtn">
+            {file ? (
+              <>
+                <IonButton onClick={handleClick} fill="clear">
+                  <IonIcon
+                    className="icon"
+                    size="large"
+                    color="smoke"
+                    icon={cloudUpload}
+                  ></IonIcon>
+                </IonButton>
+                <IonButton onClick={handleAdd} fill="clear">
+                  <IonIcon
+                    className="icon"
+                    color="smoke"
+                    style={{ width: 35, height: 35 }}
+                    icon={checkmarkCircleOutline}
+                  ></IonIcon>
+                </IonButton>
+              </>
+            ) : (
+              <IonButton onClick={handleClick} fill="clear">
+                <IonIcon
+                  className="icon"
+                  size="large"
+                  color="smoke"
+                  icon={cloudUpload}
+                ></IonIcon>
+                <IonLabel color="smoke ion-text-capitalize">
+                  new picture
+                </IonLabel>
+              </IonButton>
+            )}
+
+            {/* <IonIcon
+            size="large"
+            className="icon"
+            color="smoke"
+            icon={trashOutline}
+          ></IonIcon> */}
+          </IonRow>
         </IonRow>
-        <IonRow className="icon-row"> </IonRow>
+
         <IonRow className="name-col">
           <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
           <IonLabel className="font" color="smoke">
@@ -147,28 +186,16 @@ const Profilepage = () => {
 
         <IonGrid className="grid">
           <IonRow className="email-row1">
-            <IonLabel color="smoke">Username</IonLabel>
-            <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
-          </IonRow>
-          <IonRow className="email-row">
             <IonLabel color="smoke">Phone</IonLabel>
             <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
           </IonRow>
-          <IonRow className="email-row">
-            <IonLabel color="smoke">Company</IonLabel>
-            <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
+          <IonRow className="likedposts-row">
+            <IonIcon color="light" icon={heartOutline}></IonIcon>
+            <IonLabel color="smoke">Liked Posts</IonLabel>
           </IonRow>
-          <IonRow className="email-row">
-            <IonLabel color="smoke">Title</IonLabel>
-            <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
-          </IonRow>
-          <IonRow className="email-row">
-            <IonLabel color="smoke">Website</IonLabel>
-            <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
-          </IonRow>
-          <IonRow className="email-row">
-            <IonLabel color="smoke">About you</IonLabel>
-            <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
+          <IonRow className="savedposts-row">
+            <IonIcon color="light" icon={bookmarksOutline}></IonIcon>
+            <IonLabel color="smoke">Saved Posts</IonLabel>
           </IonRow>
           <IonRow className="formInput">
             <input

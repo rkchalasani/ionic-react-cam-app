@@ -7,7 +7,7 @@ import {
   IonTabs,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { chatbox, home, person, settingsSharp } from "ionicons/icons";
+import { chatbox, gitBranch, gitCommit, gitMergeOutline, home, imageOutline, images, imagesOutline, people, peopleCircleSharp, peopleSharp, person, settingsSharp } from "ionicons/icons";
 import Friends from "./Home/Friends/friends";
 import Feed from "./Home/Feed/Feed";
 import Settings from "./Home/Settings/settings";
@@ -53,7 +53,7 @@ const Home = () => {
               <IonIcon icon={home} />
             </IonTabButton>
             <IonTabButton tab="tab2" href="/home/friends">
-              <IonIcon icon={chatbox} />
+              <IonIcon icon={peopleSharp} />
             </IonTabButton>
             <IonTabButton tab="tab3" href="/home/profile">
               <IonIcon icon={person} />

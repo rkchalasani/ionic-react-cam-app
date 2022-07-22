@@ -50,5 +50,10 @@
   padding: 2%;
 }
 .btn-class {
-  padding: 1.2%;
+  /* padding-right: 2%; */
+  display: flex;
+  align-items: center;
+}
+.file-name{
+  padding: 2%;
 }

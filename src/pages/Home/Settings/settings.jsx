@@ -4,6 +4,7 @@ import {
   IonContent,
   IonGrid,
   IonIcon,
+  IonItem,
   IonLabel,
   IonPage,
   IonRow,
@@ -11,12 +12,7 @@ import {
   useIonRouter,
   useIonToast,
 } from "@ionic/react";
-import {
-  colorFill,
-  help,
-  notifications,
-  person,
-} from "ionicons/icons";
+import { bookmark, colorFill, heart, heartCircle, help, notifications, person } from "ionicons/icons";
 import { UserAuth } from "../../../context/AuthContext";
 import "./settings.css";
 
@@ -59,46 +55,37 @@ const Settings = () => {
   return (
     <IonPage>
       <IonContent className="settings-content" fullscreen>
-        <IonRow className="search-row">
+        <IonRow className="setting-row">
           <IonCol>
             {" "}
             <IonLabel color="smoke">Settings</IonLabel>
           </IonCol>
         </IonRow>
-
         <IonGrid className="settings-grid">
-          <IonRow className="settings-row1">
-            <IonIcon color="light" icon={person}></IonIcon>
-            <IonLabel color="smoke">Account</IonLabel>
-          </IonRow>
-          <IonRow className="settings-row1">
-            <IonIcon color="light" icon={notifications}></IonIcon>
-            <IonLabel color="smoke">Notification</IonLabel>
-          </IonRow>
-          <IonRow className="settings-row1">
-            <IonIcon color="light" icon={colorFill}></IonIcon>
-            <IonLabel color="smoke">Theme</IonLabel>
-          </IonRow>
-          <IonRow className="settings-row1">
-            <IonIcon color="light" icon={help}></IonIcon>
-            <IonLabel color="smoke">Help</IonLabel>
-          </IonRow>
-          <IonRow className="settings-row1">
-            <IonIcon color="light" icon={person}></IonIcon>
-            <IonLabel color="smoke">Account</IonLabel>
-          </IonRow>
-          <IonRow className="settings-row1">
-            <IonIcon color="light" icon={person}></IonIcon>
-            <IonLabel color="smoke">Account</IonLabel>
-          </IonRow>
-          <IonRow className="settings-row1">
-            <IonIcon color="light" icon={person}></IonIcon>
-            <IonLabel color="smoke">Account</IonLabel>
-          </IonRow>
-          <IonRow className="settings-row1">
-            <IonIcon color="light" icon={person}></IonIcon>
-            <IonLabel color="smoke">Account</IonLabel>
-          </IonRow>
+          <IonItem color="lightgreen">
+            <IonRow className="settings-row1">
+              <IonIcon color="light" icon={person}></IonIcon>
+              <IonLabel color="smoke">Account</IonLabel>
+            </IonRow>
+          </IonItem>
+          <IonItem color="lightgreen">
+            <IonRow className="settings-row1">
+              <IonIcon color="light" icon={help}></IonIcon>
+              <IonLabel color="smoke">Help</IonLabel>
+            </IonRow>
+          </IonItem>
+          <IonItem color="lightgreen">
+            <IonRow className="settings-row1">
+              <IonIcon color="light" icon={colorFill}></IonIcon>
+              <IonLabel color="smoke">Theme</IonLabel>
+            </IonRow>
+          </IonItem>
+          <IonItem color="lightgreen">
+            <IonRow className="settings-row1">
+              <IonIcon color="light" icon={notifications}></IonIcon>
+              <IonLabel color="smoke">Notification</IonLabel>
+            </IonRow>
+          </IonItem>
           <IonRow className="settings-row1">
             <IonButton
               className="logout-btn"

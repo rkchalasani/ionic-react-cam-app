@@ -89,7 +89,7 @@ const App = () => {
       setUpdateDetails(data.updatemsg);
       setAppVersion(data.current);
     } else {
-      console.log("No such document!");
+      // console.log("No such document!");
     }
   };
   const checkUpdate = async () => {

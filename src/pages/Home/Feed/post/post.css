@@ -6,6 +6,7 @@
   justify-content: flex-end;
   align-items: center;
   font-size: 10px;
+  /* padding: 1%; */
 }
 .del-btn {
   font-size: 10px;
@@ -15,10 +16,55 @@
   justify-content: center;
 }
 .moment {
-  margin-left: 3%;
+  /* margin-left: 3%; */
+  padding: 4%;
 }
 .post-avatar {
   --border-radius: 0%;
   width: 100vw;
   height: 40vh;
+}
+.video {
+  width: 100%;
+}
+.like-btn-row {
+  display: flex;
+  align-items: center;
+  padding-left: 1%;
+}
+.save-btn-col {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.like-btn {
+  padding: 2%;
+}
+.comments-row {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  margin: 3%;
+  /* padding-left: 0.5%; */
+}
+.comment-input-row {
+  display: flex;
+  align-items: center;
+  padding-left: 1%;
+  padding-right: 4%;
+  /* color: aliceblue; */
+}
+.likes {
+  padding-left: 3.4%;
+}
+.newcomments {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 1%;
+  /* flex-direction: column; */
+  /* padding: 0px; */
+}
+.delete-alert{
+  --background: whitesmoke;
 }

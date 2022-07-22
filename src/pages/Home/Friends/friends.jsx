@@ -43,7 +43,7 @@ const Friends = () => {
       <IonHeader>
         <IonToolbar color="darkgreen">
           <IonRow className="search-row">
-            <IonCol className="col2">
+            <IonCol className="friends-col">
               <IonLabel className="frnds" color="smoke">
                 Friends
               </IonLabel>

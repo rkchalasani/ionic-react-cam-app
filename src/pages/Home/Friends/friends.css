@@ -69,3 +69,8 @@
   align-items: center;
   border-radius: 10%;
 }
+.friends-col{
+  display: flex;
+  justify-content: flex-start;
+  /* padding: 0%; */
+}

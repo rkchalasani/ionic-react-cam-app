@@ -1,5 +1,6 @@
 .profile-content {
-  --background: #132124;
+  --background: #24383f;
+  
 }
 .pro-pic-container {
   display: flex;
@@ -11,7 +12,7 @@
   padding-bottom: 6%;
   padding-left: 6%;
   padding-right: 6%;
-  background: #24383f;
+  background: #132124;
   border-radius: 30px;
   margin: 4%;
 }
@@ -24,20 +25,18 @@
 }
 .pro-row {
   display: flex;
+  padding-top: 2%;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 .avatar-img {
   width: 250px;
   --border-radius: 15%;
   height: 250px;
+  margin-top: 7%;
 }
-.backbtn {
-  padding: 5%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 .flex-row-value {
   display: flex;
   justify-content: center;
@@ -109,6 +108,14 @@
   display: flex;
   flex-direction: column;
 }
+.likedposts-row {
+  margin-top: 10%;
+  display: flex;
+}
+.savedposts-row {
+  margin-top: 10%;
+  display: flex;
+}
 .email-row1 {
   margin-top: 5%;
   display: flex;
@@ -125,4 +132,20 @@
 }
 .img-avatar1 {
   --border-radius: 7%;
+}
+.displayname{
+  font-size: 1.5rem;
+  margin-left: 4%;
+  /* margin-bottom: 200%; */
+  /* : 2%; */
+}
+.profile-header-row{
+  padding: 2%;
+}
+.backbtn {
+  padding-top: 3%;
+  padding-bottom: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

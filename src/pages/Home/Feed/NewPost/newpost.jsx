@@ -8,9 +8,11 @@ import {
   IonAvatar,
   IonButton,
   IonCard,
+  IonCol,
   IonIcon,
   IonImg,
   IonInput,
+  IonLabel,
   IonRow,
   useIonLoading,
   useIonViewWillEnter,
@@ -67,25 +69,28 @@ const NewPost = () => {
       );
     };
     file && uploadFile();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file]);
   const handleAdd = async (e, id) => {
     e.preventDefault();
     try {
-      await addDoc(collection(db, "user"), {
+      await addDoc(collection(db, "posts"), {
         ...data,
         createdAt: new Date(),
         caption: caption,
         name: auth.currentUser.displayName,
         email: auth.currentUser.email,
         avatar: auth.currentUser.photoURL,
+        likecount : 0
       });
-      await updateProfile(db, "user", {
+      await updateProfile(db, "posts", {
         caption: caption,
       }).catch((e) => {
         console.log(e.message);
       });
       setCaption("");
+      setFile("");
+      setData("");
     } catch (err) {
       console.log(err);
     }
@@ -137,14 +142,17 @@ const NewPost = () => {
           ></IonIcon>
         </IonRow>
         <IonRow className="btn-class">
-          <IonButton
-            className="post-btn"
-            onClick={handleAdd}
-            color="smoke"
-            type="submit"
-          >
-            Post
-          </IonButton>
+          <IonCol>
+            <IonButton
+              className="post-btn"
+              onClick={handleAdd}
+              color="smoke"
+              type="submit"
+            >
+              Post
+            </IonButton>
+          </IonCol>
+          <IonLabel className="file-name">{file.name} </IonLabel>
         </IonRow>
       </IonCard>
     </>

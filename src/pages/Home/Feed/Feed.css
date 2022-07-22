@@ -35,7 +35,7 @@
   color: white;
   display: flex;
   justify-content: center;
-  padding-bottom: 2%;
+  padding-bottom: 4%;
   padding-left: 4%;
   padding-top: 4%;
   padding-right: 4%;
@@ -81,6 +81,7 @@
 .col2 {
   display: flex;
   justify-content: flex-start;
+  padding: 0%;
 }
 .col3 {
   display: flex;
@@ -100,7 +101,10 @@
   border-radius: 50%;
 }
 .caption {
-  padding: 4%;
+  padding-bottom: 4%;
+  padding-left: 4%;
+  font-size: 15px;
+  padding-right: 4%;
 }
 /*  */
 
@@ -136,6 +140,7 @@
 .feed-col1 {
   display: flex;
   justify-content: flex-end;
+  padding: 0%;
   align-items: center;
 }
 .new-icon {

@@ -197,7 +197,7 @@
   border-radius: 7px;
 }
 .loginbutton {
-  margin-top: 20px;
+  margin-right: 25px;
   width: 120px;
   border-radius: 10px;
 }
@@ -205,7 +205,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  /* flex-direction: column; */
 }
 .signuppage-joinbutton {
   margin-top: 25px;
@@ -301,4 +301,9 @@
 }
 .loginpage-alert {
   --background: whitesmoke;
+}
+.social-login-row{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -12,9 +12,9 @@ import {
 import Newpost from "./NewPost/newpost";
 import "./Feed.css";
 import Posts from "./post/post";
-import { useEffect } from "react";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { auth, db } from "../../../firebase";
+import { useEffect, useState } from "react";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
 const Feed = () => {
   const openProfile = () => {
@@ -29,19 +29,23 @@ const Feed = () => {
   };
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useIonViewWillEnter(() => hideTabs());
+  const [post, setPost] = useState([]);
   useEffect(() => {
     const getUsers = async () => {
-      const postCollection = collection(db, "user");
+      const postCollection = collection(db, "posts");
       const q = query(postCollection, orderBy("createdAt", "desc"));
       onSnapshot(q, (querySnapshot) => {
         let posts = [];
         querySnapshot.forEach((doc) => {
-          posts.push(doc.data());
+          posts.push({ ...doc.data(), id: doc.id });
         });
+        setPost(posts);
       });
     };
     getUsers();
+    
   }, []);
+  
 
   return (
     <IonPage>
@@ -72,7 +76,21 @@ const Feed = () => {
       </IonHeader>
       <IonContent className="feed-content" fullscreen>
         <Newpost />
-        <Posts />
+        {post.map((currentUser) => {
+          return (
+            <Posts
+              key={currentUser.id}
+              id={currentUser.id}
+              avatar={currentUser.avatar}
+              name={currentUser.name}
+              email={currentUser.email}
+              img={currentUser.img}
+              caption={currentUser.caption}
+              likecount={currentUser.likecount}
+              createdAt={currentUser.createdAt}
+            />
+          );
+        })}
       </IonContent>
     </IonPage>
   );
