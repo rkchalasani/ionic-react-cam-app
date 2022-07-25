@@ -44,7 +44,7 @@
   display: flex;
   /* justify-content: center; */
   align-items: center;
-  margin: 3%;
+  padding-left: 3.5%;
   /* padding-left: 0.5%; */
 }
 .comment-input-row {
@@ -61,10 +61,18 @@
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 1%;
-  /* flex-direction: column; */
-  /* padding: 0px; */
+  padding-top: 1%;
+  padding-bottom: 1%;
 }
-.delete-alert{
+.newcomments-col {
+  padding: 0px;
+}
+.delete-alert {
   --background: whitesmoke;
+}
+.comments-time{
+  font-size: 10px;
+}
+.likebtn{
+  margin: 2%;
 }

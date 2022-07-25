@@ -1,6 +1,6 @@
 import "./newpost.css";
 import { useEffect, useRef, useState } from "react";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, setDoc, updateDoc } from "firebase/firestore";
 import { auth, db, storage } from "../../../../firebase";
 import { updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -81,7 +81,7 @@ const NewPost = () => {
         name: auth.currentUser.displayName,
         email: auth.currentUser.email,
         avatar: auth.currentUser.photoURL,
-        likecount : 0
+        likes:[],
       });
       await updateProfile(db, "posts", {
         caption: caption,

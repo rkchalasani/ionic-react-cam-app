@@ -7,6 +7,7 @@ import {
   IonPage,
   IonRow,
   IonToolbar,
+  useIonRouter,
   useIonViewWillEnter,
 } from "@ionic/react";
 import Newpost from "./NewPost/newpost";
@@ -17,9 +18,9 @@ import { useEffect, useState } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
 const Feed = () => {
+  const router = useIonRouter();
   const openProfile = () => {
-    // router.push("/profile");
-    console.log("wait");
+    router.push("/home/profile");
   };
   const hideTabs = () => {
     const tabsEl = document.querySelector("ion-tab-bar");
@@ -43,9 +44,7 @@ const Feed = () => {
       });
     };
     getUsers();
-    
   }, []);
-  
 
   return (
     <IonPage>
@@ -88,6 +87,7 @@ const Feed = () => {
               caption={currentUser.caption}
               likecount={currentUser.likecount}
               createdAt={currentUser.createdAt}
+              likes={currentUser.likes}
             />
           );
         })}

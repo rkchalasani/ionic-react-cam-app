@@ -13,6 +13,7 @@ import {
   useIonAlert,
 } from "@ionic/react";
 import {
+  bookmark,
   bookmarkOutline,
   chatbubbleOutline,
   ellipsisVertical,
@@ -32,28 +33,65 @@ import {
   addDoc,
   query,
   onSnapshot,
+  orderBy,
+  getDocs,
   arrayRemove,
   arrayUnion,
 } from "firebase/firestore";
 
 const Post = (props) => {
-  const [isLiked, setIsLiked] = useState(false);
-
+  const [isLiked, setIsLiked] = useState();
+  const [isSaved, setIsSaved] = useState();
   const [handlerMessage, setHandlerMessage] = useState("");
-  const [roleMessage, setRoleMessage] = useState("");
   const [presentAlert] = useIonAlert();
 
   const deleteUser = async (id) => {
     const userDoc = doc(db, "posts", id);
-    await deleteDoc(userDoc);
+    const commentRef = collection(db, "posts", id, "comments");
+    const likesRef = collection(db, "posts", id, "likes");
+
+    await deleteDoc(userDoc, commentRef, likesRef);
   };
+  const [post, setPost] = useState([]);
+
+  const handleSavedPosts = async () => {
+    const userDoc = collection(db, "saved_posts");
+    await addDoc(userDoc, {
+      ...post,
+    });
+    setIsSaved(true);
+
+    console.log("post saved");
+  };
+  const handleSavedPost = () => {
+    setIsSaved(false);
+  };
+  //like toogle
   const toggleLike = async (id, likecount) => {
+    // const userDoc = collection(db, "posts", id, "likes");
+    // await addDoc(userDoc, {
+    //   // ...id.post,
+    //   // ...post,
+    //   name: auth.currentUser.displayName,
+    //   isOnline: true,
+    //   // ...post,email,
+    // });
+    // const userDoc = collection(db,"users", auth.currentUser.uid, "liked_posts");
+    // await addDoc(userDoc, {
+    //   // ...id.post,
+    //   // ...post,
+
+    //   props
+    //   // ...post,email,
+    // });
     const userDoc = doc(db, "posts", id);
     await updateDoc(userDoc, {
       likecount: likecount + 1,
     });
+    // setIsLiked(false);
     setIsLiked(true);
   };
+
   const toggleUnlike = async (id, likecount) => {
     const userDoc = doc(db, "posts", id);
     await updateDoc(userDoc, {
@@ -61,6 +99,8 @@ const Post = (props) => {
     });
     setIsLiked(false);
   };
+  //end of like toggle
+
   const [present] = useIonToast();
   async function handleToast(message) {
     present({
@@ -72,7 +112,7 @@ const Post = (props) => {
       icon: alert,
     });
   }
-  const { id, avatar, name, email, img, caption, likecount, createdAt, likes } =
+  const { id, avatar, name, email, img, caption, createdAt, likecount, likes } =
     props;
   const [comments, setComments] = useState();
   const handleCommentAdd = async () => {
@@ -104,18 +144,45 @@ const Post = (props) => {
     const getUsers = () => {
       const commentRef = collection(db, "posts", id, "comments");
 
-      const q = query(commentRef);
+      const q = query(commentRef, orderBy("createdAt", "asc"));
       onSnapshot(q, (querySnapshot) => {
         let comments = [];
         querySnapshot.forEach((doc) => {
           comments.push({ ...doc.data(), id: doc.id });
+          // console.log(doc.id);
         });
         setComm(comments);
       });
     };
     getUsers();
-    // console.log(comment)
   }, []);
+  const [user] = useState(auth);
+
+  const likesRef = doc(db, "posts", id);
+
+  const handleLike = () => {
+    if (likes?.includes(auth.currentUser.displayName)) {
+      updateDoc(likesRef, {
+        likes: arrayRemove(auth.currentUser.displayName),
+      })
+        .then(() => {
+          console.log("unliked");
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } else {
+      updateDoc(likesRef, {
+        likes: arrayUnion(auth.currentUser.displayName),
+      })
+        .then(() => {
+          console.log("liked");
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  };
   return (
     <>
       <IonCard className="feed-grid" key={id}>
@@ -164,47 +231,34 @@ const Post = (props) => {
           <IonImg src={img}></IonImg>
         )}
 
-        {/* {currentUser.img ? (
-              <video
-                className="video"
-                autoPlay
-                loop
-                typeof="video/mp4"
-                muted
-                src={currentUser.img}
-              ></video>
-            ) : (
-              <></>
-            )} */}
-        {/* <video
-          className="video"
-          autoPlay
-          loop
-          muted
-          src={img}
-        ></video> */}
         <IonRow className="like-btn-row">
-          {isLiked ? (
-            <IonIcon
-              color="smoke"
-              className="like-btn"
-              style={{ width: 27, height: 27 }}
-              icon={heart}
-              onClick={() => {
-                toggleUnlike(id, likecount);
-              }}
-            ></IonIcon>
-          ) : (
-            <IonIcon
-              className="like-btn"
-              color="smoke"
-              style={{ width: 27, height: 27 }}
-              icon={heartOutline}
-              onClick={() => {
-                toggleLike(id, likecount);
-              }}
-            ></IonIcon>
-          )}
+        {
+           likes?.includes(auth.currentUser.displayName)
+           ?
+
+           <IonIcon
+           className="like-btn"
+           color="danger"
+           style={{
+             width: 27,
+             height: 27,
+           }}
+           icon={heart}
+           onClick={handleLike}
+         ></IonIcon>
+           :
+           <IonIcon
+           className="like-btn"
+           color="smoke"
+           style={{
+             width: 27,
+             height: 27,
+           }}
+           icon={heartOutline}
+           onClick={handleLike}
+         ></IonIcon>
+        }
+        
           {input ? (
             <IonIcon
               className="like-btn"
@@ -222,28 +276,68 @@ const Post = (props) => {
           )}
 
           <IonCol className="save-btn-col">
-            <IonIcon
-              className="like-btn"
-              style={{ width: 25, height: 25 }}
-              icon={bookmarkOutline}
-            ></IonIcon>
+            {isSaved ? (
+              <IonIcon
+                className="like-btn"
+                // color="smoke"
+                style={{ width: 25, height: 25 }}
+                onClick={() => {
+                  handleSavedPost();
+                }}
+                icon={bookmark}
+              ></IonIcon>
+            ) : (
+              <IonIcon
+                className="like-btn"
+                color="smoke"
+                style={{ width: 25, height: 25 }}
+                onClick={() => {
+                  handleSavedPosts();
+                }}
+                icon={bookmarkOutline}
+              ></IonIcon>
+            )}
           </IonCol>
         </IonRow>
         <IonRow>
           <IonLabel color="smoke" className="likes">
-            {likecount} Likes
+            {likes?.length} Likes
           </IonLabel>
         </IonRow>
+        {/* <IonRow>
+          <IonIcon
+            className={`fa fa-heart${
+              likes?.includes(auth.currentUser.displayName) ? "-o" : ""
+            } fa-lg`}
+            icon={heart}
+            // className="likebtn"
+            style={{
+              width: 40,
+              height: 40,
+              cursor: "pointer",
+              color: likes?.includes(auth.currentUser.displayName)
+                ? "danger"
+                : "smoke",
+            }}
+            onClick={handleLike}
+          />
+        </IonRow> */}
         <IonRow className="comments-row">
           {comm &&
             comm.map((currentUser) => {
               return (
                 <>
                   <IonRow className="newcomments">
-                    <IonLabel color="smoke">{currentUser.name}</IonLabel>
-                    <IonLabel color="smoke" key={currentUser.id}>
-                      &nbsp;{currentUser.comment}
-                    </IonLabel>
+                    <IonCol className="newcomments-col">
+                      <IonLabel color="smoke">{currentUser.name}</IonLabel>
+                      <IonLabel key={currentUser.id}>
+                        &nbsp;{currentUser.comment}
+                      </IonLabel>
+                    </IonCol>
+
+                    <Moment className="comments-time" fromNow>
+                      {currentUser.createdAt.toDate()}
+                    </Moment>
                   </IonRow>
                 </>
               );
@@ -278,9 +372,6 @@ const Post = (props) => {
           {auth.currentUser.email === email ? (
             <IonButton
               fill="clear"
-              // onClick={() => {
-              //   deleteUser(id);
-              // }}
               onClick={() =>
                 presentAlert({
                   cssClass: "delete-alert",
@@ -303,7 +394,6 @@ const Post = (props) => {
                       },
                     },
                   ],
-                  // onDidDismiss: (e) => setRoleMessage(`Dismissed with role: ${e.detail.role}`)
                 })
               }
             >
