@@ -7,7 +7,12 @@ import {
   IonTabs,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { chatbox, home, person, settingsSharp } from "ionicons/icons";
+import {
+  home,
+  peopleSharp,
+  person,
+  settingsSharp,
+} from "ionicons/icons";
 import Friends from "./Home/Friends/friends";
 import Feed from "./Home/Feed/Feed";
 import Settings from "./Home/Settings/settings";
@@ -16,6 +21,7 @@ import Login from "./Login/Login";
 import "./Home.css";
 import ProtectedRoute from "../components/ProtectedRoute";
 import Profilepage from "./Home/Profile/UserAccount";
+import UserProfile from "./Home/Friends/userprofile/UserProfile";
 
 const Home = () => {
   return (
@@ -47,13 +53,16 @@ const Home = () => {
             <Route path="/home/profile">
               <Profilepage />
             </Route>
+            <Route path="/userprofile/:id">
+              <UserProfile />
+            </Route>
           </IonRouterOutlet>
-          <IonTabBar className="tabbar-div" slot="bottom" color="darkgreen">
+          <IonTabBar className="tabbar-div" slot="bottom" color="black">
             <IonTabButton tab="tab1" href="/home/feed">
               <IonIcon icon={home} />
             </IonTabButton>
             <IonTabButton tab="tab2" href="/home/friends">
-              <IonIcon icon={chatbox} />
+              <IonIcon icon={peopleSharp} />
             </IonTabButton>
             <IonTabButton tab="tab3" href="/home/profile">
               <IonIcon icon={person} />
@@ -61,7 +70,6 @@ const Home = () => {
             <IonTabButton tab="tab4" href="/home/settings">
               <IonIcon icon={settingsSharp} />
             </IonTabButton>
-           
           </IonTabBar>
         </IonTabs>
       </IonReactRouter>

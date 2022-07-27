@@ -7,19 +7,20 @@ import {
   IonPage,
   IonRow,
   IonToolbar,
+  useIonRouter,
   useIonViewWillEnter,
 } from "@ionic/react";
 import Newpost from "./NewPost/newpost";
 import "./Feed.css";
 import Posts from "./post/post";
-import { useEffect } from "react";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { auth, db } from "../../../firebase";
+import { useEffect, useState } from "react";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
 const Feed = () => {
+  const router = useIonRouter();
   const openProfile = () => {
-    // router.push("/profile");
-    console.log("wait");
+    router.push("/home/profile");
   };
   const hideTabs = () => {
     const tabsEl = document.querySelector("ion-tab-bar");
@@ -29,15 +30,17 @@ const Feed = () => {
   };
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useIonViewWillEnter(() => hideTabs());
+  const [post, setPost] = useState([]);
   useEffect(() => {
     const getUsers = async () => {
-      const postCollection = collection(db, "user");
+      const postCollection = collection(db, "posts");
       const q = query(postCollection, orderBy("createdAt", "desc"));
       onSnapshot(q, (querySnapshot) => {
         let posts = [];
         querySnapshot.forEach((doc) => {
-          posts.push(doc.data());
+          posts.push({ ...doc.data(), id: doc.id });
         });
+        setPost(posts);
       });
     };
     getUsers();
@@ -46,9 +49,9 @@ const Feed = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color="darkgreen">
+        <IonToolbar color="black">
           <IonRow className="search-row1">
-            <IonCol className="col2">
+            <IonCol className="logo">
               <IonImg
                 style={{ height: 53 }}
                 src="assets/images/Chatify-logo.png "
@@ -72,7 +75,21 @@ const Feed = () => {
       </IonHeader>
       <IonContent className="feed-content" fullscreen>
         <Newpost />
-        <Posts />
+        {post.map((currentUser) => {
+          return (
+            <Posts
+              key={currentUser.id}
+              id={currentUser.id}
+              avatar={currentUser.avatar}
+              name={currentUser.name}
+              email={currentUser.email}
+              img={currentUser.img}
+              caption={currentUser.caption}
+              createdAt={currentUser.createdAt}
+              likes={currentUser.likes}
+            />
+          );
+        })}
       </IonContent>
     </IonPage>
   );

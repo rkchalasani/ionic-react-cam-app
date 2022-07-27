@@ -41,10 +41,11 @@ const Signup = () => {
       header: "Alert",
       message: message,
       buttons: ["OK"],
-      mode: "ios",
+      mode: "md",
+      cssClass:"signuppage-alert"
     });
   }
-  const [show] = useIonLoading();
+  const [show, dismiss] = useIonLoading();
   const resetInput = () => {
     setName("");
     setEmail("");
@@ -75,7 +76,7 @@ const Signup = () => {
         await createUser(email, password);
         show({
           message: "Registering user..",
-          duration: 1500,
+          // duration: 1500,
           spinner: "lines-sharp",
           mode: "ios",
         });
@@ -88,6 +89,7 @@ const Signup = () => {
         logout();
         resetInput();
         router.push("/login");
+        dismiss()
         setTimeout(() => {
           handleButtonClick("User successfully registered");
         }, 1510);

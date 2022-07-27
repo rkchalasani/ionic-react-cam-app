@@ -250,3 +250,54 @@ http://ionicframework.com/docs/theming/ */
 	--ion-color-shade: var(--ion-color-smoke-shade);
 	--ion-color-tint: var(--ion-color-smoke-tint);
 }
+:root {
+	--ion-color-black: #191917;
+	--ion-color-black-rgb: 25,25,23;
+	--ion-color-black-contrast: #ffffff;
+	--ion-color-black-contrast-rgb: 255,255,255;
+	--ion-color-black-shade: #161614;
+	--ion-color-black-tint: #30302e;
+}
+
+.ion-color-black {
+	--ion-color-base: var(--ion-color-black);
+	--ion-color-base-rgb: var(--ion-color-black-rgb);
+	--ion-color-contrast: var(--ion-color-black-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-black-contrast-rgb);
+	--ion-color-shade: var(--ion-color-black-shade);
+	--ion-color-tint: var(--ion-color-black-tint);
+}
+:root {
+	--ion-color-gold: #e58f00;
+	--ion-color-gold-rgb: 229,143,0;
+	--ion-color-gold-contrast: #000000;
+	--ion-color-gold-contrast-rgb: 0,0,0;
+	--ion-color-gold-shade: #ca7e00;
+	--ion-color-gold-tint: #e89a1a;
+}
+
+.ion-color-gold {
+	--ion-color-base: var(--ion-color-gold);
+	--ion-color-base-rgb: var(--ion-color-gold-rgb);
+	--ion-color-contrast: var(--ion-color-gold-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-gold-contrast-rgb);
+	--ion-color-shade: var(--ion-color-gold-shade);
+	--ion-color-tint: var(--ion-color-gold-tint);
+}
+:root {
+	--ion-color-lightblack: #232623;
+	--ion-color-lightblack-rgb: 35,38,35;
+	--ion-color-lightblack-contrast: #ffffff;
+	--ion-color-lightblack-contrast-rgb: 255,255,255;
+	--ion-color-lightblack-shade: #1f211f;
+	--ion-color-lightblack-tint: #393c39;
+}
+
+.ion-color-lightblack {
+	--ion-color-base: var(--ion-color-lightblack);
+	--ion-color-base-rgb: var(--ion-color-lightblack-rgb);
+	--ion-color-contrast: var(--ion-color-lightblack-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-lightblack-contrast-rgb);
+	--ion-color-shade: var(--ion-color-lightblack-shade);
+	--ion-color-tint: var(--ion-color-lightblack-tint);
+}

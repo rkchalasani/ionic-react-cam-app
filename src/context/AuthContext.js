@@ -17,6 +17,8 @@ import { doc, setDoc, Timestamp } from "firebase/firestore";
 const UserContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
+  const [post, setPost] = useState([]);
+
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
@@ -35,7 +37,7 @@ export const AuthContextProvider = ({ children }) => {
   const signIn = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
-  const addData = async (auth, email, name, img) => {
+  const addData = async (auth, email, name) => {
     setDoc(doc(db, "users", auth.currentUser.uid), {
       uid: auth.currentUser.uid,
       name: name,
@@ -49,7 +51,7 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log(currentUser);
+      // console.log(currentUser);
     });
     return () => {
       unsubscribe();
@@ -67,6 +69,8 @@ export const AuthContextProvider = ({ children }) => {
         addData,
         facebookSignIn,
         githubSignIn,
+        post,
+        setPost
       }}
     >
       {children}

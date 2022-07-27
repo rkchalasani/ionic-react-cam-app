@@ -43,7 +43,7 @@ const Login = () => {
       mode: "md",
       animated: true,
       cssClass: "loginpage-alert",
-      color: "light",
+      color: "smoke",
     });
   }
   const resetInput = () => {
@@ -116,7 +116,7 @@ const Login = () => {
               value={email}
               onIonChange={(e) => setEmail(e.detail.value)}
               type="text"
-              color="darkgreen"
+              color="black"
               className="login-input1"
               placeholder="Email"
             ></IonInput>
@@ -125,7 +125,7 @@ const Login = () => {
               value={password}
               onIonChange={(e) => setPassword(e.detail.value)}
               type="password"
-              color="darkgreen"
+              color="black"
               className="login-input2"
               placeholder="Password"
             ></IonInput>
@@ -135,7 +135,8 @@ const Login = () => {
             <IonButton
               onClick={handleClick}
               color="smoke"
-              className="loginbutton"
+              style={{width:120}}
+              // className="loginbutton"
             >
               Login
             </IonButton>

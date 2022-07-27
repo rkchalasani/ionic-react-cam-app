@@ -1,11 +1,22 @@
 import "./UserAccount.css";
 import { useEffect, useRef, useState } from "react";
-import { doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  updateDoc,
+} from "firebase/firestore";
+
 import { auth, db, storage } from "../../../firebase";
 import { updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {
   IonAvatar,
+  IonButton,
+  IonCard,
+  IonCol,
   IonContent,
   IonGrid,
   IonHeader,
@@ -16,9 +27,13 @@ import {
   IonRow,
   IonToolbar,
   useIonLoading,
-  useIonRouter,
 } from "@ionic/react";
-import { checkmarkCircle, cloudUpload, trashOutline } from "ionicons/icons";
+import {
+  bookmarksOutline,
+  checkmarkCircleOutline,
+  cloudUpload,
+  heartOutline,
+} from "ionicons/icons";
 
 const Profilepage = () => {
   const [file, setFile] = useState("");
@@ -32,7 +47,6 @@ const Profilepage = () => {
     });
   };
   const [data, setData] = useState({});
-  const router = useIonRouter();
   useEffect(() => {
     const uploadFile = () => {
       const name = new Date().getTime() + file.name;
@@ -75,18 +89,24 @@ const Profilepage = () => {
     file && uploadFile();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file]);
-  const handleAdd = async (e, id) => {
+  const handleAdd = async (e, id, email) => {
     e.preventDefault();
     try {
       await updateDoc(doc(db, "users", auth.currentUser.uid), {
         photoURL: data.img,
       });
+      if (auth.currentUser.email === email) {
+        await updateDoc(collection(db, "posts"), {
+          avatar: data.img,
+        });
+      }
+
       await updateProfile(auth.currentUser, {
         photoURL: data.img,
       }).catch((e) => {
         console.log(e.message);
       });
-      router.push("/home");
+      setFile("");
     } catch (err) {
       console.log(err);
     }
@@ -95,34 +115,42 @@ const Profilepage = () => {
   const handleClick = (event) => {
     hiddenFileInput.current.click();
   };
+  const openLiked = () => {
+    console.log("liked posts");
+  };
+  const openSaved = () => {
+    console.log("saved posts");
+  };
+  const [post, setPost] = useState([]);
+  useEffect(() => {
+    const getUsers = async () => {
+      const postCollection = collection(db, "posts");
+      const q = query(postCollection, orderBy("createdAt", "desc"));
+      onSnapshot(q, (querySnapshot) => {
+        let posts = [];
+        querySnapshot.forEach((doc) => {
+          posts.push({ ...doc.data(), id: doc.id });
+        });
+        setPost(posts);
+      });
+    };
+    getUsers();
+  }, []);
+
   return (
     <IonPage>
-      <IonHeader color="darkgreen">
-        <IonToolbar color="darkgreen"></IonToolbar>
+      <IonHeader>
+        <IonToolbar color="black">
+          <IonRow className="search-row">
+            <IonCol className="friends-col">
+              <IonLabel className="frnds" color="smoke">
+                My Profile
+              </IonLabel>
+            </IonCol>
+          </IonRow>
+        </IonToolbar>
       </IonHeader>
       <IonContent className="profile-content">
-        <IonRow className="backbtn">
-          <IonIcon
-            className="icon"
-            size="large"
-            color="smoke"
-            onClick={handleClick}
-            icon={cloudUpload}
-          ></IonIcon>
-          <IonIcon
-            className="icon"
-            color="smoke"
-            style={{ width: 35, height: 35 }}
-            icon={checkmarkCircle}
-            onClick={handleAdd}
-          ></IonIcon>
-          <IonIcon
-            size="large"
-            className="icon"
-            color="smoke"
-            icon={trashOutline}
-          ></IonIcon>
-        </IonRow>
         <IonRow className="pro-row">
           <IonAvatar className="avatar-img">
             <IonImg
@@ -133,8 +161,42 @@ const Profilepage = () => {
               }
             ></IonImg>
           </IonAvatar>
+          <IonRow className="backbtn">
+            {file ? (
+              <>
+                <IonButton onClick={handleClick} fill="clear">
+                  <IonIcon
+                    className="icon"
+                    size="large"
+                    color="smoke"
+                    icon={cloudUpload}
+                  ></IonIcon>
+                </IonButton>
+                <IonButton onClick={handleAdd} fill="clear">
+                  <IonIcon
+                    className="icon"
+                    color="smoke"
+                    style={{ width: 35, height: 35 }}
+                    icon={checkmarkCircleOutline}
+                  ></IonIcon>
+                </IonButton>
+              </>
+            ) : (
+              <IonButton onClick={handleClick} fill="clear">
+                <IonIcon
+                  className="icon"
+                  size="large"
+                  color="smoke"
+                  icon={cloudUpload}
+                ></IonIcon>
+                <IonLabel color="smoke ion-text-capitalize">
+                  new picture
+                </IonLabel>
+              </IonButton>
+            )}
+          </IonRow>
         </IonRow>
-        <IonRow className="icon-row"> </IonRow>
+
         <IonRow className="name-col">
           <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
           <IonLabel className="font" color="smoke">
@@ -144,31 +206,44 @@ const Profilepage = () => {
             blanditiis in suscipit.
           </IonLabel>
         </IonRow>
+        <IonCard color="black">
+          <IonRow style={{ padding: "4%", fontSize: "20px" }}>
+            <IonLabel color="smoke">My Posts</IonLabel>
+          </IonRow>
 
-        <IonGrid className="grid">
           <IonRow className="email-row1">
-            <IonLabel color="smoke">Username</IonLabel>
-            <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
+            {post.map((currentUser) => {
+              return (
+                <>
+                  {auth.currentUser.email === currentUser.email ? (
+                    <>
+                      {currentUser.img ? (
+                        <IonAvatar
+                          style={{ width: "29vw", height: "15vh" }}
+                          className="my-posts-avatar"
+                        >
+                          <IonImg src={currentUser.img}></IonImg>
+                        </IonAvatar>
+                      ) : (
+                        <></>
+                      )}
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </>
+              );
+            })}
           </IonRow>
-          <IonRow className="email-row">
-            <IonLabel color="smoke">Phone</IonLabel>
-            <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
+        </IonCard>
+        <IonGrid className="grid">
+          <IonRow onClick={openLiked} className="likedposts-row">
+            <IonIcon color="light" icon={heartOutline}></IonIcon>
+            <IonLabel color="smoke">Liked Posts</IonLabel>
           </IonRow>
-          <IonRow className="email-row">
-            <IonLabel color="smoke">Company</IonLabel>
-            <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
-          </IonRow>
-          <IonRow className="email-row">
-            <IonLabel color="smoke">Title</IonLabel>
-            <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
-          </IonRow>
-          <IonRow className="email-row">
-            <IonLabel color="smoke">Website</IonLabel>
-            <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
-          </IonRow>
-          <IonRow className="email-row">
-            <IonLabel color="smoke">About you</IonLabel>
-            <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
+          <IonRow onClick={openSaved} className="savedposts-row">
+            <IonIcon color="light" icon={bookmarksOutline}></IonIcon>
+            <IonLabel color="smoke">Saved Posts</IonLabel>
           </IonRow>
           <IonRow className="formInput">
             <input

@@ -8,9 +8,11 @@ import {
   IonAvatar,
   IonButton,
   IonCard,
+  IonCol,
   IonIcon,
   IonImg,
   IonInput,
+  IonLabel,
   IonRow,
   useIonLoading,
   useIonViewWillEnter,
@@ -67,25 +69,28 @@ const NewPost = () => {
       );
     };
     file && uploadFile();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file]);
   const handleAdd = async (e, id) => {
     e.preventDefault();
     try {
-      await addDoc(collection(db, "user"), {
+      await addDoc(collection(db, "posts"), {
         ...data,
         createdAt: new Date(),
         caption: caption,
         name: auth.currentUser.displayName,
         email: auth.currentUser.email,
         avatar: auth.currentUser.photoURL,
+        likes: [],
       });
-      await updateProfile(db, "user", {
+      await updateProfile(db, "posts", {
         caption: caption,
       }).catch((e) => {
         console.log(e.message);
       });
       setCaption("");
+      setFile("");
+      setData("");
     } catch (err) {
       console.log(err);
     }
@@ -104,7 +109,7 @@ const NewPost = () => {
   useIonViewWillEnter(() => hideTabs());
   return (
     <>
-      <IonCard className="newpost-card" color="darkgreen">
+      <IonCard className="newpost-card" color="black">
         <IonRow className="newpost-row">
           <IonAvatar
             className="newpost-avatar"
@@ -128,24 +133,39 @@ const NewPost = () => {
             placeholder="Add a Caption"
             onIonChange={(e) => setCaption(e.detail.value)}
           />
-          <IonIcon
-            className="icon"
-            size="large"
-            color="smoke"
-            onClick={handleClick}
-            icon={cloudUpload}
-          ></IonIcon>
         </IonRow>
         <IonRow className="btn-class">
+          <IonCol>
+            <IonButton
+              className="post-btn"
+              onClick={handleAdd}
+              color="smoke"
+              type="submit"
+            >
+              Post
+            </IonButton>
+          </IonCol>
           <IonButton
-            className="post-btn"
-            onClick={handleAdd}
-            color="smoke"
-            type="submit"
+            className="ion-text-capitalize"
+            onClick={handleClick}
+            fill="clear"
           >
-            Post
+            <IonIcon
+              style={{ width: 25, height: 25, paddingRight: "7px" }}
+              size="large"
+              color="smoke"
+              icon={cloudUpload}
+            ></IonIcon>
+            <IonLabel color="smoke">New Post</IonLabel>
           </IonButton>
         </IonRow>
+        {file.name ? (
+          <IonRow style={{ display: "flex", justifyContent: "center" }}>
+            <IonLabel className="file-name">{file.name} </IonLabel>
+          </IonRow>
+        ) : (
+          <></>
+        )}
       </IonCard>
     </>
   );

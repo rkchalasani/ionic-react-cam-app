@@ -1,0 +1,8 @@
+.user-posts-avatar {
+  --border-radius: 3%;
+  margin: 1%;
+}
+.user-posts-row {
+  display: flex;
+  justify-content: center;
+}
