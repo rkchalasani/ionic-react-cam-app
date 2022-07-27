@@ -49,7 +49,7 @@ const Feed = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color="darkgreen">
+        <IonToolbar color="black">
           <IonRow className="search-row1">
             <IonCol className="logo">
               <IonImg

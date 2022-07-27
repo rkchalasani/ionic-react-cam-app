@@ -4,7 +4,6 @@ import {
   IonContent,
   IonGrid,
   IonIcon,
-  IonItem,
   IonLabel,
   IonPage,
   IonRow,
@@ -13,10 +12,7 @@ import {
   useIonToast,
 } from "@ionic/react";
 import {
-  bookmark,
   colorFill,
-  heart,
-  heartCircle,
   help,
   notifications,
   person,
@@ -70,30 +66,22 @@ const Settings = () => {
           </IonCol>
         </IonRow>
         <IonGrid className="settings-grid">
-          <IonItem color="lightgreen">
             <IonRow className="settings-row1">
               <IonIcon color="light" icon={person}></IonIcon>
               <IonLabel color="smoke">Account</IonLabel>
             </IonRow>
-          </IonItem>
-          <IonItem color="lightgreen">
             <IonRow className="settings-row1">
               <IonIcon color="light" icon={help}></IonIcon>
               <IonLabel color="smoke">Help</IonLabel>
             </IonRow>
-          </IonItem>
-          <IonItem color="lightgreen">
             <IonRow className="settings-row1">
               <IonIcon color="light" icon={colorFill}></IonIcon>
               <IonLabel color="smoke">Theme</IonLabel>
             </IonRow>
-          </IonItem>
-          <IonItem color="lightgreen">
             <IonRow className="settings-row1">
               <IonIcon color="light" icon={notifications}></IonIcon>
               <IonLabel color="smoke">Notification</IonLabel>
             </IonRow>
-          </IonItem>
           <IonRow className="settings-row1">
             <IonButton
               className="logout-btn"

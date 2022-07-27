@@ -7,9 +7,7 @@ import {
   IonRow,
   useIonRouter,
 } from "@ionic/react";
-import { doc } from "firebase/firestore";
 import { chevronForwardOutline } from "ionicons/icons";
-import { db } from "../../../../firebase";
 
 const Users = (props) => {
   const router = useIonRouter();

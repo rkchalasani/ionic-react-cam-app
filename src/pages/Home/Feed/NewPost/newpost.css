@@ -1,20 +1,8 @@
 .new-content {
-  --background: linear-gradient(rgb(19, 33, 36, 0.3), rgb(19, 33, 36, 0.3)),
-    url("../../../../../public/assets/images/Chatify-bg-image.png") no-repeat
-      center/cover fixed;
   display: flex;
   justify-content: center;
   height: 100%;
   align-items: center;
-}
-.new-grid1 {
-  padding: 7%;
-  display: flex;
-  background-color: black;
-  margin: 5%;
-  border-radius: 30px;
-  justify-content: space-around;
-  flex-direction: column;
 }
 .img {
   height: 300px;
@@ -50,10 +38,13 @@
   padding: 2%;
 }
 .btn-class {
-  /* padding-right: 2%; */
   display: flex;
   align-items: center;
 }
-.file-name{
+.file-name {
   padding: 2%;
+}
+.newpost-card {
+  margin: 0%;
+  border-radius: 0%;
 }

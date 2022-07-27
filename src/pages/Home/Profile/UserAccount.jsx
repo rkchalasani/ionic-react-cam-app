@@ -8,12 +8,14 @@ import {
   query,
   updateDoc,
 } from "firebase/firestore";
+
 import { auth, db, storage } from "../../../firebase";
 import { updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {
   IonAvatar,
   IonButton,
+  IonCard,
   IonCol,
   IonContent,
   IonGrid,
@@ -32,7 +34,6 @@ import {
   cloudUpload,
   heartOutline,
 } from "ionicons/icons";
-import Posts from "../Feed/post/post";
 
 const Profilepage = () => {
   const [file, setFile] = useState("");
@@ -139,7 +140,7 @@ const Profilepage = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color="darkgreen">
+        <IonToolbar color="black">
           <IonRow className="search-row">
             <IonCol className="friends-col">
               <IonLabel className="frnds" color="smoke">
@@ -205,26 +206,37 @@ const Profilepage = () => {
             blanditiis in suscipit.
           </IonLabel>
         </IonRow>
+        <IonCard color="black">
+          <IonRow style={{ padding: "4%", fontSize: "20px" }}>
+            <IonLabel color="smoke">My Posts</IonLabel>
+          </IonRow>
 
-        <IonGrid className="grid">
-          <IonLabel color="smoke">My Posts</IonLabel>
           <IonRow className="email-row1">
             {post.map((currentUser) => {
-              return auth.currentUser.email === currentUser.email ? (
+              return (
                 <>
-                  {currentUser.img ? (
-                    <IonAvatar className="my-posts-avatar">
-                      <IonImg src={currentUser.img}></IonImg>
-                    </IonAvatar>
+                  {auth.currentUser.email === currentUser.email ? (
+                    <>
+                      {currentUser.img ? (
+                        <IonAvatar
+                          style={{ width: "29vw", height: "15vh" }}
+                          className="my-posts-avatar"
+                        >
+                          <IonImg src={currentUser.img}></IonImg>
+                        </IonAvatar>
+                      ) : (
+                        <></>
+                      )}
+                    </>
                   ) : (
                     <></>
                   )}
                 </>
-              ) : (
-                <></>
               );
             })}
           </IonRow>
+        </IonCard>
+        <IonGrid className="grid">
           <IonRow onClick={openLiked} className="likedposts-row">
             <IonIcon color="light" icon={heartOutline}></IonIcon>
             <IonLabel color="smoke">Liked Posts</IonLabel>
@@ -233,7 +245,6 @@ const Profilepage = () => {
             <IonIcon color="light" icon={bookmarksOutline}></IonIcon>
             <IonLabel color="smoke">Saved Posts</IonLabel>
           </IonRow>
-          {/* <Myposts/> */}
           <IonRow className="formInput">
             <input
               className="form-control"

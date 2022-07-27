@@ -15,7 +15,7 @@
   --ion-color-tint: var(--ion-color-lightgreen-tint);
 }
 .tab1mainpage {
-  --background: linear-gradient(#132124, #132124);
+  --background: linear-gradient(#191917, #191917);
 }
 .card-class {
   display: flex;
@@ -53,7 +53,7 @@
   margin-left: 7px;
 }
 .tab1-grid {
-  background: #24383f;
+  background: #232623;
 }
 .frnds {
   font-size: 20px;
@@ -69,7 +69,7 @@
   align-items: center;
   border-radius: 10%;
 }
-.friends-col{
+.friends-col {
   display: flex;
   justify-content: flex-start;
   /* padding: 0%; */

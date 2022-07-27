@@ -41,7 +41,8 @@ const Signup = () => {
       header: "Alert",
       message: message,
       buttons: ["OK"],
-      mode: "ios",
+      mode: "md",
+      cssClass:"signuppage-alert"
     });
   }
   const [show, dismiss] = useIonLoading();

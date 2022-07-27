@@ -1,9 +1,10 @@
 .feed-content {
-  --background: linear-gradient(#24383f, #24383f);
+  --background: linear-gradient(#ffffff,#ffffff);
 }
 .feed-grid {
-  background: #132124;
-  margin: 10px;
+  background: #191917;
+  margin: 0px;
+  border-radius: 0%;
 }
 .menu-icon {
   width: 22px;
@@ -47,8 +48,6 @@
 }
 .card-caption {
   color: whitesmoke;
-  /* font-size: 12px; */
-  /* opacity: 0.8; */
 }
 .add-btn {
   width: 40px;
@@ -104,8 +103,6 @@
   padding-right: 4%;
   padding-top: 1%;
 }
-/*  */
-
 .new-post-row {
   display: flex;
   padding: 3%;
@@ -149,7 +146,5 @@
 }
 .card-subtitle {
   font-weight: bold;
-  /* font-size: 15px; */
-  /* font-family: */
   padding-bottom: 1.3%;
 }

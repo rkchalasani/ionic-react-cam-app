@@ -13,6 +13,7 @@ import {
   useIonAlert,
 } from "@ionic/react";
 import {
+  alert,
   bookmark,
   bookmarkOutline,
   chatbubbleOutline,
@@ -20,9 +21,7 @@ import {
   heart,
   heartOutline,
   send,
-  share,
   shareOutline,
-  shareSocialOutline,
   trash,
 } from "ionicons/icons";
 import Moment from "react-moment";
@@ -37,7 +36,6 @@ import {
   query,
   onSnapshot,
   orderBy,
-  getDocs,
   arrayRemove,
   arrayUnion,
 } from "firebase/firestore";
@@ -45,7 +43,6 @@ import { Share } from "@capacitor/share";
 
 const Post = (props) => {
   const [isSaved, setIsSaved] = useState();
-  const [handlerMessage, setHandlerMessage] = useState("");
   const [presentAlert] = useIonAlert();
 
   const deleteUser = async (id) => {
@@ -78,7 +75,7 @@ const Post = (props) => {
       message: message,
       duration: 2000,
       position: "top",
-      color: "smoke",
+      color: "lightblack",
       mode: "ios",
       icon: alert,
     });
@@ -120,15 +117,13 @@ const Post = (props) => {
       });
     };
     getUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const likesRef = doc(db, "posts", id);
-  const userDoc = collection(db, "users", auth.currentUser.uid, "liked_posts");
-  const userDocs = doc(db, "users", auth.currentUser.uid, "liked_posts", id);
 
   const handleLike = () => {
     if (likes?.includes(auth.currentUser.displayName)) {
-      deleteDoc(userDocs);
       updateDoc(likesRef, {
         likes: arrayRemove(auth.currentUser.displayName),
       })
@@ -139,9 +134,6 @@ const Post = (props) => {
           console.log(e);
         });
     } else {
-      // addDoc(userDoc, {
-      //   props,
-      // });
       updateDoc(likesRef, {
         likes: arrayUnion(auth.currentUser.displayName),
       })
@@ -188,7 +180,6 @@ const Post = (props) => {
           <IonIcon
             color="smoke"
             style={{ width: 20, height: 20 }}
-            onClick={sharePost}
             icon={ellipsisVertical}
           ></IonIcon>
         </IonRow>
@@ -251,13 +242,13 @@ const Post = (props) => {
               onClick={handleComment}
             ></IonIcon>
           )}
-            <IonIcon
+          <IonIcon
             color="smoke"
-              className="like-btn"
-              style={{ width: 25, height: 25 }}
-              icon={shareOutline}
-              onClick={handleComment}
-            ></IonIcon>
+            className="like-btn"
+            style={{ width: 25, height: 25 }}
+            icon={shareOutline}
+            onClick={sharePost}
+          ></IonIcon>
           <IonCol className="save-btn-col">
             {isSaved ? (
               <IonIcon
@@ -342,13 +333,14 @@ const Post = (props) => {
                   cssClass: "delete-alert",
                   header: "Confirm Delete!",
                   color: "danger",
+                  backdropDismiss: false,
 
                   buttons: [
                     {
                       text: "Cancel",
                       role: "cancel",
                       handler: () => {
-                        // handleToast("Alert canceled");
+                        handleToast("Alert canceled");
                       },
                     },
                     {

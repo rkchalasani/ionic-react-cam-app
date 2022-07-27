@@ -1,23 +1,9 @@
 import "./UserProfile.css";
-import { useEffect, useRef, useState } from "react";
-import {
-  collection,
-  doc,
-  getDoc,
-  onSnapshot,
-  orderBy,
-  query,
-  updateDoc,
-} from "firebase/firestore";
-import { auth, db, storage } from "../../../../firebase";
-import { updateProfile } from "firebase/auth";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {
   IonAvatar,
-  IonButton,
+  IonCard,
   IonCol,
   IonContent,
-  IonGrid,
   IonHeader,
   IonIcon,
   IonImg,
@@ -25,26 +11,18 @@ import {
   IonPage,
   IonRow,
   IonToolbar,
-  useIonLoading,
+  useIonRouter,
 } from "@ionic/react";
-import {
-  bookmarksOutline,
-  checkmarkCircleOutline,
-  cloudUpload,
-  heartOutline,
-} from "ionicons/icons";
+import { arrowBack } from "ionicons/icons";
 import { useParams } from "react-router";
 import { UserAuth } from "../../../../context/AuthContext";
+import { db } from "../../../../firebase";
+import { useEffect, useState } from "react";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
 const UserProfile = () => {
   const { post } = UserAuth();
-  const openLiked = () => {
-    console.log("liked posts");
-  };
-  const openSaved = () => {
-    console.log("saved posts");
-  };
-  const { id } = useParams;
+  const { id } = useParams();
 
   const getUserData = () => {
     let data = {};
@@ -53,23 +31,38 @@ const UserProfile = () => {
         return (data = post[i]);
       }
     }
-    console.log(data)
     return data;
-
   };
-
+  const router = useIonRouter();
+  const goToUsers = () => {
+    router.push("/home/friends");
+  };
   const usersData = getUserData();
-  console.log(usersData);
-
+  const [userpost, setUserpost] = useState([]);
+  useEffect(() => {
+    const getUsers = async () => {
+      const postCollection = collection(db, "posts");
+      const q = query(postCollection, orderBy("createdAt", "desc"));
+      onSnapshot(q, (querySnapshot) => {
+        let posts = [];
+        querySnapshot.forEach((doc) => {
+          posts.push({ ...doc.data(), id: doc.id });
+        });
+        setUserpost(posts);
+      });
+    };
+    getUsers();
+  }, []);
   return (
     <>
       <IonPage>
         <IonHeader>
-          <IonToolbar color="darkgreen">
-            <IonRow className="search-row">
+          <IonToolbar color="black">
+            <IonRow className="search-row" style={{ paddingLeft: "17px" }}>
+              <IonIcon icon={arrowBack} onClick={goToUsers}></IonIcon>
               <IonCol className="friends-col">
                 <IonLabel className="frnds" color="smoke">
-                  My Profile
+                  {usersData.name}
                 </IonLabel>
               </IonCol>
             </IonRow>
@@ -89,7 +82,9 @@ const UserProfile = () => {
           </IonRow>
 
           <IonRow className="name-col">
-            <IonLabel color="smoke">{usersData.email}</IonLabel>
+            <IonLabel color="smoke" style={{ paddingTop: "20px" }}>
+              {usersData.email}
+            </IonLabel>
             <IonLabel className="font" color="smoke">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
               quasi quae nihil ad, est excepturi ipsam! Voluptatum a obcaecati
@@ -98,14 +93,22 @@ const UserProfile = () => {
             </IonLabel>
           </IonRow>
 
-          <IonGrid className="grid">
-            <IonLabel color="smoke">My Posts</IonLabel>
-            <IonRow className="email-row1">
-              {/* {post.map((currentUser) => {
-                      return auth.currentUser.email === currentUser.email ? (
+          <IonCard className="user-posts-card" color="black">
+            <IonRow style={{ padding: "4%", fontSize: "20px" }}>
+              <IonLabel color="smoke">Posts</IonLabel>
+            </IonRow>
+            {userpost ? (
+              <IonRow className="user-posts-row">
+                {userpost.map((currentUser) => {
+                  return (
+                    <>
+                      {usersData.email === currentUser.email ? (
                         <>
                           {currentUser.img ? (
-                            <IonAvatar className="my-posts-avatar">
+                            <IonAvatar
+                              style={{ width: "29vw", height: "15vh" }}
+                              className="user-posts-avatar"
+                            >
                               <IonImg src={currentUser.img}></IonImg>
                             </IonAvatar>
                           ) : (
@@ -114,18 +117,17 @@ const UserProfile = () => {
                         </>
                       ) : (
                         <></>
-                      );
-                    })} */}
-            </IonRow>
-            <IonRow onClick={openLiked} className="likedposts-row">
-              <IonIcon color="light" icon={heartOutline}></IonIcon>
-              <IonLabel color="smoke">Liked Posts</IonLabel>
-            </IonRow>
-            <IonRow onClick={openSaved} className="savedposts-row">
-              <IonIcon color="light" icon={bookmarksOutline}></IonIcon>
-              <IonLabel color="smoke">Saved Posts</IonLabel>
-            </IonRow>
-          </IonGrid>
+                      )}
+                    </>
+                  );
+                })}
+              </IonRow>
+            ) : (
+              <IonRow style={{ display: "flex" }}>
+                <IonLabel color="smoke">No posts available</IonLabel>
+              </IonRow>
+            )}
+          </IonCard>
         </IonContent>
       </IonPage>
     </>

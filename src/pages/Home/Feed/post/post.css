@@ -42,10 +42,8 @@
 }
 .comments-row {
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   padding-left: 3.5%;
-  /* padding-left: 0.5%; */
 }
 .comment-input-row {
   display: flex;
@@ -68,13 +66,17 @@
   padding: 0px;
 }
 .delete-alert {
-  --background: #24383f;
-  /* --color: aliceblue; */
-  /* text-decoration-color: whitesmoke; */
+  --background: #232623;
 }
-.comments-time{
+.comments-time {
   font-size: 10px;
 }
-.likebtn{
+.likebtn {
   margin: 2%;
+}
+.alert-title.sc-ion-alert-md {
+  color: whitesmoke;
+}
+.alert-message.sc-ion-alert-md {
+  color: #454545;
 }
