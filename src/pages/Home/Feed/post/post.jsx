@@ -20,6 +20,9 @@ import {
   heart,
   heartOutline,
   send,
+  share,
+  shareOutline,
+  shareSocialOutline,
   trash,
 } from "ionicons/icons";
 import Moment from "react-moment";
@@ -38,9 +41,9 @@ import {
   arrayRemove,
   arrayUnion,
 } from "firebase/firestore";
+import { Share } from "@capacitor/share";
 
 const Post = (props) => {
-  const [isLiked, setIsLiked] = useState();
   const [isSaved, setIsSaved] = useState();
   const [handlerMessage, setHandlerMessage] = useState("");
   const [presentAlert] = useIonAlert();
@@ -52,12 +55,15 @@ const Post = (props) => {
 
     await deleteDoc(userDoc, commentRef, likesRef);
   };
-  const [post, setPost] = useState([]);
-
   const handleSavedPosts = async () => {
-    const userDoc = collection(db, "saved_posts");
+    const userDoc = collection(
+      db,
+      "users",
+      auth.currentUser.uid,
+      "saved_posts"
+    );
     await addDoc(userDoc, {
-      ...post,
+      props,
     });
     setIsSaved(true);
 
@@ -66,41 +72,6 @@ const Post = (props) => {
   const handleSavedPost = () => {
     setIsSaved(false);
   };
-  //like toogle
-  const toggleLike = async (id, likecount) => {
-    // const userDoc = collection(db, "posts", id, "likes");
-    // await addDoc(userDoc, {
-    //   // ...id.post,
-    //   // ...post,
-    //   name: auth.currentUser.displayName,
-    //   isOnline: true,
-    //   // ...post,email,
-    // });
-    // const userDoc = collection(db,"users", auth.currentUser.uid, "liked_posts");
-    // await addDoc(userDoc, {
-    //   // ...id.post,
-    //   // ...post,
-
-    //   props
-    //   // ...post,email,
-    // });
-    const userDoc = doc(db, "posts", id);
-    await updateDoc(userDoc, {
-      likecount: likecount + 1,
-    });
-    // setIsLiked(false);
-    setIsLiked(true);
-  };
-
-  const toggleUnlike = async (id, likecount) => {
-    const userDoc = doc(db, "posts", id);
-    await updateDoc(userDoc, {
-      likecount: likecount - 1,
-    });
-    setIsLiked(false);
-  };
-  //end of like toggle
-
   const [present] = useIonToast();
   async function handleToast(message) {
     present({
@@ -112,8 +83,7 @@ const Post = (props) => {
       icon: alert,
     });
   }
-  const { id, avatar, name, email, img, caption, createdAt, likecount, likes } =
-    props;
+  const { id, avatar, name, email, img, caption, createdAt, likes } = props;
   const [comments, setComments] = useState();
   const handleCommentAdd = async () => {
     const commentRef = collection(db, "posts", id, "comments");
@@ -121,13 +91,9 @@ const Post = (props) => {
       handleToast("Add a Comment");
     } else {
       await addDoc(commentRef, {
-        // ...data,
         createdAt: new Date(),
         comment: comments,
         name: auth.currentUser.displayName,
-        // email: auth.currentUser.email,
-        // avatar: auth.currentUser.photoURL,
-        // likecount : 0
       });
     }
     setComments("");
@@ -149,19 +115,20 @@ const Post = (props) => {
         let comments = [];
         querySnapshot.forEach((doc) => {
           comments.push({ ...doc.data(), id: doc.id });
-          // console.log(doc.id);
         });
         setComm(comments);
       });
     };
     getUsers();
   }, []);
-  const [user] = useState(auth);
 
   const likesRef = doc(db, "posts", id);
+  const userDoc = collection(db, "users", auth.currentUser.uid, "liked_posts");
+  const userDocs = doc(db, "users", auth.currentUser.uid, "liked_posts", id);
 
   const handleLike = () => {
     if (likes?.includes(auth.currentUser.displayName)) {
+      deleteDoc(userDocs);
       updateDoc(likesRef, {
         likes: arrayRemove(auth.currentUser.displayName),
       })
@@ -172,6 +139,9 @@ const Post = (props) => {
           console.log(e);
         });
     } else {
+      // addDoc(userDoc, {
+      //   props,
+      // });
       updateDoc(likesRef, {
         likes: arrayUnion(auth.currentUser.displayName),
       })
@@ -182,6 +152,14 @@ const Post = (props) => {
           console.log(e);
         });
     }
+  };
+  const sharePost = async () => {
+    await Share.share({
+      mode: "md",
+      text: caption,
+      image: img,
+      url: "https://play.google.com/store/apps/details?id=com.chatify.app",
+    });
   };
   return (
     <>
@@ -209,7 +187,8 @@ const Post = (props) => {
           </IonCol>
           <IonIcon
             color="smoke"
-            id="open-popover"
+            style={{ width: 20, height: 20 }}
+            onClick={sharePost}
             icon={ellipsisVertical}
           ></IonIcon>
         </IonRow>
@@ -232,33 +211,30 @@ const Post = (props) => {
         )}
 
         <IonRow className="like-btn-row">
-        {
-           likes?.includes(auth.currentUser.displayName)
-           ?
+          {likes?.includes(auth.currentUser.displayName) ? (
+            <IonIcon
+              className="like-btn"
+              color="danger"
+              style={{
+                width: 27,
+                height: 27,
+              }}
+              icon={heart}
+              onClick={handleLike}
+            ></IonIcon>
+          ) : (
+            <IonIcon
+              className="like-btn"
+              color="smoke"
+              style={{
+                width: 27,
+                height: 27,
+              }}
+              icon={heartOutline}
+              onClick={handleLike}
+            ></IonIcon>
+          )}
 
-           <IonIcon
-           className="like-btn"
-           color="danger"
-           style={{
-             width: 27,
-             height: 27,
-           }}
-           icon={heart}
-           onClick={handleLike}
-         ></IonIcon>
-           :
-           <IonIcon
-           className="like-btn"
-           color="smoke"
-           style={{
-             width: 27,
-             height: 27,
-           }}
-           icon={heartOutline}
-           onClick={handleLike}
-         ></IonIcon>
-        }
-        
           {input ? (
             <IonIcon
               className="like-btn"
@@ -269,17 +245,24 @@ const Post = (props) => {
           ) : (
             <IonIcon
               className="like-btn"
+              color="smoke"
               style={{ width: 25, height: 25 }}
               icon={chatbubbleOutline}
               onClick={handleComment}
             ></IonIcon>
           )}
-
+            <IonIcon
+            color="smoke"
+              className="like-btn"
+              style={{ width: 25, height: 25 }}
+              icon={shareOutline}
+              onClick={handleComment}
+            ></IonIcon>
           <IonCol className="save-btn-col">
             {isSaved ? (
               <IonIcon
                 className="like-btn"
-                // color="smoke"
+                color="smoke"
                 style={{ width: 25, height: 25 }}
                 onClick={() => {
                   handleSavedPost();
@@ -304,24 +287,6 @@ const Post = (props) => {
             {likes?.length} Likes
           </IonLabel>
         </IonRow>
-        {/* <IonRow>
-          <IonIcon
-            className={`fa fa-heart${
-              likes?.includes(auth.currentUser.displayName) ? "-o" : ""
-            } fa-lg`}
-            icon={heart}
-            // className="likebtn"
-            style={{
-              width: 40,
-              height: 40,
-              cursor: "pointer",
-              color: likes?.includes(auth.currentUser.displayName)
-                ? "danger"
-                : "smoke",
-            }}
-            onClick={handleLike}
-          />
-        </IonRow> */}
         <IonRow className="comments-row">
           {comm &&
             comm.map((currentUser) => {
@@ -376,14 +341,14 @@ const Post = (props) => {
                 presentAlert({
                   cssClass: "delete-alert",
                   header: "Confirm Delete!",
-                  color: "smoke",
+                  color: "danger",
 
                   buttons: [
                     {
                       text: "Cancel",
                       role: "cancel",
                       handler: () => {
-                        setHandlerMessage("Alert canceled");
+                        // handleToast("Alert canceled");
                       },
                     },
                     {

@@ -81,7 +81,7 @@ const NewPost = () => {
         name: auth.currentUser.displayName,
         email: auth.currentUser.email,
         avatar: auth.currentUser.photoURL,
-        likes:[],
+        likes: [],
       });
       await updateProfile(db, "posts", {
         caption: caption,
@@ -133,13 +133,6 @@ const NewPost = () => {
             placeholder="Add a Caption"
             onIonChange={(e) => setCaption(e.detail.value)}
           />
-          <IonIcon
-            className="icon"
-            size="large"
-            color="smoke"
-            onClick={handleClick}
-            icon={cloudUpload}
-          ></IonIcon>
         </IonRow>
         <IonRow className="btn-class">
           <IonCol>
@@ -152,8 +145,27 @@ const NewPost = () => {
               Post
             </IonButton>
           </IonCol>
-          <IonLabel className="file-name">{file.name} </IonLabel>
+          <IonButton
+            className="ion-text-capitalize"
+            onClick={handleClick}
+            fill="clear"
+          >
+            <IonIcon
+              style={{ width: 25, height: 25, paddingRight: "7px" }}
+              size="large"
+              color="smoke"
+              icon={cloudUpload}
+            ></IonIcon>
+            <IonLabel color="smoke">New Post</IonLabel>
+          </IonButton>
         </IonRow>
+        {file.name ? (
+          <IonRow style={{ display: "flex", justifyContent: "center" }}>
+            <IonLabel className="file-name">{file.name} </IonLabel>
+          </IonRow>
+        ) : (
+          <></>
+        )}
       </IonCard>
     </>
   );

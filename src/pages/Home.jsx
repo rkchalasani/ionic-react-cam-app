@@ -16,6 +16,7 @@ import Login from "./Login/Login";
 import "./Home.css";
 import ProtectedRoute from "../components/ProtectedRoute";
 import Profilepage from "./Home/Profile/UserAccount";
+import UserProfile from "./Home/Friends/userprofile/UserProfile";
 
 const Home = () => {
   return (
@@ -46,6 +47,9 @@ const Home = () => {
             </Route>
             <Route path="/home/profile">
               <Profilepage />
+            </Route>
+            <Route path="/userprofile/:id">
+              <UserProfile />
             </Route>
           </IonRouterOutlet>
           <IonTabBar className="tabbar-div" slot="bottom" color="darkgreen">

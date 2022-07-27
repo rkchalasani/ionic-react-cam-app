@@ -39,6 +39,7 @@ import { App as app } from "@capacitor/app";
 import { useEffect, useState } from "react";
 import { db } from "./firebase";
 import { Browser } from "@capacitor/browser";
+import UserProfile from "./pages/Home/Friends/userprofile/UserProfile";
 setupIonicReact();
 
 const App = () => {
@@ -128,6 +129,9 @@ const App = () => {
             </Route>
             <Route path="/home/settings">
               <Settings />
+            </Route>
+            <Route path="/userprofile/:id">
+              <UserProfile />
             </Route>
             <Route path="/login">
               <Login />

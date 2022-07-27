@@ -1,6 +1,13 @@
 import "./UserAccount.css";
 import { useEffect, useRef, useState } from "react";
-import { doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  updateDoc,
+} from "firebase/firestore";
 import { auth, db, storage } from "../../../firebase";
 import { updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -18,18 +25,14 @@ import {
   IonRow,
   IonToolbar,
   useIonLoading,
-  useIonRouter,
 } from "@ionic/react";
 import {
-  bookmark,
-  bookmarkOutline,
   bookmarksOutline,
   checkmarkCircleOutline,
   cloudUpload,
-  heart,
   heartOutline,
-  search,
 } from "ionicons/icons";
+import Posts from "../Feed/post/post";
 
 const Profilepage = () => {
   const [file, setFile] = useState("");
@@ -43,7 +46,6 @@ const Profilepage = () => {
     });
   };
   const [data, setData] = useState({});
-  const router = useIonRouter();
   useEffect(() => {
     const uploadFile = () => {
       const name = new Date().getTime() + file.name;
@@ -86,12 +88,18 @@ const Profilepage = () => {
     file && uploadFile();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file]);
-  const handleAdd = async (e, id) => {
+  const handleAdd = async (e, id, email) => {
     e.preventDefault();
     try {
       await updateDoc(doc(db, "users", auth.currentUser.uid), {
         photoURL: data.img,
       });
+      if (auth.currentUser.email === email) {
+        await updateDoc(collection(db, "posts"), {
+          avatar: data.img,
+        });
+      }
+
       await updateProfile(auth.currentUser, {
         photoURL: data.img,
       }).catch((e) => {
@@ -106,9 +114,30 @@ const Profilepage = () => {
   const handleClick = (event) => {
     hiddenFileInput.current.click();
   };
+  const openLiked = () => {
+    console.log("liked posts");
+  };
+  const openSaved = () => {
+    console.log("saved posts");
+  };
+  const [post, setPost] = useState([]);
+  useEffect(() => {
+    const getUsers = async () => {
+      const postCollection = collection(db, "posts");
+      const q = query(postCollection, orderBy("createdAt", "desc"));
+      onSnapshot(q, (querySnapshot) => {
+        let posts = [];
+        querySnapshot.forEach((doc) => {
+          posts.push({ ...doc.data(), id: doc.id });
+        });
+        setPost(posts);
+      });
+    };
+    getUsers();
+  }, []);
+
   return (
     <IonPage>
-
       <IonHeader>
         <IonToolbar color="darkgreen">
           <IonRow className="search-row">
@@ -164,13 +193,6 @@ const Profilepage = () => {
                 </IonLabel>
               </IonButton>
             )}
-
-            {/* <IonIcon
-            size="large"
-            className="icon"
-            color="smoke"
-            icon={trashOutline}
-          ></IonIcon> */}
           </IonRow>
         </IonRow>
 
@@ -185,18 +207,33 @@ const Profilepage = () => {
         </IonRow>
 
         <IonGrid className="grid">
+          <IonLabel color="smoke">My Posts</IonLabel>
           <IonRow className="email-row1">
-            <IonLabel color="smoke">Phone</IonLabel>
-            <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
+            {post.map((currentUser) => {
+              return auth.currentUser.email === currentUser.email ? (
+                <>
+                  {currentUser.img ? (
+                    <IonAvatar className="my-posts-avatar">
+                      <IonImg src={currentUser.img}></IonImg>
+                    </IonAvatar>
+                  ) : (
+                    <></>
+                  )}
+                </>
+              ) : (
+                <></>
+              );
+            })}
           </IonRow>
-          <IonRow className="likedposts-row">
+          <IonRow onClick={openLiked} className="likedposts-row">
             <IonIcon color="light" icon={heartOutline}></IonIcon>
             <IonLabel color="smoke">Liked Posts</IonLabel>
           </IonRow>
-          <IonRow className="savedposts-row">
+          <IonRow onClick={openSaved} className="savedposts-row">
             <IonIcon color="light" icon={bookmarksOutline}></IonIcon>
             <IonLabel color="smoke">Saved Posts</IonLabel>
           </IonRow>
+          {/* <Myposts/> */}
           <IonRow className="formInput">
             <input
               className="form-control"

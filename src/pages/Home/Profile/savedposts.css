@@ -1,0 +1,9 @@
+.my-post{
+    --border-radius: 0%;
+    width: 100px;
+    height: 100px;
+    /* padding: 1%; */
+    margin-top: 2%;
+    margin-bottom: 1%;
+
+}

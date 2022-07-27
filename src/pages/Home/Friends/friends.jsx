@@ -10,9 +10,11 @@ import {
   IonPage,
   IonRow,
   IonToolbar,
+  useIonRouter,
 } from "@ionic/react";
 import {
   collection,
+  doc,
   onSnapshot,
   orderBy,
   query,
@@ -20,9 +22,11 @@ import {
 import { chevronForwardOutline, search } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { db } from "../../../firebase";
+import Users from './users/users'
 import "./friends.css";
+import { UserAuth } from "../../../context/AuthContext";
 const Friends = () => {
-  const [post, setPost] = useState([]);
+  const {post, setPost} = UserAuth()
   useEffect(() => {
     const getUsers = async () => {
       const postCollection = collection(db, "users");
@@ -30,13 +34,14 @@ const Friends = () => {
       onSnapshot(q, (querySnapshot) => {
         let posts = [];
         querySnapshot.forEach((doc) => {
-          posts.push(doc.data());
+          posts.push({...doc.data(), id: doc.id });
         });
         setPost(posts);
       });
     };
     getUsers();
   }, []);
+
 
   return (
     <IonPage>
@@ -60,31 +65,14 @@ const Friends = () => {
         <IonGrid className="tab1-grid">
           {post.map((currentUser) => {
             return (
-              <IonRow className="danni-row">
-                <IonAvatar className="img-avatar">
-                  <IonImg
-                    src={
-                      currentUser.photoURL
-                        ? currentUser.photoURL
-                        : "https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png"
-                    }
-                  ></IonImg>
-                </IonAvatar>
-                <IonCol className="col1">
-                  <IonLabel color="smoke" className="danni-label">
-                    {currentUser.name}
-                  </IonLabel>
-                  <IonLabel color="smoke" className="danni-label">
-                    {currentUser.email}
-                  </IonLabel>
-                </IonCol>
-                <IonLabel color="smoke" className="danni-label">
-                  <IonIcon
-                    style={{ height: 23, width: 23 }}
-                    icon={chevronForwardOutline}
-                  ></IonIcon>
-                </IonLabel>
-              </IonRow>
+             
+             <Users
+             key={currentUser.uid}
+             id={currentUser.uid}
+             name={currentUser.name}
+             email = {currentUser.email}
+             photoURL = {currentUser.photoURL}
+             />
             );
           })}
         </IonGrid>

@@ -51,7 +51,7 @@ const Feed = () => {
       <IonHeader>
         <IonToolbar color="darkgreen">
           <IonRow className="search-row1">
-            <IonCol className="col2">
+            <IonCol className="logo">
               <IonImg
                 style={{ height: 53 }}
                 src="assets/images/Chatify-logo.png "
@@ -85,7 +85,6 @@ const Feed = () => {
               email={currentUser.email}
               img={currentUser.img}
               caption={currentUser.caption}
-              likecount={currentUser.likecount}
               createdAt={currentUser.createdAt}
               likes={currentUser.likes}
             />

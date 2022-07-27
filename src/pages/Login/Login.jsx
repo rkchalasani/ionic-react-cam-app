@@ -143,11 +143,8 @@ const Login = () => {
             <IonButton
               onClick={handleClick}
               color="smoke"
-              // className="loginbutton"
             >
-              <IonIcon icon={logoGoogle}>
-
-              </IonIcon>
+              <IonIcon color="darkgreen" icon={logoGoogle}></IonIcon>
             </IonButton>
           </IonRow>
           <IonRow className="create-acc-row">

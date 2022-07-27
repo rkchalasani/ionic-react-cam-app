@@ -1,6 +1,6 @@
 {
   "name": "Chatify by PTG",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": true,
   "dependencies": {
     "@capacitor/android": "^3.6.0",
@@ -9,6 +9,7 @@
     "@capacitor/cli": "^3.6.0",
     "@capacitor/core": "^3.6.0",
     "@capacitor/ios": "^3.6.0",
+    "@capacitor/share": "^1.1.2",
     "@ionic/react": "^6.0.0",
     "@ionic/react-router": "^6.0.0",
     "@material-ui/core": "^4.12.4",

@@ -12,7 +12,15 @@ import {
   useIonRouter,
   useIonToast,
 } from "@ionic/react";
-import { bookmark, colorFill, heart, heartCircle, help, notifications, person } from "ionicons/icons";
+import {
+  bookmark,
+  colorFill,
+  heart,
+  heartCircle,
+  help,
+  notifications,
+  person,
+} from "ionicons/icons";
 import { UserAuth } from "../../../context/AuthContext";
 import "./settings.css";
 

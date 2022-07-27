@@ -68,7 +68,9 @@
   padding: 0px;
 }
 .delete-alert {
-  --background: whitesmoke;
+  --background: #24383f;
+  /* --color: aliceblue; */
+  /* text-decoration-color: whitesmoke; */
 }
 .comments-time{
   font-size: 10px;

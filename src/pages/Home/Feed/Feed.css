@@ -35,10 +35,7 @@
   color: white;
   display: flex;
   justify-content: center;
-  padding-bottom: 4%;
-  padding-left: 4%;
-  padding-top: 4%;
-  padding-right: 4%;
+  padding: 3%;
   align-items: center;
 }
 .username-col {
@@ -46,12 +43,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 5%;
+  padding-left: 4%;
 }
 .card-caption {
   color: whitesmoke;
-  font-size: 12px;
-  opacity: 0.8;
+  /* font-size: 12px; */
+  /* opacity: 0.8; */
 }
 .add-btn {
   width: 40px;
@@ -78,7 +75,7 @@
   padding: 1%;
   align-items: center;
 }
-.col2 {
+.logo {
   display: flex;
   justify-content: flex-start;
   padding: 0%;
@@ -92,8 +89,8 @@
 }
 .img-row {
   position: relative;
-  width: 35px;
-  height: 35px;
+  width: 45px;
+  height: 45px;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -105,6 +102,7 @@
   padding-left: 4%;
   font-size: 15px;
   padding-right: 4%;
+  padding-top: 1%;
 }
 /*  */
 
@@ -148,4 +146,10 @@
 }
 .modal-class {
   --background: #132124;
+}
+.card-subtitle {
+  font-weight: bold;
+  /* font-size: 15px; */
+  /* font-family: */
+  padding-bottom: 1.3%;
 }
