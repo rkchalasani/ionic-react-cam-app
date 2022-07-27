@@ -301,3 +301,20 @@ http://ionicframework.com/docs/theming/ */
 	--ion-color-shade: var(--ion-color-lightblack-shade);
 	--ion-color-tint: var(--ion-color-lightblack-tint);
 }
+:root {
+	--ion-color-darksmoke: #7f7f7d;
+	--ion-color-darksmoke-rgb: 127,127,125;
+	--ion-color-darksmoke-contrast: #ffffff;
+	--ion-color-darksmoke-contrast-rgb: 255,255,255;
+	--ion-color-darksmoke-shade: #70706e;
+	--ion-color-darksmoke-tint: #8c8c8a;
+}
+
+.ion-color-darksmoke {
+	--ion-color-base: var(--ion-color-darksmoke);
+	--ion-color-base-rgb: var(--ion-color-darksmoke-rgb);
+	--ion-color-contrast: var(--ion-color-darksmoke-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-darksmoke-contrast-rgb);
+	--ion-color-shade: var(--ion-color-darksmoke-shade);
+	--ion-color-tint: var(--ion-color-darksmoke-tint);
+}

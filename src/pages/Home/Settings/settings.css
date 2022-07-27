@@ -4,15 +4,28 @@
 .settings-grid {
   background: #232623;
 }
-.settings-row1 {
-  padding: 5%;
-  font-size: 23px;
+.setting-header-row {
+  padding: 3%;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
 }
-ion-item {
-  padding-top: 2%;
-  padding-bottom: 2%;
+.settings-profile-details{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-.setting-row {
-  padding: 4%;
-  font-size: 2rem;
+.settings-profilepic{
+  padding: 1%;
+  margin: 2.5%;
+}
+.settings-row{
+  display: flex;
+  flex-direction: column;
+  padding: 3%;
+  font-size: 15px;
+}
+.settings-account{
+  padding-left: 3%;
+  padding-top: 3%;
 }
