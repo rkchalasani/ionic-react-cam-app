@@ -22,6 +22,7 @@ import "./Home.css";
 import ProtectedRoute from "../components/ProtectedRoute";
 import Profilepage from "./Home/Profile/UserAccount";
 import UserProfile from "./Home/Friends/userprofile/UserProfile";
+import PostUsers from "./Home/Feed/post/PostUsers/PostUsers";
 
 const Home = () => {
   return (
@@ -55,6 +56,9 @@ const Home = () => {
             </Route>
             <Route path="/userprofile/:id">
               <UserProfile />
+            </Route>
+            <Route path="/PostUsers/:id">
+              <PostUsers />
             </Route>
           </IonRouterOutlet>
           <IonTabBar className="tabbar-div" slot="bottom" color="black">

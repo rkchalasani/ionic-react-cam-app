@@ -13,7 +13,26 @@ import {
   useIonRouter,
   useIonToast,
 } from "@ionic/react";
-import { colorFill, help, notifications, person, search } from "ionicons/icons";
+import {
+  barbell,
+  chatboxOutline,
+  chatboxSharp,
+  chatbubbleOutline,
+  cloudDoneOutline,
+  colorFill,
+  folderOpenOutline,
+  help,
+  helpCircleOutline,
+  lockClosedOutline,
+  lockClosedSharp,
+  notifications,
+  notificationsCircle,
+  notificationsOutline,
+  person,
+  search,
+  timer,
+  timerOutline,
+} from "ionicons/icons";
 import { UserAuth } from "../../../context/AuthContext";
 import { auth } from "../../../firebase";
 import "./settings.css";
@@ -54,6 +73,9 @@ const Settings = () => {
       console.log(e.message);
     }
   };
+  const openProfile = () => {
+    router.push("/home/profile");
+  };
   return (
     <IonPage>
       <IonContent className="settings-content" fullscreen>
@@ -69,7 +91,7 @@ const Settings = () => {
           ></IonIcon>
         </IonRow>
         <IonGrid className="settings-grid">
-          <IonRow>
+          <IonRow onClick={openProfile}>
             <IonAvatar className="settings-profilepic">
               <IonImg src={auth.currentUser.photoURL}></IonImg>
             </IonAvatar>
@@ -88,33 +110,149 @@ const Settings = () => {
         </IonGrid>
         <IonGrid>
           <IonRow className="settings-account">
-            <IonLabel style={{ fontSize: "13px" }} color="gold">
+            <IonLabel style={{ fontSize: "14px" }} color="gold">
               Account
             </IonLabel>
           </IonRow>
           <IonRow className="settings-row">
-            <IonLabel style={{fontSize:"16px"}}color="smoke">4782145145</IonLabel>
-            <IonLabel style={{ fontSize: "13px", paddingTop:"4px" }} color="darksmoke">
+            <IonLabel style={{ fontSize: "16px" }} color="smoke">
+              4782145145
+            </IonLabel>
+            <IonLabel
+              style={{ fontSize: "13px", paddingTop: "4px" }}
+              color="darksmoke"
+            >
               Phone number
             </IonLabel>
           </IonRow>
           <IonRow className="settings-row">
-            <IonLabel style={{fontSize:"16px"}} color="smoke">{auth.currentUser.email}</IonLabel>
-            <IonLabel style={{ fontSize: "13px",paddingTop:"4px" }} color="darksmoke">
+            <IonLabel style={{ fontSize: "16px" }} color="smoke">
+              {auth.currentUser.email}
+            </IonLabel>
+            <IonLabel
+              style={{ fontSize: "13px", paddingTop: "4px" }}
+              color="darksmoke"
+            >
               email
             </IonLabel>
           </IonRow>
           <IonRow className="settings-row">
-            <IonLabel style={{fontSize:"15px"}} color="smoke">
+            <IonLabel style={{ fontSize: "15px" }} color="smoke">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit.
               Aspernatur accusantium numquam dignissimos at architecto,
             </IonLabel>
-            <IonLabel style={{ fontSize: "13px",paddingTop:"4px" }} color="darksmoke">
+            <IonLabel
+              style={{ fontSize: "13px", paddingTop: "4px" }}
+              color="darksmoke"
+            >
               Bio
             </IonLabel>
           </IonRow>
         </IonGrid>
-        <IonButton fill="clear" className="logout-btn" color="gold" onClick={handleLogout}>
+        <IonGrid>
+          <IonRow className="settings-account">
+            <IonLabel style={{ fontSize: "14px" }} color="gold">
+              Settings
+            </IonLabel>
+          </IonRow>
+          <IonRow
+            style={{ paddingTop: "2px", display: "flex", alignItems: "center" }}
+          >
+            <IonIcon
+              style={{ padding: "3%", width: 20, height: 20 }}
+              icon={notificationsOutline}
+              color="smoke"
+            ></IonIcon>
+            <IonLabel color="smoke" style={{ padding: "3%" }}>
+              Notifications and Sounds
+            </IonLabel>
+          </IonRow>
+          <IonRow style={{ display: "flex", alignItems: "center" }}>
+            <IonIcon
+              style={{ padding: "3%", width: 20, height: 20 }}
+              icon={lockClosedOutline}
+              color="smoke"
+            ></IonIcon>
+            <IonLabel color="smoke" style={{ padding: "3%" }}>
+              Privacy and Security
+            </IonLabel>
+          </IonRow>
+          <IonRow style={{ display: "flex", alignItems: "center" }}>
+            <IonIcon
+              style={{ padding: "3%", width: 20, height: 20 }}
+              icon={folderOpenOutline}
+              color="smoke"
+            ></IonIcon>
+            <IonLabel color="smoke" style={{ padding: "3%" }}>
+              Data and Storage
+            </IonLabel>
+          </IonRow>
+          <IonRow style={{ display: "flex", alignItems: "center" }}>
+            <IonIcon
+              style={{ padding: "3%", width: 20, height: 20 }}
+              icon={chatbubbleOutline}
+              color="smoke"
+            ></IonIcon>
+            <IonLabel color="smoke" style={{ padding: "3%" }}>
+              Comment Settings
+            </IonLabel>
+          </IonRow>
+          <IonRow style={{ display: "flex", alignItems: "center" }}>
+            <IonIcon
+              style={{ padding: "3%", width: 20, height: 20 }}
+              icon={notificationsOutline}
+              color="smoke"
+            ></IonIcon>
+            <IonLabel color="smoke" style={{ padding: "3%" }}>
+              Notifications and Sounds
+            </IonLabel>
+          </IonRow>
+        </IonGrid>
+        <IonGrid>
+          <IonRow className="settings-account">
+            <IonLabel style={{ fontSize: "14px" }} color="gold">
+              Help
+            </IonLabel>
+          </IonRow>
+          <IonRow
+            style={{ paddingTop: "2px", display: "flex", alignItems: "center" }}
+          >
+            <IonIcon
+              style={{ padding: "3%", width: 20, height: 20 }}
+              icon={notificationsOutline}
+              color="smoke"
+            ></IonIcon>
+            <IonLabel color="smoke" style={{ padding: "3%" }}>
+              Ask a Question
+            </IonLabel>
+          </IonRow>
+          <IonRow style={{ display: "flex", alignItems: "center" }}>
+            <IonIcon
+              style={{ padding: "3%", width: 20, height: 20 }}
+              icon={helpCircleOutline}
+              color="smoke"
+            ></IonIcon>
+            <IonLabel color="smoke" style={{ padding: "3%" }}>
+             Help FAQ
+            </IonLabel>
+          </IonRow>
+          <IonRow style={{ display: "flex", alignItems: "center" }}>
+            <IonIcon
+              style={{ padding: "3%", width: 20, height: 20 }}
+              icon={cloudDoneOutline}
+              color="smoke"
+            ></IonIcon>
+            <IonLabel color="smoke" style={{ padding: "3%" }}>
+             Privacy Policy
+            </IonLabel>
+          </IonRow>
+        </IonGrid>
+        <IonButton
+          fill="clear"
+          className="logout-btn"
+          color="gold"
+          onClick={handleLogout}
+        >
           Logout
         </IonButton>
       </IonContent>

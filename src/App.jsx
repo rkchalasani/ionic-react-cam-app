@@ -40,6 +40,9 @@ import { useEffect, useState } from "react";
 import { db } from "./firebase";
 import { Browser } from "@capacitor/browser";
 import UserProfile from "./pages/Home/Friends/userprofile/UserProfile";
+import OneSignal from "onesignal-cordova-plugin";
+import PostUsers from "./pages/Home/Feed/post/PostUsers/PostUsers";
+
 setupIonicReact();
 
 const App = () => {
@@ -112,8 +115,21 @@ const App = () => {
     if (isPlatform("android")) {
       getAppInfo();
     }
+    try {
+      if (isPlatform !== "web") {
+        OneSignalInit();
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const OneSignalInit = () => {
+    OneSignal.setAppId("6ebf500f-f48c-476e-be40-d8b5d1a2194e");
+    OneSignal.setNotificationOpenedHandler(function (jsonData) {
+      console.log("notificationOpenedCallback: " + JSON.stringify(jsonData));
+    });
+  };
 
   checkUpdate();
   return (
@@ -132,6 +148,9 @@ const App = () => {
             </Route>
             <Route path="/userprofile/:id">
               <UserProfile />
+            </Route>
+            <Route path="/PostUsers/:id">
+              <PostUsers />
             </Route>
             <Route path="/login">
               <Login />

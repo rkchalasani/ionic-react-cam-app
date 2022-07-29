@@ -152,7 +152,7 @@ const Profilepage = () => {
       </IonHeader>
       <IonContent className="profile-content">
         <IonRow className="pro-row">
-          <IonAvatar className="avatar-img">
+          <IonAvatar className="avatar-img shadow-drop-2-center">
             <IonImg
               src={
                 auth.currentUser.photoURL

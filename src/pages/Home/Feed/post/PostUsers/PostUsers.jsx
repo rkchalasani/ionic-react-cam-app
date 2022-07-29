@@ -1,4 +1,4 @@
-import "./UserProfile.css";
+// import "./UserProfile.css";
 import {
   IonAvatar,
   IonCard,
@@ -15,12 +15,12 @@ import {
 } from "@ionic/react";
 import { arrowBack } from "ionicons/icons";
 import { useParams } from "react-router";
-import { UserAuth } from "../../../../context/AuthContext";
-import { auth, db } from "../../../../firebase";
+import { UserAuth } from "../../../../../context/AuthContext";
+import { db } from "../../../../../firebase";
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
-const UserProfile = () => {
+const PostUsers = () => {
   const { post } = UserAuth();
   const { id } = useParams();
 
@@ -35,13 +35,13 @@ const UserProfile = () => {
   };
   const router = useIonRouter();
   const goToUsers = () => {
-    router.push("/home/friends");
+    router.push("/home/feed");
   };
   const usersData = getUserData();
   const [userpost, setUserpost] = useState([]);
   useEffect(() => {
     const getUsers = async () => {
-      const postCollection = collection(db, "posts");
+      const postCollection = collection(db, "users");
       const q = query(postCollection, orderBy("createdAt", "desc"));
       onSnapshot(q, (querySnapshot) => {
         let posts = [];
@@ -102,7 +102,7 @@ const UserProfile = () => {
                 {userpost.map((currentUser) => {
                   return (
                     <>
-                      {currentUser.email === auth.currentUser.email ? (
+                      {usersData.email === currentUser.email ? (
                         <>
                           {currentUser.img ? (
                             <IonAvatar
@@ -135,4 +135,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default PostUsers;

@@ -17,7 +17,7 @@ const GetStarted = () => {
           <IonRow className="chat">
             <IonImg
               className="chatifylogo"
-              src="assets/images/Chatify-logo.png"
+              src="assets/images/snapshare.png"
             ></IonImg>
           </IonRow>
           <IonRow className="para1">

@@ -102,7 +102,7 @@ const Login = () => {
           <IonRow>
             <IonImg
               className="chatifylogo"
-              src="assets/images/Chatify-logo.png"
+              src="assets/images/snapshare.png"
             >
               {" "}
             </IonImg>

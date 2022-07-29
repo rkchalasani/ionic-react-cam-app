@@ -11,6 +11,7 @@ import {
   IonInput,
   useIonToast,
   useIonAlert,
+  useIonRouter,
 } from "@ionic/react";
 import {
   alert,
@@ -80,7 +81,7 @@ const Post = (props) => {
       icon: alert,
     });
   }
-  const { id, avatar, name, email, img, caption, createdAt, likes } = props;
+  const { id, avatar, name, email, img, caption, createdAt, likes,uid } = props;
   const [comments, setComments] = useState();
   const handleCommentAdd = async () => {
     const commentRef = collection(db, "posts", id, "comments");
@@ -153,10 +154,22 @@ const Post = (props) => {
       url: "https://play.google.com/store/apps/details?id=com.chatify.app",
     });
   };
+  const router = useIonRouter();
+  // const uid = post.currentUser.uid;
+  
+
+  const openUserProfile = () => {
+    router.push(`/PostUsers/${uid}`);
+  };
   return (
     <>
       <IonCard className="feed-grid" key={id}>
-        <IonRow className="username-row">
+        <IonRow
+          onClick={() => {
+            openUserProfile(id);
+          }}
+          className="username-row"
+        >
           <IonAvatar className="img-row">
             <IonImg
               className=""
@@ -283,12 +296,10 @@ const Post = (props) => {
             comm.map((currentUser) => {
               return (
                 <>
-                  <IonRow className="newcomments">
+                  <IonRow className="newcomments" key={currentUser.id}>
                     <IonCol className="newcomments-col">
                       <IonLabel color="smoke">{currentUser.name}</IonLabel>
-                      <IonLabel key={currentUser.id}>
-                        &nbsp;{currentUser.comment}
-                      </IonLabel>
+                      <IonLabel>&nbsp;{currentUser.comment}</IonLabel>
                     </IonCol>
 
                     <Moment className="comments-time" fromNow>

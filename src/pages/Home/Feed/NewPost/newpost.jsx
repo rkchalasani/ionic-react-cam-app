@@ -79,6 +79,7 @@ const NewPost = () => {
         createdAt: new Date(),
         caption: caption,
         name: auth.currentUser.displayName,
+        uid:auth.currentUser.uid,
         email: auth.currentUser.email,
         avatar: auth.currentUser.photoURL,
         likes: [],

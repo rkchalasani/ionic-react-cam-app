@@ -53,8 +53,8 @@ const Feed = () => {
           <IonRow className="search-row1">
             <IonCol className="logo">
               <IonImg
-                style={{ height: 53 }}
-                src="assets/images/Chatify-logo.png "
+                style={{ height: 30, paddingLeft:"10px" }}
+                src="assets/images/snapshare.png "
               ></IonImg>
             </IonCol>
             <IonCol className="feed-col1">
@@ -79,6 +79,7 @@ const Feed = () => {
           return (
             <Posts
               key={currentUser.id}
+              uid={currentUser.uid}
               id={currentUser.id}
               avatar={currentUser.avatar}
               name={currentUser.name}
