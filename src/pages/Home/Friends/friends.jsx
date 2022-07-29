@@ -8,6 +8,7 @@ import {
   IonPage,
   IonRow,
   IonToolbar,
+  useIonViewWillEnter,
 } from "@ionic/react";
 import {
   collection,
@@ -22,7 +23,7 @@ import Users from './users/users'
 import "./friends.css";
 import { UserAuth } from "../../../context/AuthContext";
 const Friends = () => {
-  const {post, setPost} = UserAuth()
+  const {friends, setFriends} = UserAuth()
   useEffect(() => {
     const getUsers = async () => {
       const postCollection = collection(db, "users");
@@ -32,13 +33,19 @@ const Friends = () => {
         querySnapshot.forEach((doc) => {
           posts.push({...doc.data(), id: doc.id });
         });
-        setPost(posts);
+        setFriends(posts);
       });
     };
     getUsers();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  const hideTabs = () => {
+    const tabsEl = document.querySelector("ion-tab-bar");
+    if (tabsEl) {
+      tabsEl.hidden = false;
+    }
+  };
+  useIonViewWillEnter(() => hideTabs());
   return (
     <IonPage>
       <IonHeader>
@@ -59,7 +66,7 @@ const Friends = () => {
       </IonHeader>
       <IonContent className="tab1mainpage" fullscreen>
         <IonGrid className="tab1-grid">
-          {post.map((currentUser) => {
+          {friends.map((currentUser) => {
             return (
              <Users
              key={currentUser.uid}

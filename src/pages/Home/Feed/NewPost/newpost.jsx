@@ -79,7 +79,7 @@ const NewPost = () => {
         createdAt: new Date(),
         caption: caption,
         name: auth.currentUser.displayName,
-        uid:auth.currentUser.uid,
+        uid: auth.currentUser.uid,
         email: auth.currentUser.email,
         avatar: auth.currentUser.photoURL,
         likes: [],
@@ -137,14 +137,18 @@ const NewPost = () => {
         </IonRow>
         <IonRow className="btn-class">
           <IonCol>
-            <IonButton
-              className="post-btn"
-              onClick={handleAdd}
-              color="smoke"
-              type="submit"
-            >
-              Post
-            </IonButton>
+            {file || caption ? (
+              <IonButton
+                className="post-btn"
+                onClick={handleAdd}
+                color="smoke"
+                type="submit"
+              >
+                Post
+              </IonButton>
+            ) : (
+              <></>
+            )}
           </IonCol>
           <IonButton
             className="ion-text-capitalize"

@@ -42,6 +42,7 @@ import { Browser } from "@capacitor/browser";
 import UserProfile from "./pages/Home/Friends/userprofile/UserProfile";
 import OneSignal from "onesignal-cordova-plugin";
 import PostUsers from "./pages/Home/Feed/post/PostUsers/PostUsers";
+import FullPost from "./pages/Home/Feed/post/FullPost/FullPost";
 
 setupIonicReact();
 
@@ -151,6 +152,9 @@ const App = () => {
             </Route>
             <Route path="/PostUsers/:id">
               <PostUsers />
+            </Route>
+            <Route path="/FullPost/:id">
+              <FullPost />
             </Route>
             <Route path="/login">
               <Login />

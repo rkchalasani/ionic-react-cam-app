@@ -17,7 +17,10 @@ import { doc, setDoc, Timestamp } from "firebase/firestore";
 const UserContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
-  const [post, setPost] = useState([]);
+  const [userPosts, setUserPosts] = useState({});
+  const [mypost, setMyPost] = useState([]);
+  const [friends, setFriends] = useState([]);
+  const [posts, setPosts] = useState([]);
 
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -69,8 +72,14 @@ export const AuthContextProvider = ({ children }) => {
         addData,
         facebookSignIn,
         githubSignIn,
-        post,
-        setPost
+        friends,
+        setFriends,
+        posts,
+        setPosts,
+        userPosts,
+        mypost,
+        setUserPosts,
+        setMyPost
       }}
     >
       {children}

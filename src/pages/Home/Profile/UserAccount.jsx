@@ -34,6 +34,7 @@ import {
   cloudUpload,
   heartOutline,
 } from "ionicons/icons";
+import { UserAuth } from "../../../context/AuthContext";
 
 const Profilepage = () => {
   const [file, setFile] = useState("");
@@ -121,7 +122,7 @@ const Profilepage = () => {
   const openSaved = () => {
     console.log("saved posts");
   };
-  const [post, setPost] = useState([]);
+  const {mypost, setMyPost} = UserAuth([]);
   useEffect(() => {
     const getUsers = async () => {
       const postCollection = collection(db, "posts");
@@ -131,7 +132,7 @@ const Profilepage = () => {
         querySnapshot.forEach((doc) => {
           posts.push({ ...doc.data(), id: doc.id });
         });
-        setPost(posts);
+        setMyPost(posts);
       });
     };
     getUsers();
@@ -212,7 +213,7 @@ const Profilepage = () => {
           </IonRow>
 
           <IonRow className="email-row1">
-            {post.map((currentUser) => {
+            {mypost.map((currentUser) => {
               return (
                 <>
                   {auth.currentUser.email === currentUser.email ? (

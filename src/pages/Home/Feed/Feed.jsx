@@ -16,6 +16,7 @@ import Posts from "./post/post";
 import { auth, db } from "../../../firebase";
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { UserAuth } from "../../../context/AuthContext";
 
 const Feed = () => {
   const router = useIonRouter();
@@ -30,7 +31,7 @@ const Feed = () => {
   };
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useIonViewWillEnter(() => hideTabs());
-  const [post, setPost] = useState([]);
+  const { posts, setPosts } = UserAuth();
   useEffect(() => {
     const getUsers = async () => {
       const postCollection = collection(db, "posts");
@@ -40,10 +41,26 @@ const Feed = () => {
         querySnapshot.forEach((doc) => {
           posts.push({ ...doc.data(), id: doc.id });
         });
-        setPost(posts);
+        setPosts(posts);
       });
     };
     getUsers();
+  }, []);
+  const { setMyPost } = UserAuth();
+  useEffect(() => {
+    const getUsers = async () => {
+      const postCollection = collection(db, "users");
+      const q = query(postCollection, orderBy("createdAt", "asc"));
+      onSnapshot(q, (querySnapshot) => {
+        let posts = [];
+        querySnapshot.forEach((doc) => {
+          posts.push({ ...doc.data(), id: doc.id });
+        });
+        setMyPost(posts);
+      });
+    };
+    getUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -53,7 +70,7 @@ const Feed = () => {
           <IonRow className="search-row1">
             <IonCol className="logo">
               <IonImg
-                style={{ height: 30, paddingLeft:"10px" }}
+                style={{ height: 30, paddingLeft: "10px" }}
                 src="assets/images/snapshare.png "
               ></IonImg>
             </IonCol>
@@ -75,7 +92,7 @@ const Feed = () => {
       </IonHeader>
       <IonContent className="feed-content" fullscreen>
         <Newpost />
-        {post.map((currentUser) => {
+        {posts.map((currentUser) => {
           return (
             <Posts
               key={currentUser.id}

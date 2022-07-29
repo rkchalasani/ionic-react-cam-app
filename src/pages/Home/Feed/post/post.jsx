@@ -81,7 +81,8 @@ const Post = (props) => {
       icon: alert,
     });
   }
-  const { id, avatar, name, email, img, caption, createdAt, likes,uid } = props;
+  const { id, avatar, name, email, img, caption, createdAt, likes, uid } =
+    props;
   const [comments, setComments] = useState();
   const handleCommentAdd = async () => {
     const commentRef = collection(db, "posts", id, "comments");
@@ -128,9 +129,7 @@ const Post = (props) => {
       updateDoc(likesRef, {
         likes: arrayRemove(auth.currentUser.displayName),
       })
-        .then(() => {
-          console.log("unliked");
-        })
+        .then(() => {})
         .catch((e) => {
           console.log(e);
         });
@@ -138,9 +137,7 @@ const Post = (props) => {
       updateDoc(likesRef, {
         likes: arrayUnion(auth.currentUser.displayName),
       })
-        .then(() => {
-          console.log("liked");
-        })
+        .then(() => {})
         .catch((e) => {
           console.log(e);
         });
@@ -156,7 +153,9 @@ const Post = (props) => {
   };
   const router = useIonRouter();
   // const uid = post.currentUser.uid;
-  
+  const openFullPost = () => {
+    router.push(`/FullPost/${id}`);
+  };
 
   const openUserProfile = () => {
     router.push(`/PostUsers/${uid}`);
@@ -197,7 +196,7 @@ const Post = (props) => {
           ></IonIcon>
         </IonRow>
         {caption ? (
-          <IonRow className="caption-row">
+          <IonRow onClick={openFullPost} className="caption-row">
             <IonLabel color="smoke" className="caption">
               {caption}
             </IonLabel>
@@ -207,7 +206,7 @@ const Post = (props) => {
         )}
 
         {img ? (
-          <IonAvatar className="post-avatar">
+          <IonAvatar onClick={openFullPost} className="post-avatar">
             <IonImg src={img}></IonImg>
           </IonAvatar>
         ) : (

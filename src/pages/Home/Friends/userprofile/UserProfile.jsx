@@ -12,6 +12,7 @@ import {
   IonRow,
   IonToolbar,
   useIonRouter,
+  useIonViewWillEnter,
 } from "@ionic/react";
 import { arrowBack } from "ionicons/icons";
 import { useParams } from "react-router";
@@ -21,14 +22,14 @@ import { useEffect, useState } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
 const UserProfile = () => {
-  const { post } = UserAuth();
+  const { friends } = UserAuth();
   const { id } = useParams();
 
   const getUserData = () => {
     let data = {};
-    for (var i = 0; i < post.length; i++) {
-      if (post[i].uid === id) {
-        return (data = post[i]);
+    for (var i = 0; i < friends.length; i++) {
+      if (friends[i].uid === id) {
+        return (data = friends[i]);
       }
     }
     return data;
@@ -53,6 +54,13 @@ const UserProfile = () => {
     };
     getUsers();
   }, []);
+  const hideTabs = () => {
+    const tabsEl = document.querySelector("ion-tab-bar");
+    if (tabsEl) {
+      tabsEl.hidden = true;
+    }
+  };
+  useIonViewWillEnter(() => hideTabs());
   return (
     <>
       <IonPage>
@@ -102,7 +110,7 @@ const UserProfile = () => {
                 {userpost.map((currentUser) => {
                   return (
                     <>
-                      {currentUser.email === auth.currentUser.email ? (
+                      {currentUser.email === usersData.email ? (
                         <>
                           {currentUser.img ? (
                             <IonAvatar
