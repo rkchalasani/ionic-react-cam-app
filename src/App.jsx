@@ -40,6 +40,7 @@ import { useEffect, useState } from "react";
 import { db } from "./firebase";
 import { Browser } from "@capacitor/browser";
 import UserProfile from "./pages/Home/Friends/userprofile/UserProfile";
+import { PushNotifications } from "@capacitor/push-notifications";
 setupIonicReact();
 
 const App = () => {
@@ -112,10 +113,36 @@ const App = () => {
     if (isPlatform("android")) {
       getAppInfo();
     }
+    PushNotifications.addListener("registration", (token) => {
+      console.info("Registration token: ", token.value);
+    });
+
+    PushNotifications.addListener("registrationError", (err) => {
+      console.error("Registration error: ", err.error);
+    });
+
+    PushNotifications.addListener(
+      "pushNotificationReceived",
+      (notification) => {
+        console.log("Push notification received: ", notification);
+      }
+    );
+
+    PushNotifications.addListener(
+      "pushNotificationActionPerformed",
+      (notification) => {
+        console.log(
+          "Push notification action performed",
+          notification.actionId,
+          notification.inputValue
+        );
+      }
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   checkUpdate();
+
   return (
     <AuthContextProvider>
       <IonApp>
