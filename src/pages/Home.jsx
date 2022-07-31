@@ -7,12 +7,7 @@ import {
   IonTabs,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import {
-  home,
-  peopleSharp,
-  person,
-  settingsSharp,
-} from "ionicons/icons";
+import { home, peopleSharp, person, settingsSharp } from "ionicons/icons";
 import Friends from "./Home/Friends/friends";
 import Feed from "./Home/Feed/Feed";
 import Settings from "./Home/Settings/settings";
@@ -24,6 +19,7 @@ import Profilepage from "./Home/Profile/UserAccount";
 import UserProfile from "./Home/Friends/userprofile/UserProfile";
 import PostUsers from "./Home/Feed/post/PostUsers/PostUsers";
 import FullPost from "./Home/Feed/post/FullPost/FullPost";
+import PrivacyPolicy from "./Home/Settings/privacypolicy/PrivacyPolicy";
 
 const Home = () => {
   return (
@@ -40,6 +36,9 @@ const Home = () => {
               <ProtectedRoute>
                 <Friends />
               </ProtectedRoute>
+            </Route>
+            <Route path="/privacypolicy">
+              <PrivacyPolicy />
             </Route>
             <Route path="/home/settings">
               <ProtectedRoute>

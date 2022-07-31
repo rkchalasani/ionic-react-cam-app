@@ -94,10 +94,7 @@ const UserProfile = () => {
               {usersData.email}
             </IonLabel>
             <IonLabel className="font" color="smoke">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
-              quasi quae nihil ad, est excepturi ipsam! Voluptatum a obcaecati
-              laboriosam, similique quae incidunt culpa. Esse unde aliquam
-              blanditiis in suscipit.
+              {usersData.follow?.length} Followers
             </IonLabel>
           </IonRow>
 

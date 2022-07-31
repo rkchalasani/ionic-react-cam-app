@@ -1,3 +1,4 @@
+import { Browser } from "@capacitor/browser";
 import {
   IonAvatar,
   IonButton,
@@ -66,9 +67,9 @@ const Settings = () => {
       logout();
       setTimeout(() => {
         handleButtonClick("Logout Successfull");
+        window.location.reload();
       }, 2000);
       router.push("/login");
-      window.location.reload();
     } catch (e) {
       console.log(e.message);
     }
@@ -76,6 +77,16 @@ const Settings = () => {
   const openProfile = () => {
     router.push("/home/profile");
   };
+  const openLink = async () => {
+    await Browser.open({
+      url: "https://play.google.com/store/apps/details?id=com.chatify.app",
+    });
+  };
+  const openPrivacyPolicy = () => {
+    router.push("/privacypolicy");
+    // window.location.reload();
+  };
+
   return (
     <IonPage>
       <IonContent className="settings-content" fullscreen>
@@ -215,15 +226,16 @@ const Settings = () => {
             </IonLabel>
           </IonRow>
           <IonRow
+            onClick={openPrivacyPolicy}
             style={{ paddingTop: "2px", display: "flex", alignItems: "center" }}
           >
             <IonIcon
               style={{ padding: "3%", width: 20, height: 20 }}
-              icon={notificationsOutline}
+              icon={lockClosedOutline}
               color="smoke"
             ></IonIcon>
             <IonLabel color="smoke" style={{ padding: "3%" }}>
-              Ask a Question
+              Privacy Policy
             </IonLabel>
           </IonRow>
           <IonRow style={{ display: "flex", alignItems: "center" }}>
@@ -233,17 +245,20 @@ const Settings = () => {
               color="smoke"
             ></IonIcon>
             <IonLabel color="smoke" style={{ padding: "3%" }}>
-             Help FAQ
+              Help FAQ
             </IonLabel>
           </IonRow>
-          <IonRow style={{ display: "flex", alignItems: "center" }}>
+          <IonRow
+            onClick={openLink}
+            style={{ display: "flex", alignItems: "center" }}
+          >
             <IonIcon
               style={{ padding: "3%", width: 20, height: 20 }}
               icon={cloudDoneOutline}
               color="smoke"
             ></IonIcon>
             <IonLabel color="smoke" style={{ padding: "3%" }}>
-             Privacy Policy
+              Check for updates
             </IonLabel>
           </IonRow>
         </IonGrid>

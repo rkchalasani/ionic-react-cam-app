@@ -65,11 +65,12 @@ const Friends = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="tab1mainpage" fullscreen>
-        <IonGrid className="tab1-grid">
+        <IonGrid  className="tab1-grid">
           {friends.map((currentUser) => {
             return (
              <Users
              key={currentUser.uid}
+             follow={currentUser.follow}
              id={currentUser.uid}
              name={currentUser.name}
              email = {currentUser.email}

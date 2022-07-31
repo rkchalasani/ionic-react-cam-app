@@ -96,11 +96,11 @@ const Profilepage = () => {
       await updateDoc(doc(db, "users", auth.currentUser.uid), {
         photoURL: data.img,
       });
-      if (auth.currentUser.email === email) {
-        await updateDoc(collection(db, "posts"), {
-          avatar: data.img,
-        });
-      }
+      // if (auth.currentUser.email === email) {
+      //   await updateDoc(collection(db, "posts"), {
+      //     avatar: data.img,
+      //   });
+      // }
 
       await updateProfile(auth.currentUser, {
         photoURL: data.img,
@@ -122,7 +122,7 @@ const Profilepage = () => {
   const openSaved = () => {
     console.log("saved posts");
   };
-  const {mypost, setMyPost} = UserAuth([]);
+  const { mypost, setMyPost } = UserAuth([]);
   useEffect(() => {
     const getUsers = async () => {
       const postCollection = collection(db, "posts");
@@ -200,11 +200,8 @@ const Profilepage = () => {
 
         <IonRow className="name-col">
           <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
-          <IonLabel className="font" color="smoke">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
-            quasi quae nihil ad, est excepturi ipsam! Voluptatum a obcaecati
-            laboriosam, similique quae incidunt culpa. Esse unde aliquam
-            blanditiis in suscipit.
+          <IonLabel color="smoke">
+            {/* {usersData.follow?.length} Followers */}
           </IonLabel>
         </IonRow>
         <IonCard color="black">

@@ -49,9 +49,9 @@ const Post = (props) => {
   const deleteUser = async (id) => {
     const userDoc = doc(db, "posts", id);
     const commentRef = collection(db, "posts", id, "comments");
-    const likesRef = collection(db, "posts", id, "likes");
+    // const likesRef = collection(db, "posts", id, "likes");
 
-    await deleteDoc(userDoc, commentRef, likesRef);
+    await deleteDoc(userDoc, commentRef);
   };
   const handleSavedPosts = async () => {
     const userDoc = collection(
@@ -103,6 +103,13 @@ const Post = (props) => {
   };
   const toggleComment = () => {
     setInput(false);
+  };
+  const [isLikes, setIsLiked] = useState(false);
+  const handleLikes = () => {
+    setIsLiked(true);
+  };
+  const toggleLikes = () => {
+    setIsLiked(false);
   };
   const [comm, setComm] = useState();
   useEffect(() => {
@@ -286,10 +293,44 @@ const Post = (props) => {
           </IonCol>
         </IonRow>
         <IonRow>
-          <IonLabel color="smoke" className="likes">
-            {likes?.length} Likes
-          </IonLabel>
+          {isLikes ? (
+            <IonLabel onClick={toggleLikes} color="smoke" className="likes">
+              {likes?.length} Likes
+            </IonLabel>
+          ) : (
+            <IonLabel onClick={handleLikes} color="smoke" className="likes">
+              {likes?.length} Likes
+            </IonLabel>
+          )}
         </IonRow>
+
+        {isLikes ? (
+          <IonRow
+            style={{
+              padding: "4%",
+              display: "flex",
+              width: "100%",
+              flexDirection: "column",
+            }}
+          >
+            <IonCol>
+              <IonLabel color="smoke">Likes</IonLabel>
+              <IonLabel
+                style={{
+                  display: "flex",
+                  width: "100vw",
+                  flexDirection: "column",
+                }}
+              >
+                {" "}
+                {likes}
+              </IonLabel>
+            </IonCol>
+          </IonRow>
+        ) : (
+          <></>
+        )}
+
         <IonRow className="comments-row">
           {comm &&
             comm.map((currentUser) => {
