@@ -43,6 +43,7 @@ import UserProfile from "./pages/Home/Friends/userprofile/UserProfile";
 import OneSignal from "onesignal-cordova-plugin";
 import PostUsers from "./pages/Home/Feed/post/PostUsers/PostUsers";
 import FullPost from "./pages/Home/Feed/post/FullPost/FullPost";
+import PrivacyPolicy from "./pages/Home/Settings/privacypolicy/PrivacyPolicy";
 
 setupIonicReact();
 
@@ -168,7 +169,9 @@ const App = () => {
             <Route path="/signup">
               <Signup />
             </Route>
-
+            <Route path="/privacypolicy">
+              <PrivacyPolicy />
+            </Route>
             <Route path="/home/profile">
               <Profilepage />
             </Route>

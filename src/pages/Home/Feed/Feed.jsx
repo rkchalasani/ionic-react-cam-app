@@ -49,6 +49,23 @@ const Feed = () => {
   const { setMyPost } = UserAuth();
   useEffect(() => {
     const getUsers = async () => {
+      const postCollection = collection(db, "posts");
+      const q = query(postCollection, orderBy("createdAt", "desc"));
+      onSnapshot(q, (querySnapshot) => {
+        let posts = [];
+        querySnapshot.forEach((doc) => {
+          posts.push({ ...doc.data(), id: doc.id });
+        });
+        setMyPost(posts);
+      });
+    };
+    getUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const { setUserPosts } = UserAuth();
+
+  useEffect(() => {
+    const getUsers = async () => {
       const postCollection = collection(db, "users");
       const q = query(postCollection, orderBy("createdAt", "asc"));
       onSnapshot(q, (querySnapshot) => {
@@ -56,7 +73,7 @@ const Feed = () => {
         querySnapshot.forEach((doc) => {
           posts.push({ ...doc.data(), id: doc.id });
         });
-        setMyPost(posts);
+        setUserPosts(posts);
       });
     };
     getUsers();
@@ -75,9 +92,9 @@ const Feed = () => {
               ></IonImg>
             </IonCol>
             <IonCol className="feed-col1">
-              <IonAvatar className="img-avatar">
+              <IonAvatar  className="feed-avatar" >
                 <IonImg
-                  style={{ width: 40, height: 40 }}
+                  // 
                   onClick={openProfile}
                   src={
                     auth.currentUser.photoURL

@@ -16,9 +16,6 @@ import {
 import { arrowBack } from "ionicons/icons";
 import { useParams } from "react-router";
 import { UserAuth } from "../../../../../context/AuthContext";
-import { auth, db } from "../../../../../firebase";
-import { useEffect, useState } from "react";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
 const PostUsers = () => {
   const { mypost } = UserAuth();
@@ -29,7 +26,7 @@ const PostUsers = () => {
   const getUserData = () => {
     let data = {};
     for (var i = 0; i < userPosts.length; i++) {
-      if (userPosts[i].uid === id) {
+      if (userPosts[i].id === id) {
         return (data = userPosts[i]);
       }
     }
@@ -40,10 +37,6 @@ const PostUsers = () => {
     router.push("/home/feed");
   };
   const usersData = getUserData();
-
-console.log(mypost)
-
-
 
   return (
     <>
@@ -77,24 +70,24 @@ console.log(mypost)
             <IonLabel color="smoke" style={{ paddingTop: "20px" }}>
               {usersData.email}
             </IonLabel>
-            <IonLabel className="font" color="smoke">
+            {/* <IonLabel className="font" color="smoke">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
               quasi quae nihil ad, est excepturi ipsam! Voluptatum a obcaecati
               laboriosam, similique quae incidunt culpa. Esse unde aliquam
               blanditiis in suscipit.
-            </IonLabel>
+            </IonLabel> */}
           </IonRow>
 
           <IonCard className="user-posts-card" color="black">
             <IonRow style={{ padding: "4%", fontSize: "20px" }}>
-              <IonLabel color="smoke">Posts</IonLabel>
+              <IonLabel color="smoke">Posts by {usersData.name}</IonLabel>
             </IonRow>
             {mypost ? (
               <IonRow className="user-posts-row">
                 {mypost.map((currentUser) => {
                   return (
                     <>
-                      {/* {currentUser.email === usersData.email ? ( */}
+                      {currentUser.email === usersData.email ? (
                         <>
                           {currentUser.img ? (
                             <IonAvatar
@@ -108,9 +101,9 @@ console.log(mypost)
                             <></>
                           )}
                         </>
-                      {/* ) : (
+                       ) : (
                         <></>
-                      )} */}
+                      )} 
                     </>
                   );
                 })}
