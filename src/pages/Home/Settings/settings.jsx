@@ -7,35 +7,43 @@ import {
   IonGrid,
   IonIcon,
   IonImg,
+  IonInput,
   IonLabel,
   IonPage,
   IonRow,
   useIonLoading,
   useIonRouter,
   useIonToast,
+  useIonViewWillEnter,
 } from "@ionic/react";
+import { updateProfile } from "firebase/auth";
 import {
-  barbell,
-  chatboxOutline,
-  chatboxSharp,
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  orderBy,
+  query,
+  updateDoc,
+} from "firebase/firestore";
+import {
+  alert,
+  calendarClear,
   chatbubbleOutline,
+  closeOutline,
   cloudDoneOutline,
-  colorFill,
   folderOpenOutline,
-  help,
   helpCircleOutline,
   lockClosedOutline,
-  lockClosedSharp,
-  notifications,
-  notificationsCircle,
   notificationsOutline,
-  person,
+  pencilOutline,
+  save,
   search,
-  timer,
-  timerOutline,
 } from "ionicons/icons";
+import { useEffect, useState } from "react";
 import { UserAuth } from "../../../context/AuthContext";
-import { auth } from "../../../firebase";
+import { auth, db } from "../../../firebase";
 import "./settings.css";
 
 const Settings = () => {
@@ -84,8 +92,56 @@ const Settings = () => {
   };
   const openPrivacyPolicy = () => {
     router.push("/privacypolicy");
-    // window.location.reload();
   };
+  const [isEdit, setIsEdit] = useState(false);
+  const editProfile = () => {
+    setIsEdit(true);
+  };
+  const cancelEdit = () => {
+    setIsEdit(false);
+  };
+  const [username, setUsername] = useState();
+  const [phoneNum, setPhoneNum] = useState();
+  const [bio, setBio] = useState();
+  const [profile, setProfile] = useState();
+  const saveDetails = async () => {
+    await updateProfile(auth.currentUser, {
+      displayName: username,
+    }).catch((e) => {
+      console.log(e.message);
+    });
+    await updateDoc(doc(db, "users", auth.currentUser.uid), {
+      name: username,
+      phone: phoneNum,
+      bio: bio,
+    }).catch((e) => {
+      console.log(e.message);
+    });
+    setIsEdit(false);
+  };
+  const { users } = UserAuth();
+  const hideTabs = () => {
+    const tabsEl = document.querySelector("ion-tab-bar");
+    if (tabsEl) {
+      tabsEl.hidden = false;
+    }
+  };
+  useEffect(() => {
+    const getUsers = async () => {
+      const docRef = doc(db, "users", auth.currentUser.uid);
+      onSnapshot(docRef, (docSnap) => {
+        // console.log(docSnap.data());
+
+        setUsername(docSnap.data().name);
+        setPhoneNum(docSnap.data().phone);
+        setBio(docSnap.data().bio);
+        setProfile(docSnap.data());
+      });
+      // setUsers;
+    };
+    getUsers();
+  }, []);
+  useIonViewWillEnter(() => hideTabs());
 
   return (
     <IonPage>
@@ -102,7 +158,7 @@ const Settings = () => {
           ></IonIcon>
         </IonRow>
         <IonGrid className="settings-grid">
-          <IonRow onClick={openProfile}>
+          <IonRow style={{ display: "flex", alignItems: "center" }}>
             <IonAvatar className="settings-profilepic">
               <IonImg src={auth.currentUser.photoURL}></IonImg>
             </IonAvatar>
@@ -117,6 +173,32 @@ const Settings = () => {
                 online
               </IonLabel>
             </IonCol>
+            {isEdit ? (
+              <>
+                <IonIcon
+                  color="smoke"
+                  onClick={cancelEdit}
+                  style={{ width: 30, height: 30, marginRight: "5px" }}
+                  icon={closeOutline}
+                ></IonIcon>
+
+                <IonButton
+                  onClick={saveDetails}
+                  style={{ marginRight: "4%" }}
+                  fill="clear"
+                >
+                  <IonIcon color="smoke" icon={save}></IonIcon>
+                </IonButton>
+              </>
+            ) : (
+              <IonButton
+                onClick={editProfile}
+                style={{ marginRight: "4%" }}
+                fill="clear"
+              >
+                <IonIcon color="smoke" icon={pencilOutline}></IonIcon>
+              </IonButton>
+            )}
           </IonRow>
         </IonGrid>
         <IonGrid>
@@ -125,40 +207,114 @@ const Settings = () => {
               Account
             </IonLabel>
           </IonRow>
-          <IonRow className="settings-row">
-            <IonLabel style={{ fontSize: "16px" }} color="smoke">
-              4782145145
-            </IonLabel>
-            <IonLabel
-              style={{ fontSize: "13px", paddingTop: "4px" }}
-              color="darksmoke"
-            >
-              Phone number
-            </IonLabel>
-          </IonRow>
-          <IonRow className="settings-row">
-            <IonLabel style={{ fontSize: "16px" }} color="smoke">
-              {auth.currentUser.email}
-            </IonLabel>
-            <IonLabel
-              style={{ fontSize: "13px", paddingTop: "4px" }}
-              color="darksmoke"
-            >
-              email
-            </IonLabel>
-          </IonRow>
-          <IonRow className="settings-row">
-            <IonLabel style={{ fontSize: "15px" }} color="smoke">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Aspernatur accusantium numquam dignissimos at architecto,
-            </IonLabel>
-            <IonLabel
-              style={{ fontSize: "13px", paddingTop: "4px" }}
-              color="darksmoke"
-            >
-              Bio
-            </IonLabel>
-          </IonRow>
+          {isEdit ? (
+            <>
+              <IonRow className="settings-row">
+                <IonInput
+                  className="profile-input"
+                  placeholder="Username"
+                  color="smoke"
+                  value={username}
+                  onIonChange={(e) => setUsername(e.detail.value)}
+                ></IonInput>
+              </IonRow>
+              <IonRow className="settings-row">
+                <IonInput
+                  className="profile-input"
+                  placeholder="PhoneNumber"
+                  color="smoke"
+                  value={phoneNum}
+                  onIonChange={(e) => setPhoneNum(e.detail.value)}
+                ></IonInput>
+              </IonRow>
+              <IonRow className="settings-row">
+                <IonInput
+                  className="profile-input"
+                  value={bio}
+                  placeholder="Bio"
+                  onIonChange={(e) => setBio(e.detail.value)}
+                  color="smoke"
+                ></IonInput>
+              </IonRow>
+              <IonRow className="settings-row">
+                <IonLabel style={{ fontSize: "16px" }} color="smoke">
+                  {auth.currentUser.email}
+                </IonLabel>
+                <IonLabel
+                  style={{ fontSize: "13px", paddingTop: "4px" }}
+                  color="darksmoke"
+                >
+                  email
+                </IonLabel>
+              </IonRow>
+            </>
+          ) : (
+            <>
+              <IonRow className="settings-row">
+                <IonLabel style={{ fontSize: "16px" }} color="smoke">
+                  {auth.currentUser.displayName}
+                </IonLabel>
+                <IonLabel
+                  style={{ fontSize: "13px", paddingTop: "4px" }}
+                  color="darksmoke"
+                >
+                  Username
+                </IonLabel>
+              </IonRow>
+              {profile && (
+                <IonRow className="settings-row">
+                  {profile.phone ? (
+                    <IonLabel style={{ fontSize: "16px" }} color="smoke">
+                      {profile.phone}
+                    </IonLabel>
+                  ) : (
+                    <IonLabel style={{ fontSize: "16px" }} color="smoke">
+                      Enter Your PhoneNumber
+                    </IonLabel>
+                  )}
+
+                  <IonLabel
+                    style={{ fontSize: "13px", paddingTop: "4px" }}
+                    color="darksmoke"
+                  >
+                    Phone Number
+                  </IonLabel>
+                </IonRow>
+              )}
+
+              {profile && (
+                <IonRow className="settings-row">
+                  {profile.bio ? (
+                    <IonLabel style={{ fontSize: "15px" }} color="smoke">
+                      {profile.bio}
+                    </IonLabel>
+                  ) : (
+                    <IonLabel style={{ fontSize: "16px" }} color="smoke">
+                      About You
+                    </IonLabel>
+                  )}
+                  <IonLabel
+                    style={{ fontSize: "13px", paddingTop: "4px" }}
+                    color="darksmoke"
+                  >
+                    Bio
+                  </IonLabel>
+                </IonRow>
+              )}
+
+              <IonRow className="settings-row">
+                <IonLabel style={{ fontSize: "16px" }} color="smoke">
+                  {auth.currentUser.email}
+                </IonLabel>
+                <IonLabel
+                  style={{ fontSize: "13px", paddingTop: "4px" }}
+                  color="darksmoke"
+                >
+                  email
+                </IonLabel>
+              </IonRow>
+            </>
+          )}
         </IonGrid>
         <IonGrid>
           <IonRow className="settings-account">

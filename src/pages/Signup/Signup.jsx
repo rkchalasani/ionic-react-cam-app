@@ -16,7 +16,8 @@ import { useState } from "react";
 import { UserAuth } from "../../context/AuthContext";
 import { alert } from "ionicons/icons";
 import { updateProfile } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
+import { addDoc, doc } from "firebase/firestore";
 const Signup = () => {
   const [present] = useIonToast();
   async function handleButtonClick(message) {
@@ -42,7 +43,7 @@ const Signup = () => {
       message: message,
       buttons: ["OK"],
       mode: "md",
-      cssClass:"signuppage-alert"
+      cssClass: "signuppage-alert",
     });
   }
   const [show, dismiss] = useIonLoading();
@@ -89,7 +90,7 @@ const Signup = () => {
         logout();
         resetInput();
         router.push("/login");
-        dismiss()
+        dismiss();
         setTimeout(() => {
           handleButtonClick("User successfully registered");
         }, 1510);
@@ -109,10 +110,7 @@ const Signup = () => {
       <IonContent fullscreen className="signup-main-div">
         <IonGrid className="signup-grid">
           <IonRow>
-            <IonImg
-              className="chatifylogo"
-              src="assets/images/snapshare.png"
-            >
+            <IonImg className="chatifylogo" src="assets/images/snapshare.png">
               {" "}
             </IonImg>
           </IonRow>

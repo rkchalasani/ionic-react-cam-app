@@ -92,9 +92,11 @@ const Feed = () => {
               ></IonImg>
             </IonCol>
             <IonCol className="feed-col1">
-              <IonAvatar  className="feed-avatar" >
+              <IonAvatar
+                style={{ width: 55, height: 55 }}
+                className="feed-avatar"
+              >
                 <IonImg
-                  // 
                   onClick={openProfile}
                   src={
                     auth.currentUser.photoURL

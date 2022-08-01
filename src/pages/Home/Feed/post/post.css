@@ -17,7 +17,7 @@
 }
 .moment {
   /* margin-left: 3%; */
-  padding: 4%;
+  padding: 3% 4% 3% 4%;
 }
 .post-avatar {
   --border-radius: 0%;
@@ -30,6 +30,7 @@
 .like-btn-row {
   display: flex;
   align-items: center;
+  justify-content: center;
   padding-left: 1%;
 }
 .save-btn-col {
@@ -59,18 +60,21 @@
   display: flex;
   align-items: center;
   width: 100%;
-  padding-top: 1%;
-  padding-bottom: 1%;
+  padding-top: 2%;
   padding-right: 3%;
 }
 .newcomments-col {
   padding: 0px;
+  display: flex;
+  align-items: center;
+/* justify-content: center; */
 }
 .delete-alert {
   --background: #232623;
 }
 .comments-time {
   font-size: 10px;
+  color: #7f7f7d;
 }
 .likebtn {
   margin: 2%;

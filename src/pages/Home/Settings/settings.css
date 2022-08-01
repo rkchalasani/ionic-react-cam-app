@@ -13,10 +13,11 @@
 .settings-profile-details{
   display: flex;
   flex-direction: column;
+  /* align-items: center; */
   justify-content: center;
 }
 .settings-profilepic{
-  padding: 1%;
+  /* padding: 1%; */
   margin: 2.5%;
 }
 .settings-row{
@@ -28,4 +29,8 @@
 .settings-account{
   padding-left: 3%;
   padding-top: 3%;
+}
+.profile-input{
+  background:#232623;
+  /* border-radius: 100%; */
 }

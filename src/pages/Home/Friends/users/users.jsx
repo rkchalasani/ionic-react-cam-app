@@ -21,9 +21,9 @@ const Users = (props) => {
   };
   const likesRef = doc(db, "users", id);
   const handleFollow = () => {
-    if (follow?.includes(auth.currentUser.displayName)) {
+    if (follow?.includes(auth.currentUser.email)) {
       updateDoc(likesRef, {
-        follow: arrayRemove(auth.currentUser.displayName),
+        follow: arrayRemove(auth.currentUser.email),
       })
         .then(() => {
           console.log("unfollowed");
@@ -33,7 +33,7 @@ const Users = (props) => {
         });
     } else {
       updateDoc(likesRef, {
-        follow: arrayUnion(auth.currentUser.displayName),
+        follow: arrayUnion(auth.currentUser.email),
       })
         .then(() => {
           console.log("followed");
@@ -86,9 +86,9 @@ const Users = (props) => {
             <IonLabel>{follow?.length} Followers</IonLabel>
           </IonRow>
           <IonRow style={{ display: "flex", justifyContent: "center" }}>
-            {follow?.includes(auth.currentUser.displayName) ? (
+            {follow?.includes(auth.currentUser.email) ? (
               <IonButton
-                color="light ion-text-capitalize"
+                color="lightblack ion-text-capitalize"
                 style={{ width: 60, fontSize: "10px", height: 27 }}
                 onClick={handleFollow}
               >

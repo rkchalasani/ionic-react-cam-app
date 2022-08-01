@@ -132,9 +132,9 @@ const Post = (props) => {
   const likesRef = doc(db, "posts", id);
 
   const handleLike = () => {
-    if (likes?.includes(auth.currentUser.displayName)) {
+    if (likes?.includes(auth.currentUser.email)) {
       updateDoc(likesRef, {
-        likes: arrayRemove(auth.currentUser.displayName),
+        likes: arrayRemove(auth.currentUser.email),
       })
         .then(() => {})
         .catch((e) => {
@@ -142,7 +142,7 @@ const Post = (props) => {
         });
     } else {
       updateDoc(likesRef, {
-        likes: arrayUnion(auth.currentUser.displayName),
+        likes: arrayUnion(auth.currentUser.email),
       })
         .then(() => {})
         .catch((e) => {
@@ -159,7 +159,6 @@ const Post = (props) => {
     });
   };
   const router = useIonRouter();
-  // const uid = post.currentUser.uid;
   const openFullPost = () => {
     router.push(`/FullPost/${id}`);
   };
@@ -221,7 +220,7 @@ const Post = (props) => {
         )}
 
         <IonRow className="like-btn-row">
-          {likes?.includes(auth.currentUser.displayName) ? (
+          {likes?.includes(auth.currentUser.email) ? (
             <IonIcon
               className="like-btn"
               color="danger"

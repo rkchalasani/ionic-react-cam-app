@@ -2,16 +2,21 @@ import "./FullPost.css";
 import {
   IonAvatar,
   IonButton,
+  IonButtons,
   IonCard,
   IonCol,
   IonContent,
+  IonFooter,
+  IonGrid,
   IonHeader,
   IonIcon,
   IonImg,
   IonInput,
   IonLabel,
+  IonModal,
   IonPage,
   IonRow,
+  IonTitle,
   IonToolbar,
   useIonAlert,
   useIonRouter,
@@ -33,7 +38,7 @@ import {
 import { useParams } from "react-router";
 import { UserAuth } from "../../../../../context/AuthContext";
 import { auth, db } from "../../../../../firebase";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   addDoc,
   arrayRemove,
@@ -45,8 +50,10 @@ import {
   query,
   updateDoc,
 } from "firebase/firestore";
+import axios from "axios";
 import { Share } from "@capacitor/share";
 import Moment from "react-moment";
+import Posts from "../post";
 
 const FullPost = (props) => {
   const { posts } = UserAuth();
@@ -137,10 +144,10 @@ const FullPost = (props) => {
   }, []);
 
   const likesRef = doc(db, "posts", id);
-      const handleLike = () => {
-    if (usersData.likes?.includes(auth.currentUser.displayName)) {
+  const handleLike = () => {
+    if (usersData.likes?.includes(auth.currentUser.email)) {
       updateDoc(likesRef, {
-        likes: arrayRemove(auth.currentUser.displayName),
+        likes: arrayRemove(auth.currentUser.email),
       })
         .then(() => {
           console.log("unliked");
@@ -150,7 +157,7 @@ const FullPost = (props) => {
         });
     } else {
       updateDoc(likesRef, {
-        likes: arrayUnion(auth.currentUser.displayName),
+        likes: arrayUnion(auth.currentUser.email),
       })
         .then(() => {
           console.log("liked");
@@ -168,9 +175,24 @@ const FullPost = (props) => {
       url: "https://play.google.com/store/apps/details?id=com.chatify.app",
     });
   };
-  const openFullPost = () => {
-    router.push(`/FullPost/${id}`);
+  const modal = useRef(null);
+  const downloadFile = () => {
+    console.log("downloading");
+    axios({
+      url: usersData.img,
+      headers: { "Access-Control-Allow-Origin": "*" },
+      method: "GET",
+      responseType: "blob",
+    }).then((response) => {
+      const url = window.URL.createObjectURL(new Blob([response.data])); //init the url
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download");
+      document.body.appendChild(link);
+      link.click();
+    });
   };
+
   const hideTabs = () => {
     const tabsEl = document.querySelector("ion-tab-bar");
     if (tabsEl) {
@@ -185,7 +207,11 @@ const FullPost = (props) => {
         <IonHeader>
           <IonToolbar color="black">
             <IonRow className="search-row" style={{ paddingLeft: "17px" }}>
-              <IonIcon icon={arrowBack} onClick={goToUsers}></IonIcon>
+              <IonIcon
+                icon={arrowBack}
+                style={{ width: 30, height: 30 }}
+                onClick={goToUsers}
+              ></IonIcon>
               <IonCol className="friends-col" style={{ paddingLeft: "15px" }}>
                 <IonImg
                   src="assets/images/snapshare.png"
@@ -236,15 +262,36 @@ const FullPost = (props) => {
               <></>
             )}
             {usersData.img ? (
-              <IonAvatar onClick={openFullPost} className="fullpost-avatar">
+              <IonAvatar id="open-modal" className="fullpost-avatar">
                 <IonImg src={usersData.img}></IonImg>
               </IonAvatar>
             ) : (
               <IonImg src={usersData.img}></IonImg>
             )}
-
+            <IonModal className="modal" ref={modal} trigger="open-modal">
+              <IonContent color="black" className="modal-content">
+                <IonToolbar color="black" style={{ padding: "2%" }}>
+                  <IonButtons slot="start">
+                    <IonButton onClick={() => modal.current?.dismiss()}>
+                      <IonIcon
+                        style={{ width: 30, height: 30 }}
+                        icon={arrowBack}
+                      ></IonIcon>
+                    </IonButton>
+                  </IonButtons>
+                  <IonButtons onClick={downloadFile} slot="end">
+                    <IonButton className="ion-text-capitalize" strong={true}>
+                      Save
+                    </IonButton>
+                  </IonButtons>
+                </IonToolbar>
+                <IonGrid className="modal-grid">
+                  <IonImg className="modal-img" src={usersData.img}></IonImg>
+                </IonGrid>
+              </IonContent>
+            </IonModal>
             <IonRow className="like-btn-row">
-              {usersData.likes?.includes(auth.currentUser.displayName) ? (
+              {usersData.likes?.includes(auth.currentUser.email) ? (
                 <IonIcon
                   className="like-btn"
                   color="danger"
@@ -395,10 +442,37 @@ const FullPost = (props) => {
                   <IonIcon color="smoke" icon={trash}></IonIcon>
                 </IonButton>
               ) : (
-                <IonRow></IonRow>
+                <></>
               )}
             </IonRow>
           </IonCard>
+          <IonRow style={{padding:"4%", display:"flex", justifyContent:"center",fontSize:"20px"}}>
+            <IonLabel color='smoke'>
+              Explore More From {usersData.name}
+            </IonLabel>
+          </IonRow>
+          {posts.map((currentUser) => {
+                return (
+                  <>
+                    {currentUser.email === usersData.email ? (
+                      <Posts
+                        key={currentUser.id}
+                        uid={currentUser.uid}
+                        id={currentUser.id}
+                        avatar={currentUser.avatar}
+                        name={currentUser.name}
+                        email={currentUser.email}
+                        img={currentUser.img}
+                        caption={currentUser.caption}
+                        createdAt={currentUser.createdAt}
+                        likes={currentUser.likes}
+                      />
+                    ) : (
+                      <></>
+                    )}
+                  </>
+                );
+              })}
         </IonContent>
       </IonPage>
     </>

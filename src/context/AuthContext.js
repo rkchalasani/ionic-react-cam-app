@@ -7,10 +7,7 @@ import {
   signInWithPopup,
   onAuthStateChanged,
 } from "firebase/auth";
-import {
-  FacebookAuthProvider,
-  GithubAuthProvider,
-} from "firebase/auth";
+import { FacebookAuthProvider, GithubAuthProvider } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { doc, setDoc, Timestamp } from "firebase/firestore";
 
@@ -45,6 +42,8 @@ export const AuthContextProvider = ({ children }) => {
       uid: auth.currentUser.uid,
       name: name,
       email: email,
+      phone: "",
+      bio: "",
       createdAt: Timestamp.fromDate(new Date()),
     });
   };
@@ -54,18 +53,20 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      // console.log(currentUser);
     });
     return () => {
       unsubscribe();
     };
   }, []);
+  const [users, setUsers] = useState();
 
   return (
     <UserContext.Provider
       value={{
         createUser,
         user,
+        users,
+        setUsers,
         logout,
         signIn,
         googleSignIn,
@@ -79,7 +80,7 @@ export const AuthContextProvider = ({ children }) => {
         userPosts,
         mypost,
         setUserPosts,
-        setMyPost
+        setMyPost,
       }}
     >
       {children}

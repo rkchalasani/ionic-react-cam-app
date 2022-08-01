@@ -17,7 +17,7 @@ import {
 import { arrowBack } from "ionicons/icons";
 import { useParams } from "react-router";
 import { UserAuth } from "../../../../context/AuthContext";
-import { auth, db } from "../../../../firebase";
+import { db } from "../../../../firebase";
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 

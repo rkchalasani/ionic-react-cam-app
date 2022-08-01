@@ -25,16 +25,24 @@ import {
   IonLabel,
   IonPage,
   IonRow,
+  IonSegment,
+  IonSegmentButton,
   IonToolbar,
   useIonLoading,
+  useIonViewWillEnter,
 } from "@ionic/react";
 import {
   bookmarksOutline,
   checkmarkCircleOutline,
   cloudUpload,
+  grid,
+  gridOutline,
   heartOutline,
+  image,
+  imageOutline,
 } from "ionicons/icons";
 import { UserAuth } from "../../../context/AuthContext";
+import Posts from "../Feed/post/post";
 
 const Profilepage = () => {
   const [file, setFile] = useState("");
@@ -96,12 +104,6 @@ const Profilepage = () => {
       await updateDoc(doc(db, "users", auth.currentUser.uid), {
         photoURL: data.img,
       });
-      // if (auth.currentUser.email === email) {
-      //   await updateDoc(collection(db, "posts"), {
-      //     avatar: data.img,
-      //   });
-      // }
-
       await updateProfile(auth.currentUser, {
         photoURL: data.img,
       }).catch((e) => {
@@ -115,12 +117,6 @@ const Profilepage = () => {
   const hiddenFileInput = useRef(null);
   const handleClick = (event) => {
     hiddenFileInput.current.click();
-  };
-  const openLiked = () => {
-    console.log("liked posts");
-  };
-  const openSaved = () => {
-    console.log("saved posts");
   };
   const { mypost, setMyPost } = UserAuth([]);
   useEffect(() => {
@@ -137,7 +133,54 @@ const Profilepage = () => {
     };
     getUsers();
   }, []);
+  const { posts, setPosts } = UserAuth();
+  useEffect(() => {
+    const getUsers = async () => {
+      const postCollection = collection(db, "posts");
+      const q = query(postCollection, orderBy("createdAt", "desc"));
+      onSnapshot(q, (querySnapshot) => {
+        let posts = [];
+        querySnapshot.forEach((doc) => {
+          posts.push({ ...doc.data(), id: doc.id });
+        });
+        setPosts(posts);
+      });
+    };
+    getUsers();
+  }, []);
+  const [isPost, setIsPost] = useState(true);
+  const postsGrid = () => {
+    setIsPost(true);
+  };
+  const allPosts = () => {
+    setIsPost(false);
+  };
+  const [username, setUsername] = useState();
+  const [phoneNum, setPhoneNum] = useState();
+  const [bio, setBio] = useState();
+  const [profile, setProfile] = useState();
+  useEffect(() => {
+    const getUsers = async () => {
+      const docRef = doc(db, "users", auth.currentUser.uid);
+      onSnapshot(docRef, (docSnap) => {
+        // console.log(docSnap.data());
 
+        setUsername(docSnap.data().name);
+        setPhoneNum(docSnap.data().phone);
+        setBio(docSnap.data().bio);
+        setProfile(docSnap.data());
+      });
+      // setUsers;
+    };
+    getUsers();
+  }, []);
+  const hideTabs = () => {
+    const tabsEl = document.querySelector("ion-tab-bar");
+    if (tabsEl) {
+      tabsEl.hidden = false;
+    }
+  };
+  useIonViewWillEnter(() => hideTabs());
   return (
     <IonPage>
       <IonHeader>
@@ -152,16 +195,24 @@ const Profilepage = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="profile-content">
-        <IonRow className="pro-row">
-          <IonAvatar className="avatar-img shadow-drop-2-center">
-            <IonImg
-              src={
-                auth.currentUser.photoURL
-                  ? auth.currentUser.photoURL
-                  : "https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png"
-              }
-            ></IonImg>
-          </IonAvatar>
+        <IonGrid>
+          <IonRow
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <IonAvatar className="profile-profilepic shadow-drop-2-center">
+              <IonImg
+                src={
+                  auth.currentUser.photoURL
+                    ? auth.currentUser.photoURL
+                    : "https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png"
+                }
+              ></IonImg>
+            </IonAvatar>
+          </IonRow>
           <IonRow className="backbtn">
             {file ? (
               <>
@@ -191,58 +242,146 @@ const Profilepage = () => {
                   icon={cloudUpload}
                 ></IonIcon>
                 <IonLabel color="smoke ion-text-capitalize">
-                  new picture
+                  new profile picture
                 </IonLabel>
               </IonButton>
             )}
           </IonRow>
-        </IonRow>
 
-        <IonRow className="name-col">
-          <IonLabel color="smoke">{auth.currentUser.email}</IonLabel>
-          <IonLabel color="smoke">
-            {/* {usersData.follow?.length} Followers */}
-          </IonLabel>
-        </IonRow>
-        <IonCard color="black">
-          <IonRow style={{ padding: "4%", fontSize: "20px" }}>
-            <IonLabel color="smoke">My Posts</IonLabel>
-          </IonRow>
+          {/* {profile && (
+            <IonRow style={{ padding: "4% 0% 0 4%", fontSize: "15px" }}>
+              <IonLabel color="smoke">
+                {profile.follow?.length} Followers
+              </IonLabel>
+            </IonRow>
+          )} */}
+          <IonRow
+            style={{ marginTop: "2%", background: "#191917", padding: " 2%" }}
+          >
+            <IonRow
+              style={{
+                alignItems: "center",
+                width: "100%",
+                paddingBottom: "20px",
+                paddingTop: "5px",
+              }}
+              className="settings-profile-details"
+            >
+              <IonLabel
+                color="smoke"
+                style={{ fontSize: "20px", paddingBottom: "4px" }}
+              >
+                {auth.currentUser.displayName}
+                {/* {profile.name} */}
+              </IonLabel>
+              <IonLabel color="smoke" style={{ fontSize: "20px" }}>
+                {auth.currentUser.email}
+              </IonLabel>
+            </IonRow>
+            <IonCol className="profile-col">
+              <IonRow>
+                <IonLabel color="smoke">{posts?.length}</IonLabel>
+              </IonRow>
+              <IonRow>
+                <IonLabel color="smoke">Posts</IonLabel>
+              </IonRow>
+            </IonCol>
+            <IonCol className="profile-col">
+              {" "}
+              {profile && (
+                <IonRow>
+                  <IonLabel color="smoke">{profile.follow?.length}</IonLabel>
+                </IonRow>
+              )}
+              <IonRow>
+                <IonLabel color="smoke">Followers</IonLabel>
+              </IonRow>
+            </IonCol>
 
-          <IonRow className="email-row1">
-            {mypost.map((currentUser) => {
-              return (
-                <>
-                  {auth.currentUser.email === currentUser.email ? (
-                    <>
-                      {currentUser.img ? (
-                        <IonAvatar
-                          style={{ width: "29vw", height: "15vh" }}
-                          className="my-posts-avatar"
-                        >
-                          <IonImg src={currentUser.img}></IonImg>
-                        </IonAvatar>
-                      ) : (
-                        <></>
-                      )}
-                    </>
-                  ) : (
-                    <></>
-                  )}
-                </>
-              );
-            })}
+            <IonCol className="profile-col">
+              {" "}
+              <IonRow>
+                <IonLabel color="smoke">0</IonLabel>
+              </IonRow>
+              <IonRow>
+                <IonLabel color="smoke">Following</IonLabel>
+              </IonRow>
+            </IonCol>
+            {profile && (
+              <IonRow style={{ padding: "4% 4%", fontSize: "15px" }}>
+                <IonLabel color="smoke">{profile.bio}</IonLabel>
+              </IonRow>
+            )}
           </IonRow>
+        </IonGrid>
+        <IonCard style={{ margin: "0px" }} color="black">
+          <IonRow>
+            <IonSegment>
+              <IonSegmentButton onClick={postsGrid} value="friends">
+                <IonIcon color="smoke" icon={gridOutline}></IonIcon>
+              </IonSegmentButton>
+              <IonSegmentButton
+                color="smoke"
+                onClick={allPosts}
+                value="enemies"
+              >
+                <IonIcon color="smoke" icon={imageOutline}></IonIcon>
+              </IonSegmentButton>
+            </IonSegment>
+          </IonRow>
+          {isPost ? (
+            <IonRow className="email-row1">
+              {mypost.map((currentUser) => {
+                return (
+                  <>
+                    {auth.currentUser.email === currentUser.email ? (
+                      <>
+                        {currentUser.img ? (
+                          <IonAvatar
+                            style={{ width: "29vw", height: "15vh" }}
+                            className="my-posts-avatar"
+                          >
+                            <IonImg src={currentUser.img}></IonImg>
+                          </IonAvatar>
+                        ) : (
+                          <></>
+                        )}
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </>
+                );
+              })}
+            </IonRow>
+          ) : (
+            <IonRow>
+              {posts.map((currentUser) => {
+                return (
+                  <>
+                    {auth.currentUser.email === currentUser.email ? (
+                      <Posts
+                        key={currentUser.id}
+                        uid={currentUser.uid}
+                        id={currentUser.id}
+                        avatar={currentUser.avatar}
+                        name={currentUser.name}
+                        email={currentUser.email}
+                        img={currentUser.img}
+                        caption={currentUser.caption}
+                        createdAt={currentUser.createdAt}
+                        likes={currentUser.likes}
+                      />
+                    ) : (
+                      <></>
+                    )}
+                  </>
+                );
+              })}
+            </IonRow>
+          )}
         </IonCard>
-        <IonGrid className="grid">
-          <IonRow onClick={openLiked} className="likedposts-row">
-            <IonIcon color="light" icon={heartOutline}></IonIcon>
-            <IonLabel color="smoke">Liked Posts</IonLabel>
-          </IonRow>
-          <IonRow onClick={openSaved} className="savedposts-row">
-            <IonIcon color="light" icon={bookmarksOutline}></IonIcon>
-            <IonLabel color="smoke">Saved Posts</IonLabel>
-          </IonRow>
+        {/* <IonGrid className="grid"> */}
           <IonRow className="formInput">
             <input
               className="form-control"
@@ -253,7 +392,7 @@ const Profilepage = () => {
               onChange={(e) => setFile(e.target.files[0])}
             />
           </IonRow>
-        </IonGrid>
+        {/* </IonGrid> */}
       </IonContent>
     </IonPage>
   );

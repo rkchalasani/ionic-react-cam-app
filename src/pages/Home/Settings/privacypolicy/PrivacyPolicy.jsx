@@ -3,6 +3,7 @@ import {
   IonContent,
   IonHeader,
   IonIcon,
+  IonImg,
   IonLabel,
   IonPage,
   IonRow,
@@ -10,7 +11,11 @@ import {
   useIonRouter,
   useIonViewWillEnter,
 } from "@ionic/react";
+import { doc, getDoc } from "firebase/firestore";
 import { arrowBack } from "ionicons/icons";
+import { useEffect } from "react";
+import { UserAuth } from "../../../../context/AuthContext";
+import { auth, db } from "../../../../firebase";
 
 const PrivacyPolicy = () => {
   const router = useIonRouter();
@@ -27,14 +32,19 @@ const PrivacyPolicy = () => {
   return (
     <>
       <IonPage>
-        <IonHeader>
-          <IonToolbar>
-            <IonButton onClick={goBack} fill="clear">
-              <IonIcon icon={arrowBack} color="smoke"></IonIcon>
-            </IonButton>
+        <IonHeader color="black">
+          <IonToolbar color="black">
+            <IonRow>
+              <IonButton onClick={goBack} fill="clear">
+                <IonIcon icon={arrowBack} color="smoke"></IonIcon>
+              </IonButton>
+              <IonImg src="assets/images/snapshare.png" style={{ width: 150 }}>
+                {" "}
+              </IonImg>
+            </IonRow>
           </IonToolbar>
         </IonHeader>
-        <IonContent>
+        <IonContent color="lightblack">
           <IonRow>
             <IonLabel
               style={{

@@ -34,9 +34,7 @@
   --border-radius: 15%;
   height: 250px;
   margin-top: 7%;
-  
 }
-
 .flex-row-value {
   display: flex;
   justify-content: center;
@@ -121,12 +119,9 @@
   display: flex;
 }
 .name-col {
-  padding-left: 10%;
-  padding-right: 10%;
   line-height: 40px;
   font-size: 1.3rem;
   display: flex;
-  flex-direction: column;
   justify-content: center;
 }
 .img-avatar1 {
@@ -137,8 +132,7 @@
   margin-left: 4%;
 }
 .backbtn {
-  padding-top: 3%;
-  padding-bottom: 5%;
+  padding: 1%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -146,4 +140,15 @@
 .my-posts-avatar {
   --border-radius: 3%;
   margin: 1%;
+}
+.profile-profilepic {
+  margin: 3% ;
+  width: 250px;
+  height: 250px;
+  --border-radius: 20%;
+}
+.profile-col{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
