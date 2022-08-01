@@ -34,7 +34,7 @@ const GetStarted = () => {
               className="getstarted-btn"
               routerLink="/login"
             >
-              Get Started
+              Get Started  
             </IonButton>
           </IonRow>
         </IonGrid>
