@@ -168,7 +168,7 @@ const Post = (props) => {
   };
   return (
     <>
-      <IonCard className="feed-grid" key={id}>
+      <IonCard className="feed-grid">
         <IonRow
           onClick={() => {
             openUserProfile(id);

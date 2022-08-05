@@ -181,6 +181,8 @@ const Profilepage = () => {
     }
   };
   useIonViewWillEnter(() => hideTabs());
+  const {user} = UserAuth()
+  
   return (
     <IonPage>
       <IonHeader>
@@ -206,8 +208,8 @@ const Profilepage = () => {
             <IonAvatar className="profile-profilepic shadow-drop-2-center">
               <IonImg
                 src={
-                  auth.currentUser.photoURL
-                    ? auth.currentUser.photoURL
+                  user.photoURL
+                    ? user.photoURL
                     : "https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png"
                 }
               ></IonImg>
@@ -271,11 +273,11 @@ const Profilepage = () => {
                 color="smoke"
                 style={{ fontSize: "20px", paddingBottom: "4px" }}
               >
-                {auth.currentUser.displayName}
+                {user.displayName}
                 {/* {profile.name} */}
               </IonLabel>
               <IonLabel color="smoke" style={{ fontSize: "20px" }}>
-                {auth.currentUser.email}
+                {user.email}
               </IonLabel>
             </IonRow>
             <IonCol className="profile-col">
@@ -334,7 +336,7 @@ const Profilepage = () => {
               {mypost.map((currentUser) => {
                 return (
                   <>
-                    {auth.currentUser.email === currentUser.email ? (
+                    {user.email === currentUser.email ? (
                       <>
                         {currentUser.img ? (
                           <IonAvatar

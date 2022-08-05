@@ -18,6 +18,7 @@ import {
   useIonViewWillEnter,
 } from "@ionic/react";
 import { cloudUpload } from "ionicons/icons";
+import { UserAuth } from "../../../../context/AuthContext";
 const NewPost = () => {
   const [caption, setCaption] = useState("");
   const [file, setFile] = useState("");
@@ -71,6 +72,7 @@ const NewPost = () => {
     file && uploadFile();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file]);
+  const {user} = UserAuth()
   const handleAdd = async (e, id) => {
     e.preventDefault();
     try {
@@ -116,7 +118,7 @@ const NewPost = () => {
             className="newpost-avatar"
             style={{ width: 50, height: 50 }}
           >
-            <IonImg src={auth.currentUser.photoURL}></IonImg>
+            <IonImg src={user.photoURL}></IonImg>
           </IonAvatar>
           <input
             type="file"

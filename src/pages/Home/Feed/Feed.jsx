@@ -80,6 +80,7 @@ const Feed = () => {
     getUsers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const { user } = UserAuth();
   return (
     <IonPage>
       <IonHeader>
@@ -99,8 +100,8 @@ const Feed = () => {
                 <IonImg
                   onClick={openProfile}
                   src={
-                    auth.currentUser.photoURL
-                      ? auth.currentUser.photoURL
+                    user.photoURL
+                      ? user.photoURL
                       : "https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png"
                   }
                 ></IonImg>

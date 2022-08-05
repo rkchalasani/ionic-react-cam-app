@@ -59,10 +59,12 @@ const Settings = () => {
       icon: alert,
     });
   }
+  const { setIsLogged } = UserAuth();
   const handleLogout = () => {
     try {
       handleLoading("Logging Out..");
       logout();
+      setIsLogged(false);
       setTimeout(() => {
         handleButtonClick("Logout Successfull");
         window.location.reload();
