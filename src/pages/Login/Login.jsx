@@ -67,6 +67,7 @@ const Login = () => {
     } else {
       try {
         await signIn(email, password);
+        localStorage.setItem("email", email);
         show({
           message: "Logging in..",
           duration: 1500,
@@ -100,10 +101,7 @@ const Login = () => {
       <IonContent fullscreen className="login-main-div">
         <IonGrid className="main-grid">
           <IonRow>
-            <IonImg
-              className="chatifylogo"
-              src="assets/images/snapshare.png"
-            >
+            <IonImg className="chatifylogo" src="assets/images/snapshare.png">
               {" "}
             </IonImg>
           </IonRow>
@@ -135,7 +133,7 @@ const Login = () => {
             <IonButton
               onClick={handleClick}
               color="smoke"
-              style={{width:120}}
+              style={{ width: 120 }}
               // className="loginbutton"
             >
               Login

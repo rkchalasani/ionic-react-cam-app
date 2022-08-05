@@ -1,5 +1,6 @@
 import {
   IonAvatar,
+  IonButton,
   IonCol,
   IonContent,
   IonHeader,
@@ -79,7 +80,6 @@ const Feed = () => {
     getUsers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <IonPage>
       <IonHeader>

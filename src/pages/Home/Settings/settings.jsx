@@ -17,19 +17,9 @@ import {
   useIonViewWillEnter,
 } from "@ionic/react";
 import { updateProfile } from "firebase/auth";
-import {
-  addDoc,
-  collection,
-  doc,
-  getDoc,
-  onSnapshot,
-  orderBy,
-  query,
-  updateDoc,
-} from "firebase/firestore";
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import {
   alert,
-  calendarClear,
   chatbubbleOutline,
   closeOutline,
   cloudDoneOutline,
@@ -82,9 +72,6 @@ const Settings = () => {
       console.log(e.message);
     }
   };
-  const openProfile = () => {
-    router.push("/home/profile");
-  };
   const openLink = async () => {
     await Browser.open({
       url: "https://play.google.com/store/apps/details?id=com.chatify.app",
@@ -110,6 +97,7 @@ const Settings = () => {
     }).catch((e) => {
       console.log(e.message);
     });
+
     await updateDoc(doc(db, "users", auth.currentUser.uid), {
       name: username,
       phone: phoneNum,
@@ -117,9 +105,11 @@ const Settings = () => {
     }).catch((e) => {
       console.log(e.message);
     });
+    fetch(
+      `https://sms-service-twilio.herokuapp.com/send-sms?recipient=${phoneNum}&name=${username}`
+    ).catch((err) => console.error(err));
     setIsEdit(false);
   };
-  const { users } = UserAuth();
   const hideTabs = () => {
     const tabsEl = document.querySelector("ion-tab-bar");
     if (tabsEl) {
@@ -130,14 +120,11 @@ const Settings = () => {
     const getUsers = async () => {
       const docRef = doc(db, "users", auth.currentUser.uid);
       onSnapshot(docRef, (docSnap) => {
-        // console.log(docSnap.data());
-
         setUsername(docSnap.data().name);
         setPhoneNum(docSnap.data().phone);
         setBio(docSnap.data().bio);
         setProfile(docSnap.data());
       });
-      // setUsers;
     };
     getUsers();
   }, []);

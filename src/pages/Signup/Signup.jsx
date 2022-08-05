@@ -101,7 +101,6 @@ const Signup = () => {
         await createUser(email, password);
         show({
           message: "Registering user..",
-          // duration: 1500,
           spinner: "lines-sharp",
           mode: "ios",
         });
