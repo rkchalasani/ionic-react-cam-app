@@ -18,6 +18,7 @@ export const AuthContextProvider = ({ children }) => {
   const [mypost, setMyPost] = useState([]);
   const [friends, setFriends] = useState([]);
   const [posts, setPosts] = useState([]);
+  const [isLogged, setIsLogged] = useState([]);
 
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -53,6 +54,11 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      if (currentUser) {
+        setIsLogged(true);
+      } else {
+        setIsLogged(false);
+      }
     });
     return () => {
       unsubscribe();
@@ -67,6 +73,8 @@ export const AuthContextProvider = ({ children }) => {
         user,
         users,
         setUsers,
+        isLogged,
+        setIsLogged,
         logout,
         signIn,
         googleSignIn,

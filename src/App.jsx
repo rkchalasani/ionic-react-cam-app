@@ -60,6 +60,7 @@ setupIonicReact();
 const App = () => {
   const [updateDetails, setUpdateDetails] = useState({});
   const [appVersion, setAppVersion] = useState("");
+  const { isLogged } = UserAuth();
   const [show, dismiss] = useIonLoading();
   const updateRef = doc(db, "chatify_by_PTG", "dtvG3X4CjLV7CXMIRPES");
   const [presentAlert] = useIonAlert();
@@ -218,9 +219,18 @@ const App = () => {
           <Route path="/home/profile">
             <Profilepage />
           </Route>
-          <Route exact path="/">
+          {isLogged ? (
+            <Route exact path="/">
+              <Redirect to="/home" />
+            </Route>
+          ) : (
+            <Route exact path="/">
+              <Redirect to="/getstarted" />
+            </Route>
+          )}
+          {/* <Route exact path="/">
             <Redirect to="/getstarted" />
-          </Route>
+          </Route> */}
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
