@@ -32,13 +32,9 @@ import {
   useIonViewWillEnter,
 } from "@ionic/react";
 import {
-  bookmarksOutline,
   checkmarkCircleOutline,
   cloudUpload,
-  grid,
   gridOutline,
-  heartOutline,
-  image,
   imageOutline,
 } from "ionicons/icons";
 import { UserAuth } from "../../../context/AuthContext";
@@ -132,7 +128,7 @@ const Profilepage = () => {
       });
     };
     getUsers();
-  }, []);
+  }, [setMyPost]);
   const { posts, setPosts } = UserAuth();
   useEffect(() => {
     const getUsers = async () => {
@@ -147,7 +143,7 @@ const Profilepage = () => {
       });
     };
     getUsers();
-  }, []);
+  }, [setPosts]);
   const [isPost, setIsPost] = useState(true);
   const postsGrid = () => {
     setIsPost(true);
@@ -155,25 +151,22 @@ const Profilepage = () => {
   const allPosts = () => {
     setIsPost(false);
   };
-  const [username, setUsername] = useState();
-  const [phoneNum, setPhoneNum] = useState();
-  const [bio, setBio] = useState();
+  const [setUsername] = useState();
+  const [setPhoneNum] = useState();
+  const [setBio] = useState();
   const [profile, setProfile] = useState();
   useEffect(() => {
     const getUsers = async () => {
       const docRef = doc(db, "users", auth.currentUser.uid);
       onSnapshot(docRef, (docSnap) => {
-        // console.log(docSnap.data());
-
         setUsername(docSnap.data().name);
         setPhoneNum(docSnap.data().phone);
         setBio(docSnap.data().bio);
         setProfile(docSnap.data());
       });
-      // setUsers;
     };
     getUsers();
-  }, []);
+  }, [setBio, setPhoneNum, setUsername]);
   const hideTabs = () => {
     const tabsEl = document.querySelector("ion-tab-bar");
     if (tabsEl) {
@@ -181,8 +174,8 @@ const Profilepage = () => {
     }
   };
   useIonViewWillEnter(() => hideTabs());
-  const {user} = UserAuth()
-  
+  const { user } = UserAuth();
+
   return (
     <IonPage>
       <IonHeader>
@@ -384,16 +377,16 @@ const Profilepage = () => {
           )}
         </IonCard>
         {/* <IonGrid className="grid"> */}
-          <IonRow className="formInput">
-            <input
-              className="form-control"
-              type="file"
-              id="file"
-              ref={hiddenFileInput}
-              style={{ display: "none" }}
-              onChange={(e) => setFile(e.target.files[0])}
-            />
-          </IonRow>
+        <IonRow className="formInput">
+          <input
+            className="form-control"
+            type="file"
+            id="file"
+            ref={hiddenFileInput}
+            style={{ display: "none" }}
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+        </IonRow>
         {/* </IonGrid> */}
       </IonContent>
     </IonPage>

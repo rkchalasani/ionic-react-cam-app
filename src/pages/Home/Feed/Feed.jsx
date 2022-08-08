@@ -14,8 +14,8 @@ import {
 import Newpost from "./NewPost/newpost";
 import "./Feed.css";
 import Posts from "./post/post";
-import { auth, db } from "../../../firebase";
-import { useEffect, useState } from "react";
+import { db } from "../../../firebase";
+import { useEffect } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { UserAuth } from "../../../context/AuthContext";
 
@@ -46,7 +46,7 @@ const Feed = () => {
       });
     };
     getUsers();
-  }, []);
+  }, [setPosts]);
   const { setMyPost } = UserAuth();
   useEffect(() => {
     const getUsers = async () => {
@@ -112,6 +112,7 @@ const Feed = () => {
       </IonHeader>
       <IonContent className="feed-content" fullscreen>
         <Newpost />
+
         {posts.map((currentUser) => {
           return (
             <Posts

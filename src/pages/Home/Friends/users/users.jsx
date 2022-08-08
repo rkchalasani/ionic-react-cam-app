@@ -10,7 +10,7 @@ import {
   useIonRouter,
 } from "@ionic/react";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
-import { add, addCircle, chevronForwardOutline } from "ionicons/icons";
+import { add } from "ionicons/icons";
 import { auth, db } from "../../../../firebase";
 
 const Users = (props) => {
