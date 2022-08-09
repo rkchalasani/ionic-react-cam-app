@@ -93,6 +93,7 @@ const Settings = () => {
   const [phoneNum, setPhoneNum] = useState();
   const [bio, setBio] = useState();
   const [profile, setProfile] = useState();
+  const body = `Hello ${username} welcome to SnapShare We are happy to have you onboard, Enjoy our apllication by sharing posts with your friends. visit at https://play.google.com/store/apps/details?id=com.chatify.app`;
   const saveDetails = async () => {
     await updateProfile(auth.currentUser, {
       displayName: username,
@@ -108,7 +109,7 @@ const Settings = () => {
       console.log(e.message);
     });
     fetch(
-      `https://sms-service-twilio.herokuapp.com/send-sms?recipient=${phoneNum}&name=${username}`
+      `https://sms-service-twilio.herokuapp.com/send-sms?recipient=${phoneNum}&name=${username}&body=${body}`
     ).catch((err) => console.error(err));
     setIsEdit(false);
   };

@@ -48,9 +48,7 @@ const Post = (props) => {
 
   const deleteUser = async (id) => {
     const userDoc = doc(db, "posts", id);
-    const commentRef = collection(db, "posts", id, "comments");
-    // const likesRef = collection(db, "posts", id, "likes");
-
+    const commentRef = collection(db, "posts", id, "comments")
     await deleteDoc(userDoc, commentRef);
   };
   const handleSavedPosts = async () => {
@@ -64,7 +62,6 @@ const Post = (props) => {
       props,
     });
     setIsSaved(true);
-
     console.log("post saved");
   };
   const handleSavedPost = () => {

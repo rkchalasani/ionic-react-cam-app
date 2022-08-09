@@ -57,7 +57,6 @@ const Signup = () => {
   };
   const [presentAlert] = useIonAlert();
   const { logout, addData } = UserAuth();
-
   const [password, setPassword] = useState("");
   const { createUser } = UserAuth();
   const router = useIonRouter();

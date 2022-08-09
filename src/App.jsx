@@ -227,9 +227,6 @@ const App = () => {
               <Redirect to="/getstarted" />
             </Route>
           )}
-          {/* <Route exact path="/">
-            <Redirect to="/getstarted" />
-          </Route> */}
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
