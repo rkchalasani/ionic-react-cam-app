@@ -1,9 +1,14 @@
 .feed-content {
-  --background: linear-gradient(#24383f, #24383f);
+  --background: linear-gradient(#4d4d4d,#4d4d4d);
 }
 .feed-grid {
-  background: #132124;
-  margin: 10px;
+  background: #191917;
+  margin: 0px;
+  margin-bottom: 1px;
+  border-radius: 0%;
+}
+.feed-avatar{
+  padding: 4%;
 }
 .menu-icon {
   width: 22px;
@@ -35,10 +40,7 @@
   color: white;
   display: flex;
   justify-content: center;
-  padding-bottom: 2%;
-  padding-left: 4%;
-  padding-top: 4%;
-  padding-right: 4%;
+  padding: 3%;
   align-items: center;
 }
 .username-col {
@@ -46,12 +48,10 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 5%;
+  padding-left: 4%;
 }
 .card-caption {
   color: whitesmoke;
-  font-size: 12px;
-  opacity: 0.8;
 }
 .add-btn {
   width: 40px;
@@ -78,9 +78,10 @@
   padding: 1%;
   align-items: center;
 }
-.col2 {
+.logo {
   display: flex;
   justify-content: flex-start;
+  padding: 0%;
 }
 .col3 {
   display: flex;
@@ -91,8 +92,8 @@
 }
 .img-row {
   position: relative;
-  width: 35px;
-  height: 35px;
+  width: 45px;
+  height: 45px;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -100,10 +101,12 @@
   border-radius: 50%;
 }
 .caption {
-  padding: 4%;
+  padding-bottom: 4%;
+  padding-left: 4%;
+  font-size: 15px;
+  padding-right: 4%;
+  padding-top: 1%;
 }
-/*  */
-
 .new-post-row {
   display: flex;
   padding: 3%;
@@ -136,6 +139,7 @@
 .feed-col1 {
   display: flex;
   justify-content: flex-end;
+  padding: 0%;
   align-items: center;
 }
 .new-icon {
@@ -143,4 +147,8 @@
 }
 .modal-class {
   --background: #132124;
+}
+.card-subtitle {
+  font-weight: bold;
+  padding-bottom: 1.3%;
 }

@@ -7,19 +7,21 @@ import {
   IonPage,
   IonRow,
   IonToolbar,
+  useIonRouter,
   useIonViewWillEnter,
 } from "@ionic/react";
 import Newpost from "./NewPost/newpost";
 import "./Feed.css";
 import Posts from "./post/post";
+import { db } from "../../../firebase";
 import { useEffect } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { auth, db } from "../../../firebase";
+import { UserAuth } from "../../../context/AuthContext";
 
 const Feed = () => {
+  const router = useIonRouter();
   const openProfile = () => {
-    // router.push("/profile");
-    console.log("wait");
+    router.push("/home/profile");
   };
   const hideTabs = () => {
     const tabsEl = document.querySelector("ion-tab-bar");
@@ -29,39 +31,76 @@ const Feed = () => {
   };
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useIonViewWillEnter(() => hideTabs());
+  const { posts, setPosts } = UserAuth();
   useEffect(() => {
     const getUsers = async () => {
-      const postCollection = collection(db, "user");
+      const postCollection = collection(db, "posts");
       const q = query(postCollection, orderBy("createdAt", "desc"));
       onSnapshot(q, (querySnapshot) => {
         let posts = [];
         querySnapshot.forEach((doc) => {
-          posts.push(doc.data());
+          posts.push({ ...doc.data(), id: doc.id });
         });
+        setPosts(posts);
       });
     };
     getUsers();
+  }, [setPosts]);
+  const { setMyPost } = UserAuth();
+  useEffect(() => {
+    const getUsers = async () => {
+      const postCollection = collection(db, "posts");
+      const q = query(postCollection, orderBy("createdAt", "desc"));
+      onSnapshot(q, (querySnapshot) => {
+        let posts = [];
+        querySnapshot.forEach((doc) => {
+          posts.push({ ...doc.data(), id: doc.id });
+        });
+        setMyPost(posts);
+      });
+    };
+    getUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const { setUserPosts } = UserAuth();
 
+  useEffect(() => {
+    const getUsers = async () => {
+      const postCollection = collection(db, "users");
+      const q = query(postCollection, orderBy("createdAt", "asc"));
+      onSnapshot(q, (querySnapshot) => {
+        let posts = [];
+        querySnapshot.forEach((doc) => {
+          posts.push({ ...doc.data(), id: doc.id });
+        });
+        setUserPosts(posts);
+      });
+    };
+    getUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const { user } = UserAuth();
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color="darkgreen">
+        <IonToolbar color="black">
           <IonRow className="search-row1">
-            <IonCol className="col2">
+            <IonCol className="logo">
               <IonImg
-                style={{ height: 53 }}
-                src="assets/images/Chatify-logo.png "
+                style={{ height: 30, paddingLeft: "10px" }}
+                src="assets/images/snapshare.png "
               ></IonImg>
             </IonCol>
             <IonCol className="feed-col1">
-              <IonAvatar className="img-avatar">
+              <IonAvatar
+                style={{ width: 55, height: 55 }}
+                className="feed-avatar"
+              >
                 <IonImg
-                  style={{ width: 40, height: 40 }}
                   onClick={openProfile}
                   src={
-                    auth.currentUser.photoURL
-                      ? auth.currentUser.photoURL
+                    user.photoURL
+                      ? user.photoURL
                       : "https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png"
                   }
                 ></IonImg>
@@ -72,7 +111,23 @@ const Feed = () => {
       </IonHeader>
       <IonContent className="feed-content" fullscreen>
         <Newpost />
-        <Posts />
+
+        {posts.map((currentUser) => {
+          return (
+            <Posts
+              key={currentUser.id}
+              uid={currentUser.uid}
+              id={currentUser.id}
+              avatar={currentUser.avatar}
+              name={currentUser.name}
+              email={currentUser.email}
+              img={currentUser.img}
+              caption={currentUser.caption}
+              createdAt={currentUser.createdAt}
+              likes={currentUser.likes}
+            />
+          );
+        })}
       </IonContent>
     </IonPage>
   );

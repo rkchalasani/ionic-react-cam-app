@@ -1,7 +1,6 @@
 .getstarted-maindiv {
-  --background: linear-gradient(rgb(19, 33, 36, 0.3), rgb(19, 33, 36, 0.3)),
-    url("../../../public/assets/images/Chatify-bg-image.png") no-repeat center/cover
-      fixed;
+  --background: url("../../../public/assets/images/Chatify-bg-image.png")
+    no-repeat center/cover fixed;
   height: 100%;
 }
 .getstarted-btn {
@@ -32,9 +31,8 @@
   flex-direction: column;
   justify-content: center;
   text-align: left;
-  align-items: flex-start;
+  align-items: center;
 }
-
 .out1-row {
   height: 30vh;
   margin-left: -50px;

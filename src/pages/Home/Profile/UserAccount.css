@@ -1,5 +1,5 @@
 .profile-content {
-  --background: #132124;
+  --background: #232623;
 }
 .pro-pic-container {
   display: flex;
@@ -11,9 +11,9 @@
   padding-bottom: 6%;
   padding-left: 6%;
   padding-right: 6%;
-  background: #24383f;
-  border-radius: 30px;
-  margin: 4%;
+  background: #191917;
+  border-radius: 7px;
+  margin: 2%;
 }
 .flex-row-label {
   font-family: "Quicksand";
@@ -24,19 +24,16 @@
 }
 .pro-row {
   display: flex;
+  padding-top: 2%;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 .avatar-img {
   width: 250px;
   --border-radius: 15%;
   height: 250px;
-}
-.backbtn {
-  padding: 5%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: 7%;
 }
 .flex-row-value {
   display: flex;
@@ -109,20 +106,49 @@
   display: flex;
   flex-direction: column;
 }
-.email-row1 {
-  margin-top: 5%;
+.likedposts-row {
+  margin-top: 10%;
   display: flex;
-  flex-direction: column;
+}
+.savedposts-row {
+  margin-top: 10%;
+  display: flex;
+}
+.email-row1 {
+  justify-content: center;
+  display: flex;
 }
 .name-col {
-  padding-left: 10%;
-  padding-right: 10%;
   line-height: 40px;
   font-size: 1.3rem;
   display: flex;
-  flex-direction: column;
   justify-content: center;
 }
 .img-avatar1 {
   --border-radius: 7%;
+}
+.displayname {
+  font-size: 1.5rem;
+  margin-left: 4%;
+}
+.backbtn {
+  padding: 1%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.my-posts-avatar {
+  --border-radius: 3%;
+  margin: 1%;
+}
+.profile-profilepic {
+  margin: 3% ;
+  width: 250px;
+  height: 250px;
+  --border-radius: 20%;
+}
+.profile-col{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

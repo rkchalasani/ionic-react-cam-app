@@ -43,7 +43,7 @@ const Login = () => {
       mode: "md",
       animated: true,
       cssClass: "loginpage-alert",
-      color: "light",
+      color: "smoke",
     });
   }
   const resetInput = () => {
@@ -67,6 +67,7 @@ const Login = () => {
     } else {
       try {
         await signIn(email, password);
+        localStorage.setItem("email", email);
         show({
           message: "Logging in..",
           duration: 1500,
@@ -100,10 +101,7 @@ const Login = () => {
       <IonContent fullscreen className="login-main-div">
         <IonGrid className="main-grid">
           <IonRow>
-            <IonImg
-              className="chatifylogo"
-              src="assets/images/Chatify-logo.png"
-            >
+            <IonImg className="chatifylogo" src="assets/images/snapshare.png">
               {" "}
             </IonImg>
           </IonRow>
@@ -116,7 +114,7 @@ const Login = () => {
               value={email}
               onIonChange={(e) => setEmail(e.detail.value)}
               type="text"
-              color="darkgreen"
+              color="black"
               className="login-input1"
               placeholder="Email"
             ></IonInput>
@@ -125,7 +123,7 @@ const Login = () => {
               value={password}
               onIonChange={(e) => setPassword(e.detail.value)}
               type="password"
-              color="darkgreen"
+              color="black"
               className="login-input2"
               placeholder="Password"
             ></IonInput>
@@ -135,7 +133,8 @@ const Login = () => {
             <IonButton
               onClick={handleClick}
               color="smoke"
-              className="loginbutton"
+              style={{ width: 120 }}
+              // className="loginbutton"
             >
               Login
             </IonButton>
@@ -147,7 +146,6 @@ const Login = () => {
             <IonButton
               color="smoke "
               className="loginpage-signup-btn ion-text-capitalize"
-              // routerLink="/signup"
               onClick={openSignup}
             >
               Signup

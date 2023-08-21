@@ -34,9 +34,8 @@
   --ion-color-tint: var(--ion-color-darkgreen-tint);
 }
 .login-main-div {
-  --background: linear-gradient(rgb(19, 33, 36, 0.3), rgb(19, 33, 36, 0.3)),
-    url("../../../public/assets/images/Chatify-bg-image.png") no-repeat
-      center/cover fixed;
+  --background: url("../../../public/assets/images/Chatify-bg-image.png")
+    no-repeat center/cover fixed;
   z-index: -999;
   height: 100%;
 }
@@ -48,13 +47,13 @@
   padding: 7%;
 }
 .signup-main-div {
-  --background: linear-gradient(rgb(19, 33, 36, 0.3), rgb(19, 33, 36, 0.3)),
-    url("../../../public/assets/images/Chatify-bg-image.png") no-repeat
-      center/cover fixed;
+  --background: url("../../../public/assets/images/Chatify-bg-image.png")
+    no-repeat center/cover fixed;
   height: 100%;
 }
 .chatifylogo {
-  width: 250px;
+  width: 270px;
+  padding-top: 2%;
 }
 .signup-grid {
   display: flex;
@@ -167,12 +166,27 @@
   background: #d5d5d5;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
 }
+.login-input1 input {
+  height: 44px;
+}
+.login-input2 input {
+  height: 44px;
+}
 .login-input2 {
   margin-top: 25px;
   background: #d5d5d5;
   text-align: center;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 7px;
+}
+.signup-name-input input {
+  height: 43px;
+}
+.signup-email-input input {
+  height: 43px;
+}
+.signup-password-input input {
+  height: 43px;
 }
 .signup-name-input {
   border-radius: 7px;
@@ -197,7 +211,7 @@
   border-radius: 7px;
 }
 .loginbutton {
-  margin-top: 20px;
+  margin-right: 25px;
   width: 120px;
   border-radius: 10px;
 }
@@ -205,7 +219,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  /* flex-direction: column; */
 }
 .signuppage-joinbutton {
   margin-top: 25px;
@@ -300,5 +314,20 @@
   flex-direction: column;
 }
 .loginpage-alert {
-  --background: whitesmoke;
+  --background: #232623;
+}
+.alert-title.sc-ion-alert-md {
+  color: whitesmoke;
+}
+
+.alert-message.sc-ion-alert-md {
+  color: whitesmoke;
+}
+.social-login-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.signuppage-alert {
+  --background: #232623;
 }

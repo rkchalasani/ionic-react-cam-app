@@ -1,18 +1,20 @@
 {
   "name": "Chatify by PTG",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "private": true,
   "dependencies": {
-    "@capacitor/android": "^3.6.0",
-    "@capacitor/app": "^1.1.1",
-    "@capacitor/browser": "^1.0.7",
-    "@capacitor/cli": "^3.6.0",
-    "@capacitor/core": "^3.6.0",
-    "@capacitor/ios": "^3.6.0",
+    "@capacitor/android": "^4.0.0",
+    "@capacitor/app": "^4.0.0",
+    "@capacitor/browser": "^4.0.0",
+    "@capacitor/core": "^4.0.0",
+    "@capacitor/ios": "^4.0.0",
+    "@capacitor/local-notifications": "^4.0.1",
+    "@capacitor/push-notifications": "^4.0.0",
+    "@capacitor/share": "^4.0.0",
+    "@emailjs/browser": "^3.6.2",
     "@ionic/react": "^6.0.0",
     "@ionic/react-router": "^6.0.0",
     "@material-ui/core": "^4.12.4",
-    "@robingenz/capacitor-app-update": "^1.3.1",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.6.3",
@@ -25,6 +27,7 @@
     "axios": "^0.27.2",
     "dayjs": "^1.11.3",
     "firebase": "^9.8.4",
+    "font-awesome": "^4.7.0",
     "ionicons": "^5.4.0",
     "mdbreact": "^5.2.0",
     "momen": "^0.0.1-security",
@@ -36,6 +39,8 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.3.3",
     "react-scripts": "^5.0.0",
+    "swiper": "^8.3.2",
+    "twilio": "^3.80.0",
     "typescript": "^4.1.3",
     "web-vitals": "^0.2.4",
     "workbox-background-sync": "^5.1.4",
@@ -75,5 +80,8 @@
       "last 1 safari version"
     ]
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "devDependencies": {
+    "@capacitor/cli": "^4.0.0"
+  }
 }

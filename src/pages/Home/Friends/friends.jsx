@@ -1,15 +1,14 @@
 import {
-  IonAvatar,
   IonCol,
   IonContent,
   IonGrid,
   IonHeader,
   IonIcon,
-  IonImg,
   IonLabel,
   IonPage,
   IonRow,
   IonToolbar,
+  useIonViewWillEnter,
 } from "@ionic/react";
 import {
   collection,
@@ -17,12 +16,14 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
-import { chevronForwardOutline, search } from "ionicons/icons";
-import { useEffect, useState } from "react";
+import { search } from "ionicons/icons";
+import { useEffect } from "react";
 import { db } from "../../../firebase";
+import Users from './users/users'
 import "./friends.css";
+import { UserAuth } from "../../../context/AuthContext";
 const Friends = () => {
-  const [post, setPost] = useState([]);
+  const {friends, setFriends} = UserAuth()
   useEffect(() => {
     const getUsers = async () => {
       const postCollection = collection(db, "users");
@@ -30,20 +31,27 @@ const Friends = () => {
       onSnapshot(q, (querySnapshot) => {
         let posts = [];
         querySnapshot.forEach((doc) => {
-          posts.push(doc.data());
+          posts.push({...doc.data(), id: doc.id });
         });
-        setPost(posts);
+        setFriends(posts);
       });
     };
     getUsers();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  const hideTabs = () => {
+    const tabsEl = document.querySelector("ion-tab-bar");
+    if (tabsEl) {
+      tabsEl.hidden = false;
+    }
+  };
+  useIonViewWillEnter(() => hideTabs());
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color="darkgreen">
+        <IonToolbar color="black">
           <IonRow className="search-row">
-            <IonCol className="col2">
+            <IonCol className="friends-col">
               <IonLabel className="frnds" color="smoke">
                 Friends
               </IonLabel>
@@ -57,34 +65,17 @@ const Friends = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="tab1mainpage" fullscreen>
-        <IonGrid className="tab1-grid">
-          {post.map((currentUser) => {
+        <IonGrid  className="tab1-grid">
+          {friends.map((currentUser) => {
             return (
-              <IonRow className="danni-row">
-                <IonAvatar className="img-avatar">
-                  <IonImg
-                    src={
-                      currentUser.photoURL
-                        ? currentUser.photoURL
-                        : "https://newhorizonindia.edu/nhengineering/mba/wp-content/uploads/2020/01/default_image_01.png"
-                    }
-                  ></IonImg>
-                </IonAvatar>
-                <IonCol className="col1">
-                  <IonLabel color="smoke" className="danni-label">
-                    {currentUser.name}
-                  </IonLabel>
-                  <IonLabel color="smoke" className="danni-label">
-                    {currentUser.email}
-                  </IonLabel>
-                </IonCol>
-                <IonLabel color="smoke" className="danni-label">
-                  <IonIcon
-                    style={{ height: 23, width: 23 }}
-                    icon={chevronForwardOutline}
-                  ></IonIcon>
-                </IonLabel>
-              </IonRow>
+             <Users
+             key={currentUser.uid}
+             follow={currentUser.follow}
+             id={currentUser.uid}
+             name={currentUser.name}
+             email = {currentUser.email}
+             photoURL = {currentUser.photoURL}
+             />
             );
           })}
         </IonGrid>

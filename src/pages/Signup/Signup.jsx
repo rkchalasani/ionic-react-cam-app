@@ -17,6 +17,7 @@ import { UserAuth } from "../../context/AuthContext";
 import { alert } from "ionicons/icons";
 import { updateProfile } from "firebase/auth";
 import { auth } from "../../firebase";
+import emailjs from "@emailjs/browser";
 const Signup = () => {
   const [present] = useIonToast();
   async function handleButtonClick(message) {
@@ -29,10 +30,33 @@ const Signup = () => {
       icon: alert,
     });
   }
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+
+  var templateParams = {
+    email: email,
+    to_name: name,
+    from_name: "SnapShare Support Team",
+  };
+  const sendEmail = async (e) => {
+    await emailjs
+      .send(
+        "service_ugcf8yo",
+        "template_adyni34",
+        templateParams,
+        "Q_6S3BjuqFWOL92oT"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
   const [presentAlert] = useIonAlert();
   const { logout, addData } = UserAuth();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { createUser } = UserAuth();
   const router = useIonRouter();
@@ -41,10 +65,11 @@ const Signup = () => {
       header: "Alert",
       message: message,
       buttons: ["OK"],
-      mode: "ios",
+      mode: "md",
+      cssClass: "signuppage-alert",
     });
   }
-  const [show] = useIonLoading();
+  const [show, dismiss] = useIonLoading();
   const resetInput = () => {
     setName("");
     setEmail("");
@@ -75,10 +100,10 @@ const Signup = () => {
         await createUser(email, password);
         show({
           message: "Registering user..",
-          duration: 1500,
           spinner: "lines-sharp",
           mode: "ios",
         });
+        sendEmail();
         await updateProfile(auth.currentUser, {
           displayName: name,
         }).catch((e) => {
@@ -88,6 +113,7 @@ const Signup = () => {
         logout();
         resetInput();
         router.push("/login");
+        dismiss();
         setTimeout(() => {
           handleButtonClick("User successfully registered");
         }, 1510);
@@ -98,6 +124,7 @@ const Signup = () => {
       }
     }
   };
+
   const openLogin = () => {
     router.push("/login");
     resetInput();
@@ -107,10 +134,7 @@ const Signup = () => {
       <IonContent fullscreen className="signup-main-div">
         <IonGrid className="signup-grid">
           <IonRow>
-            <IonImg
-              className="chatifylogo"
-              src="assets/images/Chatify-logo.png"
-            >
+            <IonImg className="chatifylogo" src="assets/images/snapshare.png">
               {" "}
             </IonImg>
           </IonRow>
