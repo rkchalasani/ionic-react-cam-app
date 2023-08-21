@@ -146,7 +146,6 @@ const Login = () => {
             <IonButton
               color="smoke "
               className="loginpage-signup-btn ion-text-capitalize"
-              // routerLink="/signup"
               onClick={openSignup}
             >
               Signup
